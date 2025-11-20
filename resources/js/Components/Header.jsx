@@ -1,0 +1,165 @@
+import React, { useState } from 'react';
+import { Link } from '@inertiajs/react';
+import { Menu, X } from 'lucide-react';
+
+const Header = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  return (
+    <>
+      <header className="sticky md:fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-300 h-[77px]">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-[40px] h-full">
+          <div className="flex items-center justify-between h-full">
+            {/* Logo */}
+            <Link href="/" className="flex items-center">
+              <img
+                src="/images/okbyowner-logo.png"
+                alt="OK BY OWNER"
+                className="h-[32px] sm:h-[40px] w-auto"
+              />
+            </Link>
+
+            {/* Center Navigation - Desktop */}
+            <nav className="hidden lg:flex items-center gap-8">
+              <Link href="/" className="text-[14px] font-instrument font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors relative group">
+                Home
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#A52A3D] group-hover:w-full transition-all duration-300"></span>
+              </Link>
+              <Link href="/properties" className="text-[14px] font-instrument font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors relative group">
+                Properties
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#A52A3D] group-hover:w-full transition-all duration-300"></span>
+              </Link>
+              <Link href="/buyers" className="text-[14px] font-instrument font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors relative group">
+                Buyers
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#A52A3D] group-hover:w-full transition-all duration-300"></span>
+              </Link>
+              <Link href="/sellers" className="text-[14px] font-instrument font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors relative group">
+                Sellers
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#A52A3D] group-hover:w-full transition-all duration-300"></span>
+              </Link>
+              <Link href="/about" className="text-[14px] font-instrument font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors relative group">
+                About
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#A52A3D] group-hover:w-full transition-all duration-300"></span>
+              </Link>
+              <Link href="/contact" className="text-[14px] font-instrument font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors relative group">
+                Contact
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#A52A3D] group-hover:w-full transition-all duration-300"></span>
+              </Link>
+            </nav>
+
+            {/* Right Actions */}
+            <div className="flex items-center gap-3">
+              <Link
+                href="/login"
+                className="hidden md:block text-[14px] font-instrument font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors"
+              >
+                Login
+              </Link>
+              <Link
+                href="/list-property"
+                className="hidden sm:flex items-center justify-start gap-1.5 bg-[#000000] text-gray-100 rounded-full py-2.5 px-6 lg:px-8 font-medium text-sm leading-[120%] transition-[background-color] duration-[400ms] ease-[cubic-bezier(0.645,0.045,0.355,1)] hover:bg-[#111111]"
+              >
+                <span className="hidden md:inline">List Property</span>
+                <span className="md:hidden">List</span>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <mask id="mask0_56_2205" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+                    <rect width="20" height="20" transform="matrix(-1 0 0 1 20 0)" fill="#D9D9D9"/>
+                  </mask>
+                  <g mask="url(#mask0_56_2205)">
+                    <path d="M13.459 10.8334L11.084 13.2084C10.9173 13.3751 10.8375 13.5695 10.8444 13.7918C10.8513 14.014 10.9312 14.2084 11.084 14.3751C11.2507 14.5418 11.4486 14.6286 11.6777 14.6355C11.9069 14.6425 12.1048 14.5626 12.2715 14.3959L16.084 10.5834C16.2507 10.4168 16.334 10.2223 16.334 10.0001C16.334 9.77787 16.2507 9.58343 16.084 9.41676L12.2715 5.60426C12.1048 5.43759 11.9069 5.35773 11.6777 5.36467C11.4486 5.37162 11.2507 5.45842 11.084 5.62509C10.9312 5.79176 10.8513 5.9862 10.8444 6.20842C10.8375 6.43065 10.9173 6.62509 11.084 6.79176L13.459 9.16676H4.16732C3.93121 9.16676 3.73329 9.24662 3.57357 9.40634C3.41385 9.56606 3.33398 9.76398 3.33398 10.0001C3.33398 10.2362 3.41385 10.4341 3.57357 10.5938C3.73329 10.7536 3.93121 10.8334 4.16732 10.8334H13.459Z" fill="white"/>
+                  </g>
+                </svg>
+              </Link>
+
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden p-2 text-[#111111] hover:text-[#A52A3D] transition-colors"
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-40 lg:hidden">
+          {/* Overlay */}
+          <div
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={() => setMobileMenuOpen(false)}
+          ></div>
+
+          {/* Menu Panel */}
+          <div className="fixed top-[77px] left-0 right-0 bg-white border-b border-gray-300 shadow-xl">
+            <nav className="max-w-[1400px] mx-auto px-4 py-6 space-y-4">
+              <Link
+                href="/"
+                className="block text-[16px] font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Home
+              </Link>
+              <Link
+                href="/properties"
+                className="block text-[16px] font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Properties
+              </Link>
+              <Link
+                href="/buyers"
+                className="block text-[16px] font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Buyers
+              </Link>
+              <Link
+                href="/sellers"
+                className="block text-[16px] font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Sellers
+              </Link>
+              <Link
+                href="/about"
+                className="block text-[16px] font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                About
+              </Link>
+              <Link
+                href="/contact"
+                className="block text-[16px] font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Contact
+              </Link>
+              <div className="pt-4 border-t border-gray-200">
+                <Link
+                  href="/login"
+                  className="block text-[16px] font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/list-property"
+                  className="block sm:hidden mt-2 text-center bg-[#A41E34] text-white rounded-full py-3 px-6 font-medium transition-all duration-300 hover:bg-[#8B1A2C]"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  List Property
+                </Link>
+              </div>
+            </nav>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default Header;
