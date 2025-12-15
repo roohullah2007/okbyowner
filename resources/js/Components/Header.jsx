@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { Link } from '@inertiajs/react';
-import { Menu, X } from 'lucide-react';
+import { Link, usePage } from '@inertiajs/react';
+import { Menu, X, User, Settings, LogOut, LayoutDashboard, ChevronDown, Shield } from 'lucide-react';
 
 const Header = () => {
+  const { auth } = usePage().props;
+  const user = auth?.user;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
 
   return (
     <>
-      <header className="sticky md:fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-300 h-[77px]">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-300 h-[77px]">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-[40px] h-full">
           <div className="flex items-center justify-between h-full">
             {/* Logo */}
@@ -49,12 +52,103 @@ const Header = () => {
 
             {/* Right Actions */}
             <div className="flex items-center gap-3">
-              <Link
-                href="/login"
-                className="hidden md:block text-[14px] font-instrument font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors"
-              >
-                Login
-              </Link>
+              {user ? (
+                /* Logged In - Profile Dropdown */
+                <div className="relative">
+                  <button
+                    onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+                    className="flex items-center gap-2 p-1.5 rounded-full hover:bg-gray-100 transition-colors"
+                  >
+                    <div className="w-9 h-9 bg-[#A41E34] rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                      {user.name.charAt(0).toUpperCase()}
+                    </div>
+                    <ChevronDown className={`w-4 h-4 text-gray-500 hidden md:block transition-transform ${profileMenuOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {/* Profile Dropdown Menu */}
+                  {profileMenuOpen && (
+                    <>
+                      <div
+                        className="fixed inset-0 z-10"
+                        onClick={() => setProfileMenuOpen(false)}
+                      />
+                      <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-100 z-20 py-2">
+                        {/* User Info */}
+                        <div className="px-4 py-3 border-b border-gray-100">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-[#A41E34] rounded-full flex items-center justify-center text-white font-semibold">
+                              {user.name.charAt(0).toUpperCase()}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-semibold text-gray-900 truncate">{user.name}</p>
+                              <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                            </div>
+                          </div>
+                          {user.role === 'admin' && (
+                            <span className="mt-2 inline-flex items-center gap-1 px-2 py-0.5 bg-[#A41E34]/10 text-[#A41E34] text-xs font-medium rounded-full">
+                              <Shield className="w-3 h-3" />
+                              Admin
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Menu Items */}
+                        <div className="py-1">
+                          <Link
+                            href={route('dashboard')}
+                            className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                            onClick={() => setProfileMenuOpen(false)}
+                          >
+                            <LayoutDashboard className="w-4 h-4 text-gray-400" />
+                            Dashboard
+                          </Link>
+                          <Link
+                            href={route('profile.edit')}
+                            className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                            onClick={() => setProfileMenuOpen(false)}
+                          >
+                            <User className="w-4 h-4 text-gray-400" />
+                            Profile Settings
+                          </Link>
+                          {user.role === 'admin' && (
+                            <Link
+                              href={route('admin.dashboard')}
+                              className="flex items-center gap-3 px-4 py-2.5 text-sm text-[#A41E34] hover:bg-red-50 transition-colors"
+                              onClick={() => setProfileMenuOpen(false)}
+                            >
+                              <Shield className="w-4 h-4" />
+                              Admin Panel
+                            </Link>
+                          )}
+                        </div>
+
+                        {/* Logout */}
+                        <div className="border-t border-gray-100 pt-1">
+                          <Link
+                            href={route('logout')}
+                            method="post"
+                            as="button"
+                            className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                            onClick={() => setProfileMenuOpen(false)}
+                          >
+                            <LogOut className="w-4 h-4 text-gray-400" />
+                            Sign Out
+                          </Link>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
+              ) : (
+                /* Not Logged In - Login Button */
+                <Link
+                  href="/login"
+                  className="hidden md:block text-[14px] font-instrument font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors"
+                >
+                  Login
+                </Link>
+              )}
+
               <Link
                 href="/list-property"
                 className="hidden sm:flex items-center justify-start gap-1.5 bg-[#000000] text-gray-100 rounded-full py-2.5 px-6 lg:px-8 font-medium text-sm leading-[120%] transition-[background-color] duration-[400ms] ease-[cubic-bezier(0.645,0.045,0.355,1)] hover:bg-[#111111]"
@@ -94,7 +188,7 @@ const Header = () => {
           ></div>
 
           {/* Menu Panel */}
-          <div className="fixed top-[77px] left-0 right-0 bg-white border-b border-gray-300 shadow-xl">
+          <div className="fixed top-[77px] left-0 right-0 bg-white border-b border-gray-300 shadow-xl max-h-[calc(100vh-77px)] overflow-y-auto">
             <nav className="max-w-[1400px] mx-auto px-4 py-6 space-y-4">
               <Link
                 href="/"
@@ -138,14 +232,75 @@ const Header = () => {
               >
                 Contact
               </Link>
+
               <div className="pt-4 border-t border-gray-200">
-                <Link
-                  href="/login"
-                  className="block text-[16px] font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors py-2"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Login
-                </Link>
+                {user ? (
+                  <>
+                    {/* Logged in mobile user */}
+                    <div className="flex items-center gap-3 py-3">
+                      <div className="w-10 h-10 bg-[#A41E34] rounded-full flex items-center justify-center text-white font-semibold">
+                        {user.name.charAt(0).toUpperCase()}
+                      </div>
+                      <div>
+                        <p className="font-semibold text-gray-900">{user.name}</p>
+                        <p className="text-sm text-gray-500">{user.email}</p>
+                      </div>
+                    </div>
+                    <Link
+                      href={route('dashboard')}
+                      className="flex items-center gap-3 text-[16px] font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors py-2"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <LayoutDashboard className="w-5 h-5" />
+                      Dashboard
+                    </Link>
+                    <Link
+                      href={route('profile.edit')}
+                      className="flex items-center gap-3 text-[16px] font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors py-2"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <User className="w-5 h-5" />
+                      Profile Settings
+                    </Link>
+                    {user.role === 'admin' && (
+                      <Link
+                        href={route('admin.dashboard')}
+                        className="flex items-center gap-3 text-[16px] font-semibold text-[#A41E34] hover:text-[#8B1A2C] transition-colors py-2"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        <Shield className="w-5 h-5" />
+                        Admin Panel
+                      </Link>
+                    )}
+                    <Link
+                      href={route('logout')}
+                      method="post"
+                      as="button"
+                      className="flex items-center gap-3 text-[16px] font-semibold text-gray-600 hover:text-red-600 transition-colors py-2 w-full"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <LogOut className="w-5 h-5" />
+                      Sign Out
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href="/login"
+                      className="block text-[16px] font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors py-2"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Login
+                    </Link>
+                    <Link
+                      href="/register"
+                      className="block text-[16px] font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors py-2"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Sign Up
+                    </Link>
+                  </>
+                )}
                 <Link
                   href="/list-property"
                   className="block sm:hidden mt-2 text-center bg-[#A41E34] text-white rounded-full py-3 px-6 font-medium transition-all duration-300 hover:bg-[#8B1A2C]"
