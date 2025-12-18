@@ -17,7 +17,10 @@ import {
     Bed,
     Bath,
     Square,
-    AlertCircle
+    AlertCircle,
+    TrendingUp,
+    Camera,
+    Star
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -179,8 +182,21 @@ export default function Listings({ listings, filters = {}, counts = {} }) {
                                                 <span className={`px-2 py-0.5 text-xs font-medium rounded-full capitalize ${getStatusColor(listing.approval_status)}`}>
                                                     {listing.approval_status}
                                                 </span>
+                                                {listing.listing_tier === 'mls' && (
+                                                    <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-blue-100 text-blue-700 flex items-center gap-1">
+                                                        <Home className="w-3 h-3" />
+                                                        MLS
+                                                    </span>
+                                                )}
+                                                {(listing.listing_tier === 'photos' || listing.has_professional_photos) && (
+                                                    <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-green-100 text-green-700 flex items-center gap-1">
+                                                        <Camera className="w-3 h-3" />
+                                                        Pro Photos
+                                                    </span>
+                                                )}
                                                 {listing.is_featured && (
-                                                    <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-purple-100 text-purple-700">
+                                                    <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-purple-100 text-purple-700 flex items-center gap-1">
+                                                        <Star className="w-3 h-3" />
                                                         Featured
                                                     </span>
                                                 )}
@@ -204,13 +220,20 @@ export default function Listings({ listings, filters = {}, counts = {} }) {
                                             <button className="p-2 hover:bg-gray-100 rounded-lg">
                                                 <MoreVertical className="w-5 h-5 text-gray-400" />
                                             </button>
-                                            <div className="absolute right-0 mt-1 w-40 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
+                                            <div className="absolute right-0 mt-1 w-44 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
                                                 <Link
                                                     href={route('dashboard.listings.edit', listing.id)}
                                                     className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-t-xl"
                                                 >
                                                     <Edit className="w-4 h-4" />
                                                     Edit
+                                                </Link>
+                                                <Link
+                                                    href={route('dashboard.listings.upgrade', listing.id)}
+                                                    className="w-full flex items-center gap-2 px-4 py-2 text-sm text-[#A41E34] hover:bg-red-50"
+                                                >
+                                                    <TrendingUp className="w-4 h-4" />
+                                                    Upgrade
                                                 </Link>
                                                 <Link
                                                     href={`/properties/${listing.id}`}

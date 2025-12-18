@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Head, Link } from '@inertiajs/react';
-import { Mail, Phone, MapPin, Clock, Send, MessageSquare, HelpCircle, ChevronDown } from 'lucide-react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
+import { Mail, Phone, MapPin, Clock, Send, MessageSquare, HelpCircle, ChevronDown, CheckCircle } from 'lucide-react';
 import MainLayout from '@/Layouts/MainLayout';
 
 function Contact() {
-  const [formData, setFormData] = useState({
+  const { flash } = usePage().props;
+  const { data, setData, post, processing, errors, reset } = useForm({
     name: '',
     email: '',
     phone: '',
@@ -13,18 +14,17 @@ function Contact() {
   });
 
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
+    post(route('contact.store'), {
+      onSuccess: () => {
+        reset();
+        setSubmitted(true);
+        setTimeout(() => setSubmitted(false), 5000);
+      },
+    });
   };
 
   const toggleFAQ = (index) => {
@@ -35,20 +35,20 @@ function Contact() {
     {
       icon: Mail,
       title: 'Email Us',
-      info: 'support@okbyowner.com',
-      link: 'mailto:support@okbyowner.com'
+      info: 'hello@okbyowner.com',
+      link: 'mailto:hello@okbyowner.com'
     },
     {
       icon: Phone,
       title: 'Call Us',
-      info: '(405) 555-0123',
-      link: 'tel:4055550123'
+      info: '888-441-OKBO (6526)',
+      link: 'tel:8884416526'
     },
     {
       icon: MapPin,
       title: 'Visit Us',
-      info: 'Oklahoma City, OK 73102',
-      link: '#'
+      info: '1611 S Utica Avenue #515, Tulsa, OK 74104',
+      link: 'https://maps.google.com/?q=1611+S+Utica+Avenue+%23515,+Tulsa,+OK+74104'
     },
     {
       icon: Clock,
@@ -98,7 +98,7 @@ function Contact() {
                 className="text-white text-[40px] sm:text-[50px] md:text-[60px] font-medium leading-[1.1] mb-5 drop-shadow-2xl"
                 style={{ fontFamily: 'Instrument Sans, sans-serif' }}
               >
-                Get in <span className="italic" style={{ fontFamily: 'Lora, serif' }}>Touch</span>
+                Get in Touch
               </h1>
 
               {/* Subheading */}
@@ -155,12 +155,21 @@ function Contact() {
               </div>
 
               <h2 className="text-[32px] md:text-[48px] font-medium text-[#111] mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                Contact <span className="italic" style={{ fontFamily: 'Lora, serif' }}>Form</span>
+                Contact Form
               </h2>
 
               <p className="text-[16px] text-[#666] font-medium mb-8" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
                 Fill out the form below and our team will get back to you within 24 hours.
               </p>
+
+              {submitted && (
+                <div className="bg-green-50 border border-green-200 rounded-xl p-4 mb-6 flex items-center gap-3">
+                  <CheckCircle className="w-5 h-5 text-green-600" />
+                  <span className="text-green-700 font-medium" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                    Thank you for your message! We'll get back to you within 24 hours.
+                  </span>
+                </div>
+              )}
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
@@ -170,13 +179,14 @@ function Contact() {
                   <input
                     type="text"
                     name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-[#D0CCC7] rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors"
+                    value={data.name}
+                    onChange={e => setData('name', e.target.value)}
+                    className={`w-full px-4 py-3 border rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors ${errors.name ? 'border-red-500' : 'border-[#D0CCC7]'}`}
                     style={{ fontFamily: 'Instrument Sans, sans-serif' }}
                     placeholder="John Doe"
                     required
                   />
+                  {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6">
@@ -187,13 +197,14 @@ function Contact() {
                     <input
                       type="email"
                       name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-[#D0CCC7] rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors"
+                      value={data.email}
+                      onChange={e => setData('email', e.target.value)}
+                      className={`w-full px-4 py-3 border rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors ${errors.email ? 'border-red-500' : 'border-[#D0CCC7]'}`}
                       style={{ fontFamily: 'Instrument Sans, sans-serif' }}
                       placeholder="john@example.com"
                       required
                     />
+                    {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                   </div>
 
                   <div>
@@ -203,11 +214,11 @@ function Contact() {
                     <input
                       type="tel"
                       name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
+                      value={data.phone}
+                      onChange={e => setData('phone', e.target.value)}
                       className="w-full px-4 py-3 border border-[#D0CCC7] rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors"
                       style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-                      placeholder="(405) 555-0123"
+                      placeholder="(918) 555-0123"
                     />
                   </div>
                 </div>
@@ -218,9 +229,9 @@ function Contact() {
                   </label>
                   <select
                     name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-[#D0CCC7] rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors bg-white"
+                    value={data.subject}
+                    onChange={e => setData('subject', e.target.value)}
+                    className={`w-full px-4 py-3 border rounded-xl text-sm outline-none focus:outline-none focus:ring-0 focus:border-black transition-colors bg-white ${errors.subject ? 'border-red-500' : 'border-[#D0CCC7]'}`}
                     style={{ fontFamily: 'Instrument Sans, sans-serif' }}
                     required
                   >
@@ -231,6 +242,7 @@ function Contact() {
                     <option value="billing">Billing Question</option>
                     <option value="other">Other</option>
                   </select>
+                  {errors.subject && <p className="text-red-500 text-xs mt-1">{errors.subject}</p>}
                 </div>
 
                 <div>
@@ -239,23 +251,25 @@ function Contact() {
                   </label>
                   <textarea
                     name="message"
-                    value={formData.message}
-                    onChange={handleChange}
+                    value={data.message}
+                    onChange={e => setData('message', e.target.value)}
                     rows="6"
-                    className="w-full px-4 py-3 border border-[#D0CCC7] rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors resize-none"
+                    className={`w-full px-4 py-3 border rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors resize-none ${errors.message ? 'border-red-500' : 'border-[#D0CCC7]'}`}
                     style={{ fontFamily: 'Instrument Sans, sans-serif' }}
                     placeholder="Tell us how we can help you..."
                     required
                   ></textarea>
+                  {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
                 </div>
 
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-2 bg-[#A41E34] text-white rounded-full px-8 py-4 font-medium transition-all duration-300 hover:bg-[#8B1A2C] hover:shadow-lg"
+                  disabled={processing}
+                  className="inline-flex items-center gap-2 bg-[#A41E34] text-white rounded-full px-8 py-4 font-medium transition-all duration-300 hover:bg-[#8B1A2C] hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                   style={{ fontFamily: 'Instrument Sans, sans-serif' }}
                 >
                   <Send className="w-5 h-5" />
-                  Send Message
+                  {processing ? 'Sending...' : 'Send Message'}
                 </button>
               </form>
             </div>
@@ -270,7 +284,7 @@ function Contact() {
               </div>
 
               <h2 className="text-[32px] md:text-[40px] font-medium text-[#111] mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                Frequently Asked <span className="italic" style={{ fontFamily: 'Lora, serif' }}>Questions</span>
+                Frequently Asked Questions
               </h2>
 
               <p className="text-[16px] text-[#666] font-medium mb-8" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
@@ -336,41 +350,11 @@ function Contact() {
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="bg-[#EEEDEA] py-16 md:py-20">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-[32px] md:text-[48px] font-medium text-[#111] mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-              Visit Our <span className="italic" style={{ fontFamily: 'Lora, serif' }}>Office</span>
-            </h2>
-            <p className="text-[16px] text-[#666] font-medium max-w-2xl mx-auto" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-              Stop by our office in Oklahoma City or reach out through any of our contact channels
-            </p>
-          </div>
-
-          <div className="bg-white rounded-2xl overflow-hidden shadow-lg">
-            <div className="aspect-[21/9] bg-gray-200">
-              {/* Placeholder for map - You can integrate Google Maps or similar */}
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d207429.38395794713!2d-97.66703782812499!3d35.467560399999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87b217a8f7c1f0e7%3A0x8c6c5c6e1f7a8a8a!2sOklahoma%20City%2C%20OK!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="OK BY OWNER Office Location"
-              ></iframe>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
-      <section className="bg-white py-16 md:py-20 border-t border-[#D0CCC7]">
+      <section className="bg-[#EEEDEA] py-16 md:py-20">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-[32px] md:text-[48px] font-medium text-[#111] mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            Ready to Get <span className="italic" style={{ fontFamily: 'Lora, serif' }}>Started?</span>
+            Ready to Get Started?
           </h2>
           <p className="text-[16px] text-[#666] font-medium mb-8 max-w-2xl mx-auto" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
             List your property for FREE or start browsing available homes today

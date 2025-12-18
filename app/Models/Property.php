@@ -15,6 +15,7 @@ class Property extends Model
     protected $fillable = [
         'user_id',
         'property_title',
+        'developer',
         'property_type',
         'status',
         'price',
@@ -43,6 +44,17 @@ class Property extends Model
         'latitude',
         'longitude',
         'views',
+        // Listing tier and upgrade fields
+        'listing_tier',
+        'has_professional_photos',
+        'has_virtual_tour',
+        'has_video',
+        'virtual_tour_url',
+        'video_url',
+        'is_mls_listed',
+        'mls_number',
+        'mls_listed_at',
+        'mls_expires_at',
     ];
 
     protected $casts = [
@@ -55,7 +67,16 @@ class Property extends Model
         'latitude' => 'decimal:7',
         'longitude' => 'decimal:7',
         'approved_at' => 'datetime',
+        // Upgrade field casts
+        'has_professional_photos' => 'boolean',
+        'has_virtual_tour' => 'boolean',
+        'has_video' => 'boolean',
+        'is_mls_listed' => 'boolean',
+        'mls_listed_at' => 'datetime',
+        'mls_expires_at' => 'datetime',
     ];
+
+    protected $appends = ['slug'];
 
     /**
      * Get the owner of this property
@@ -103,6 +124,22 @@ class Property extends Model
     public function inquiries(): HasMany
     {
         return $this->hasMany(Inquiry::class);
+    }
+
+    /**
+     * Get service requests for this property
+     */
+    public function serviceRequests(): HasMany
+    {
+        return $this->hasMany(ServiceRequest::class);
+    }
+
+    /**
+     * Get pending service requests
+     */
+    public function pendingServiceRequests(): HasMany
+    {
+        return $this->hasMany(ServiceRequest::class)->where('status', 'pending');
     }
 
     /**
@@ -176,6 +213,38 @@ class Property extends Model
     }
 
     /**
+     * Get URL slug for the property
+     */
+    public function getSlugAttribute(): string
+    {
+        $slug = strtolower(trim($this->address));
+        $slug = preg_replace('/[^a-z0-9\s-]/', '', $slug);
+        $slug = preg_replace('/[\s-]+/', '-', $slug);
+        $slug = trim($slug, '-');
+        return $this->id . '-' . $slug;
+    }
+
+    /**
+     * Get the route key for the model.
+     */
+    public function getRouteKeyName()
+    {
+        return 'id';
+    }
+
+    /**
+     * Resolve route binding with slug support
+     */
+    public function resolveRouteBinding($value, $field = null)
+    {
+        // Extract ID from slug (e.g., "2-123-main-street" -> 2)
+        if (preg_match('/^(\d+)/', $value, $matches)) {
+            return $this->where('id', $matches[1])->firstOrFail();
+        }
+        return $this->where('id', $value)->firstOrFail();
+    }
+
+    /**
      * Increment view count
      */
     public function incrementViews(): void
@@ -205,5 +274,49 @@ class Property extends Model
     public function isRejected(): bool
     {
         return $this->approval_status === 'rejected';
+    }
+
+    /**
+     * Check if listing is free tier
+     */
+    public function isFreeTier(): bool
+    {
+        return $this->listing_tier === 'free' || $this->listing_tier === null;
+    }
+
+    /**
+     * Check if listing has photos upgrade
+     */
+    public function hasPhotosUpgrade(): bool
+    {
+        return $this->listing_tier === 'photos' || $this->listing_tier === 'mls';
+    }
+
+    /**
+     * Check if listing has MLS upgrade
+     */
+    public function hasMlsUpgrade(): bool
+    {
+        return $this->listing_tier === 'mls';
+    }
+
+    /**
+     * Get listing tier label
+     */
+    public function getListingTierLabelAttribute(): string
+    {
+        return match($this->listing_tier) {
+            'photos' => 'Photos & Multimedia',
+            'mls' => 'MLS Listed',
+            default => 'Free Listing',
+        };
+    }
+
+    /**
+     * Check if property has any pending upgrade requests
+     */
+    public function hasPendingUpgrade(): bool
+    {
+        return $this->serviceRequests()->whereIn('status', ['pending', 'approved', 'in_progress'])->exists();
     }
 }

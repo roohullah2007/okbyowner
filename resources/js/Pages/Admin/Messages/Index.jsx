@@ -304,13 +304,16 @@ export default function MessagesIndex({ messages, filters = {}, counts = {} }) {
                                                         <Archive className="w-4 h-4" />
                                                     </button>
                                                 )}
-                                                <a
-                                                    href={`mailto:${message.email}?subject=Re: ${message.subject || 'Your Message'}`}
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        window.location.href = `mailto:${message.email}?subject=Re: ${encodeURIComponent(message.subject || 'Your Message')}`;
+                                                    }}
                                                     className="p-2 text-[#A41E34] hover:text-[#8B1A2C] hover:bg-red-50 rounded-lg"
                                                     title="Reply via Email"
                                                 >
                                                     <Send className="w-4 h-4" />
-                                                </a>
+                                                </button>
                                                 <button
                                                     onClick={() => {
                                                         setMessageToDelete(message);
@@ -433,13 +436,16 @@ export default function MessagesIndex({ messages, filters = {}, counts = {} }) {
                                         Mark as Responded
                                     </button>
                                 )}
-                                <a
-                                    href={`mailto:${viewMessage.email}?subject=Re: ${viewMessage.subject || 'Your Message'}`}
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        window.location.href = `mailto:${viewMessage.email}?subject=Re: ${encodeURIComponent(viewMessage.subject || 'Your Message')}`;
+                                    }}
                                     className="px-4 py-2 text-sm bg-[#A41E34] text-white rounded-lg hover:bg-[#8B1A2C] inline-flex items-center gap-2"
                                 >
                                     <Send className="w-4 h-4" />
                                     Reply via Email
-                                </a>
+                                </button>
                             </div>
                             <button
                                 onClick={() => { setShowViewModal(false); setViewMessage(null); }}

@@ -1,5 +1,5 @@
 import { Head, Link, useForm } from '@inertiajs/react';
-import { User, Mail, Lock, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
+import { User, Mail, Lock, Eye, EyeOff, CheckCircle2, Home, Search } from 'lucide-react';
 import { useState } from 'react';
 import Header from '@/Components/Header';
 import Footer from '@/Components/Footer';
@@ -12,6 +12,7 @@ function Register() {
         email: '',
         password: '',
         password_confirmation: '',
+        user_type: 'buyer',
     });
 
     const submit = (e) => {
@@ -114,6 +115,75 @@ function Register() {
                                 </div>
 
                                 <form onSubmit={submit} className="space-y-5">
+                                    {/* User Type Selection */}
+                                    <div>
+                                        <label
+                                            className="block text-sm font-semibold text-[#111111] mb-3"
+                                            style={{ fontFamily: '"Instrument Sans", sans-serif' }}
+                                        >
+                                            I am a
+                                        </label>
+                                        <div className="grid grid-cols-2 gap-3">
+                                            <button
+                                                type="button"
+                                                onClick={() => setData('user_type', 'buyer')}
+                                                className={`flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all duration-300 ${
+                                                    data.user_type === 'buyer'
+                                                        ? 'border-[#A41E34] bg-[#A41E34]/5'
+                                                        : 'border-gray-200 hover:border-gray-300'
+                                                }`}
+                                            >
+                                                <div className={`p-3 rounded-full ${
+                                                    data.user_type === 'buyer'
+                                                        ? 'bg-[#A41E34] text-white'
+                                                        : 'bg-gray-100 text-gray-500'
+                                                }`}>
+                                                    <Search className="w-5 h-5" />
+                                                </div>
+                                                <span className={`font-semibold ${
+                                                    data.user_type === 'buyer'
+                                                        ? 'text-[#A41E34]'
+                                                        : 'text-gray-700'
+                                                }`} style={{ fontFamily: '"Instrument Sans", sans-serif' }}>
+                                                    Buyer
+                                                </span>
+                                                <span className="text-xs text-gray-500 text-center">
+                                                    Looking for property
+                                                </span>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => setData('user_type', 'seller')}
+                                                className={`flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all duration-300 ${
+                                                    data.user_type === 'seller'
+                                                        ? 'border-[#A41E34] bg-[#A41E34]/5'
+                                                        : 'border-gray-200 hover:border-gray-300'
+                                                }`}
+                                            >
+                                                <div className={`p-3 rounded-full ${
+                                                    data.user_type === 'seller'
+                                                        ? 'bg-[#A41E34] text-white'
+                                                        : 'bg-gray-100 text-gray-500'
+                                                }`}>
+                                                    <Home className="w-5 h-5" />
+                                                </div>
+                                                <span className={`font-semibold ${
+                                                    data.user_type === 'seller'
+                                                        ? 'text-[#A41E34]'
+                                                        : 'text-gray-700'
+                                                }`} style={{ fontFamily: '"Instrument Sans", sans-serif' }}>
+                                                    Seller
+                                                </span>
+                                                <span className="text-xs text-gray-500 text-center">
+                                                    Selling my property
+                                                </span>
+                                            </button>
+                                        </div>
+                                        {errors.user_type && (
+                                            <p className="mt-2 text-sm text-red-600">{errors.user_type}</p>
+                                        )}
+                                    </div>
+
                                     {/* Name Field */}
                                     <div>
                                         <label

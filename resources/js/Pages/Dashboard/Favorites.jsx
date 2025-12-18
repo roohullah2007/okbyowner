@@ -196,7 +196,7 @@ export default function Favorites({ favorites, filters = {} }) {
                                         ${Number(property.price).toLocaleString()}
                                     </span>
                                     <Link
-                                        href={`/properties/${property.id}`}
+                                        href={`/properties/${property.slug || property.id}`}
                                         className="flex items-center gap-1 text-sm text-gray-600 hover:text-[#A41E34]"
                                     >
                                         View <ExternalLink className="w-4 h-4" />
@@ -281,7 +281,7 @@ export default function Favorites({ favorites, filters = {} }) {
                                                 </span>
                                             )}
                                             <Link
-                                                href={`/properties/${property.id}`}
+                                                href={`/properties/${property.slug || property.id}`}
                                                 className="inline-flex items-center gap-1 px-4 py-2 bg-[#A41E34] text-white rounded-lg text-sm font-medium hover:bg-[#8B1A2C] transition-colors"
                                             >
                                                 View Property

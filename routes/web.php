@@ -10,18 +10,28 @@ use App\Http\Controllers\Admin\AdminInquiryController;
 use App\Http\Controllers\Admin\AdminContactController;
 use App\Http\Controllers\Admin\AdminSettingsController;
 use App\Http\Controllers\Admin\AdminActivityController;
+use App\Http\Controllers\BuyerInquiryController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\InquiryController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 // Public routes
 Route::get('/', function () {
-    return Inertia::render('Home');
+    $featuredProperties = \App\Models\Property::where('is_active', true)
+        ->where('approval_status', 'approved')
+        ->latest()
+        ->take(6)
+        ->get();
+
+    return Inertia::render('Home', [
+        'featuredProperties' => $featuredProperties
+    ]);
 })->name('home');
 
-Route::get('/properties', function () {
-    return Inertia::render('Properties');
-})->name('properties');
+Route::get('/properties', [PropertyController::class, 'publicIndex'])->name('properties');
+Route::get('/properties/{property}', [PropertyController::class, 'show'])->name('properties.show');
 
 Route::get('/buyers', function () {
     return Inertia::render('Buyers');
@@ -50,6 +60,15 @@ Route::get('/list-property', function () {
 // Property submission route (public)
 Route::post('/properties', [PropertyController::class, 'store'])->name('properties.store');
 
+// Buyer inquiry submission route (public)
+Route::post('/buyer-inquiry', [BuyerInquiryController::class, 'store'])->name('buyer-inquiry.store');
+
+// Contact form submission route (public)
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+// Property inquiry submission route (public)
+Route::post('/inquiry', [InquiryController::class, 'store'])->name('inquiry.store');
+
 // User Dashboard
 Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')->group(function () {
     // Dashboard Overview
@@ -71,6 +90,12 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')-
     Route::get('/favorites', [UserDashboardController::class, 'favorites'])->name('.favorites');
     Route::post('/favorites/{property}', [UserDashboardController::class, 'addFavorite'])->name('.favorites.add');
     Route::delete('/favorites/{property}', [UserDashboardController::class, 'removeFavorite'])->name('.favorites.remove');
+
+    // Service Requests (Upgrades)
+    Route::get('/service-requests', [UserDashboardController::class, 'serviceRequests'])->name('.service-requests');
+    Route::get('/listings/{property}/upgrade', [UserDashboardController::class, 'showUpgradeOptions'])->name('.listings.upgrade');
+    Route::post('/listings/{property}/upgrade', [UserDashboardController::class, 'submitUpgradeRequest'])->name('.listings.upgrade.submit');
+    Route::post('/service-requests/{serviceRequest}/cancel', [UserDashboardController::class, 'cancelUpgradeRequest'])->name('.service-requests.cancel');
 });
 
 // User Profile routes
@@ -126,6 +151,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::post('/messages/{message}/mark-responded', [AdminContactController::class, 'markAsResponded'])->name('messages.mark-responded');
     Route::post('/messages/{message}/archive', [AdminContactController::class, 'archive'])->name('messages.archive');
     Route::post('/messages/bulk-action', [AdminContactController::class, 'bulkAction'])->name('messages.bulk-action');
+
+    // Buyer Inquiries Management
+    Route::get('/buyer-inquiries', [BuyerInquiryController::class, 'index'])->name('buyer-inquiries.index');
+    Route::get('/buyer-inquiries/{inquiry}', [BuyerInquiryController::class, 'show'])->name('buyer-inquiries.show');
+    Route::put('/buyer-inquiries/{inquiry}', [BuyerInquiryController::class, 'update'])->name('buyer-inquiries.update');
+    Route::delete('/buyer-inquiries/{inquiry}', [BuyerInquiryController::class, 'destroy'])->name('buyer-inquiries.destroy');
 
     // Activity Logs
     Route::get('/activity', [AdminActivityController::class, 'index'])->name('activity.index');

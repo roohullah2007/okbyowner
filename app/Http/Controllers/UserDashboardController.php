@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Property;
 use App\Models\Inquiry;
 use App\Models\Favorite;
+use App\Models\ServiceRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -309,5 +310,124 @@ class UserDashboardController extends Controller
         $user->favorites()->detach($property->id);
 
         return back()->with('success', 'Property removed from favorites!');
+    }
+
+    /**
+     * Display user's service requests (upgrades)
+     */
+    public function serviceRequests(Request $request)
+    {
+        $user = Auth::user();
+
+        $query = $user->serviceRequests()->with('property');
+
+        // Filter by status
+        if ($request->status && $request->status !== 'all') {
+            $query->where('status', $request->status);
+        }
+
+        // Filter by service type
+        if ($request->type) {
+            $query->where('service_type', $request->type);
+        }
+
+        $serviceRequests = $query->latest()->paginate(10)->withQueryString();
+
+        // Get counts
+        $counts = [
+            'all' => $user->serviceRequests()->count(),
+            'pending' => $user->serviceRequests()->where('status', 'pending')->count(),
+            'in_progress' => $user->serviceRequests()->whereIn('status', ['approved', 'in_progress'])->count(),
+            'completed' => $user->serviceRequests()->where('status', 'completed')->count(),
+        ];
+
+        return Inertia::render('Dashboard/ServiceRequests', [
+            'serviceRequests' => $serviceRequests,
+            'filters' => $request->only(['status', 'type']),
+            'counts' => $counts,
+        ]);
+    }
+
+    /**
+     * Show upgrade options for a property
+     */
+    public function showUpgradeOptions(Property $property)
+    {
+        // Check ownership
+        if ($property->user_id !== Auth::id()) {
+            abort(403, 'You do not own this property.');
+        }
+
+        // Get existing service requests for this property
+        $existingRequests = $property->serviceRequests()
+            ->whereIn('status', ['pending', 'approved', 'in_progress'])
+            ->get();
+
+        return Inertia::render('Dashboard/UpgradeProperty', [
+            'property' => $property,
+            'existingRequests' => $existingRequests,
+        ]);
+    }
+
+    /**
+     * Submit an upgrade request
+     */
+    public function submitUpgradeRequest(Request $request, Property $property)
+    {
+        // Check ownership
+        if ($property->user_id !== Auth::id()) {
+            abort(403, 'You do not own this property.');
+        }
+
+        $validated = $request->validate([
+            'service_type' => 'required|in:photos,virtual_tour,video,mls',
+            'notes' => 'nullable|string|max:1000',
+            'preferred_date' => 'nullable|date|after:today',
+            'preferred_time' => 'nullable|string',
+        ]);
+
+        // Check if there's already a pending request for this service type
+        $existingRequest = $property->serviceRequests()
+            ->where('service_type', $validated['service_type'])
+            ->whereIn('status', ['pending', 'approved', 'in_progress'])
+            ->first();
+
+        if ($existingRequest) {
+            return back()->withErrors(['service_type' => 'You already have a pending request for this service.']);
+        }
+
+        // Create the service request
+        ServiceRequest::create([
+            'user_id' => Auth::id(),
+            'property_id' => $property->id,
+            'service_type' => $validated['service_type'],
+            'notes' => $validated['notes'] ?? null,
+            'preferred_date' => $validated['preferred_date'] ?? null,
+            'preferred_time' => $validated['preferred_time'] ?? null,
+            'status' => 'pending',
+        ]);
+
+        return redirect()->route('dashboard.listings')
+            ->with('success', 'Your upgrade request has been submitted! We will contact you shortly.');
+    }
+
+    /**
+     * Cancel an upgrade request
+     */
+    public function cancelUpgradeRequest(ServiceRequest $serviceRequest)
+    {
+        // Check ownership
+        if ($serviceRequest->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        // Can only cancel pending or approved requests
+        if (!in_array($serviceRequest->status, ['pending', 'approved'])) {
+            return back()->withErrors(['error' => 'This request cannot be cancelled.']);
+        }
+
+        $serviceRequest->update(['status' => 'cancelled']);
+
+        return back()->with('success', 'Service request cancelled successfully.');
     }
 }

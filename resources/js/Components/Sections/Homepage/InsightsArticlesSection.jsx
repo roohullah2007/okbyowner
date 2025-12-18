@@ -34,18 +34,7 @@ const InsightsArticlesSection = () => {
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-12">
         {/* Title */}
         <h2 className="max-w-[600px]">
-          <span
-            style={{ fontFamily: '"Instrument Sans", sans-serif' }}
-            className="text-[48px] font-semibold leading-[120%] text-[#111]"
-          >
-            Learn from Oklahoma's
-          </span>
-          <span
-            style={{ fontFamily: 'Lora, serif' }}
-            className="text-[48px] font-semibold leading-[120%] italic text-[#111]"
-          >
-            {' '}home selling experts
-          </span>
+          Learn from Oklahoma's home selling experts
         </h2>
 
         {/* Description & Buttons */}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from '@inertiajs/react';
-import { ChevronDown, HelpCircle } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 const FAQItem = ({ question, answer, isOpen, onClick }) => {
   return (
@@ -42,29 +42,43 @@ const FAQSection = () => {
   const [openIndex, setOpenIndex] = useState(null);
 
   const faqs = [
+    // Free Listing FAQs
     {
-      question: "What is an MLS flat-fee listing?",
-      answer: "An MLS flat-fee listing is a service that allows you to list your property on the Multiple Listing Service (MLS) for a one-time flat fee instead of paying a percentage-based commission to a traditional real estate agent. This gives you access to thousands of potential buyers through the MLS while saving significantly on commission costs."
+      category: "Free Listing",
+      question: "How long has OKByOwner.com been around?",
+      answer: "We have been helping sellers market their homes since 1997."
     },
     {
+      category: "Free Listing",
+      question: "Why is it free to list on OK By Owner?",
+      answer: "Unlike other national websites that let you list for free, only to give your buyer leads to paying real estate agents. Should you decide to upgrade to professional photos, multimedia, or the MLS, you'll use us, like hundreds of other successful for-sale-by-owners."
+    },
+    // Multimedia FAQs
+    {
+      category: "Multimedia",
+      question: "What is the normal turnaround time after the photographer takes the photos? And do I own the multimedia?",
+      answer: "You can expect a 24-hour turnaround time. Yes, all multimedia is yours to share on other websites."
+    },
+    // Flat Fee MLS FAQs
+    {
+      category: "Flat Fee MLS",
       question: "Why should I list on the MLS?",
-      answer: "Listing on the MLS gives your property maximum exposure to potential buyers and real estate agents. The MLS is the primary database used by real estate professionals, and properties listed on the MLS typically sell faster and for better prices than those marketed through other channels alone."
+      answer: "Listing on the MLS dramatically increases your chances of getting your house sold faster. 96.5% of our sellers who have listed and sold on the MLS were referred by a buyer's agent who found the listing on the MLS."
     },
     {
-      question: "Can I personally list my home on the MLS without a realtor?",
-      answer: "Yes, with our flat-fee MLS service, you can list your home on the MLS without hiring a traditional full-service realtor. We provide you with the tools and support needed to list your property while you maintain control of the selling process and save thousands in commission fees."
+      category: "Flat Fee MLS",
+      question: "Do I have to pay a buyer's agent a commission?",
+      answer: "No, all commissions are negotiable, as are the price and other terms of an offer. While some buyers may pay their agent directly, others prefer the commission to be paid by the seller, with the commission rolled into the price. It's worth noting that buyers may instruct their agent only to show properties where the seller offers a commission to the buyer's agent."
     },
     {
-      question: "What does \"realtor-friendly\" mean?",
-      answer: "Realtor-friendly means that while you're selling your home by owner, you're still willing to work with buyer's agents and offer them a commission. This ensures that realtors will show your property to their clients, giving you access to a much larger pool of potential buyers."
-    },
-    {
+      category: "Flat Fee MLS",
       question: "How long does it take for my property to be listed on the MLS?",
-      answer: "Once you complete your listing information and submit all required details and photos, your property is typically listed on the MLS within 24-48 hours. The exact timeline may vary slightly depending on the local MLS processing times."
+      answer: "Once all paperwork is complete and photos are delivered, you will be listed within two business days. Once listed, you will receive a link to your listing with the MLS number. Payment will be due after you are listed. You can pay by Cash, Check, Credit Card, PayPal, Venmo, or Cash App."
     },
     {
+      category: "Flat Fee MLS",
       question: "Can I cancel my MLS listing at any time?",
-      answer: "Yes, you have the flexibility to cancel your MLS listing at any time. However, we recommend maintaining your listing for at least 90 days to give your property adequate market exposure and the best chance of selling at your desired price."
+      answer: "Yes. You can cancel your listing at any time if you are not under contract with an agent representing a buyer."
     }
   ];
 
@@ -76,8 +90,7 @@ const FAQSection = () => {
     <section className="bg-[#EEEDEA] py-20 md:py-28">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 bg-[#E5E1DC] rounded-lg px-4 py-2 mb-8">
-          <HelpCircle className="w-4 h-4 text-[#666]" />
+        <div className="inline-flex items-center bg-[#E5E1DC] rounded-lg px-4 py-2 mb-8">
           <span style={{ fontFamily: '"Instrument Sans", sans-serif' }} className="text-[#666] text-sm font-medium">
             FAQs
           </span>
@@ -86,25 +99,17 @@ const FAQSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           {/* Left Side - Title and CTA */}
           <div>
-            <h2 className="mb-6">
-              <span
-                style={{ fontFamily: '"Instrument Sans", sans-serif' }}
-                className="block text-[48px] font-semibold leading-[120%] text-[#111]"
-              >
-                Frequently Asked
-              </span>
-              <span
-                style={{ fontFamily: 'Lora, serif' }}
-                className="block text-[48px] font-semibold leading-[120%] text-[#111] italic"
-              >
-                Questions
-              </span>
+            <h2
+              className="text-[48px] font-semibold leading-[120%] text-[#111] mb-6"
+              style={{ fontFamily: '"Instrument Sans", sans-serif' }}
+            >
+              Frequently Asked<br />Questions
             </h2>
             <p
               style={{ fontFamily: '"Instrument Sans", sans-serif' }}
               className="text-[14px] font-medium text-[#666] mb-10 leading-relaxed"
             >
-              Selling your home by owner can raise many questions. We've compiled answers to the most common questions about our For Sale By Owner (FSBO) services, MLS listings, and the home selling process in Oklahoma. Whether you're curious about how to list your property, what costs are involved, or how our platform works, you'll find detailed answers below. Can't find an answer to your question? Contact us, and we'll be happy to provide personalized assistance and guidance for your specific situation.
+              Selling your home by owner can raise many questions. We've provided answers to the most common questions about our For Sale By Owner (FSBO) marketing services, MLS listings, and the home selling process in Oklahoma. Whether you're curious about how to list your property, what costs are involved, or how our website works, you'll find detailed answers below. Can't find an answer to your question? Contact us, and we'll be happy to provide assistance and guidance for your needs.
             </p>
             <Link
               href="/contact"

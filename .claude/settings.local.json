@@ -14,7 +14,18 @@
       "Bash(git commit:*)",
       "Bash(git push:*)",
       "Bash(if not exist \"F:\\OKByOwner\\resources\\js\\Pages\\Admin\\Inquiries\" mkdir \"F:\\OKByOwner\\resources\\js\\Pages\\Admin\\Inquiries\")",
-      "Bash(if not exist \"F:\\OKByOwner\\resources\\js\\Pages\\Admin\\Messages\" mkdir \"F:\\OKByOwner\\resources\\js\\Pages\\Admin\\Messages\")"
+      "Bash(if not exist \"F:\\OKByOwner\\resources\\js\\Pages\\Admin\\Messages\" mkdir \"F:\\OKByOwner\\resources\\js\\Pages\\Admin\\Messages\")",
+      "Bash(dir:*)",
+      "WebFetch(domain:flowphotos.com)",
+      "WebFetch(domain:ffmlsok.com)",
+      "WebFetch(domain:www.ffmlsok.com)",
+      "WebSearch",
+      "Bash(npm run build:*)",
+      "WebFetch(domain:okby.wpbun.xyz)",
+      "Bash(if not exist \"F:\\OKByOwner\\storage\\app\\public\\properties\" mkdir \"F:\\OKByOwner\\storage\\app\\public\\properties\")",
+      "Bash(php -r:*)",
+      "Bash(del \"F:\\\\OKByOwner\\\\resources\\\\js\\\\Pages\\\\Admin\\\\Properties\\\\Edit.jsx\")",
+      "Bash(cmd /c \"del F:\\\\OKByOwner\\\\resources\\\\js\\\\Pages\\\\Admin\\\\Properties\\\\Edit.jsx\")"
     ],
     "deny": [],
     "ask": []

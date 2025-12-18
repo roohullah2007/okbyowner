@@ -115,6 +115,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get service requests made by this user
+     */
+    public function serviceRequests(): HasMany
+    {
+        return $this->hasMany(ServiceRequest::class);
+    }
+
+    /**
      * Get user's full address
      */
     public function getFullAddressAttribute(): string

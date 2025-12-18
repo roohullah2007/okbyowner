@@ -236,11 +236,11 @@ export default function PropertiesIndex({ properties, filters = {}, counts = {} 
                                                     {property.is_featured ? <Star className="w-4 h-4 fill-current" /> : <StarOff className="w-4 h-4" />}
                                                 </button>
                                                 <Link
-                                                    href={route('admin.properties.edit', property.id)}
-                                                    className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg"
-                                                    title="Edit"
+                                                    href={route('admin.properties.show', property.id)}
+                                                    className="p-2 text-blue-500 hover:text-blue-700 hover:bg-blue-50 rounded-lg"
+                                                    title="Review"
                                                 >
-                                                    <Edit className="w-4 h-4" />
+                                                    <Eye className="w-4 h-4" />
                                                 </Link>
                                                 <button
                                                     onClick={() => {

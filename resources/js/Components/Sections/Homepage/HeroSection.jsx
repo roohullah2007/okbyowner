@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
-import { Search, Star, Shield, Zap } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 const HeroSection = () => {
   return (
@@ -26,7 +26,7 @@ const HeroSection = () => {
               className="text-white text-[40px] sm:text-[50px] md:text-[60px] font-medium leading-[1.1] mb-5 drop-shadow-2xl"
               style={{ fontFamily: 'Instrument Sans, sans-serif' }}
             >
-              Sell Your Oklahoma Home Save Thousands in <span className="italic" style={{ fontFamily: 'Lora, serif' }}>Fees</span>
+              Sell Your Oklahoma Home Save Thousands in Fees
             </h1>
 
             {/* Subheading */}
@@ -45,7 +45,7 @@ const HeroSection = () => {
                 className="button inline-flex items-center justify-center gap-[0.4rem] bg-[#A41E34] text-white rounded-full px-5 py-[0.875rem] font-medium leading-[120%] transition-all duration-[400ms] ease-[cubic-bezier(0.645,0.045,0.355,1)] hover:bg-[#8B1A2C]"
                 style={{ fontFamily: 'Instrument Sans, sans-serif' }}
               >
-                <span>Start Listing Free</span>
+                <span>List Your Property</span>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <mask id="mask0_56_2205" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
                     <rect width="20" height="20" transform="matrix(-1 0 0 1 20 0)" fill="#D9D9D9"/>
@@ -68,58 +68,6 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Features Section - After Hero */}
-      <div className="bg-[#EEEDEA]">
-        <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 py-8 md:py-12">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6">
-            <div className="flex items-start gap-3 bg-white rounded-xl px-6 py-4 hover:shadow-md transition-all duration-300">
-              <div className="bg-[#E5E1DC] p-3 rounded-lg flex-shrink-0">
-                <Zap className="w-5 h-5 text-[#3D3D3D]" />
-              </div>
-              <div className="text-left">
-                <div className="text-[#111] font-semibold text-base" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Free Listing</div>
-                <div className="text-[#666] text-sm" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Forever</div>
-              </div>
-            </div>
-            <div className="flex items-start gap-3 bg-white rounded-xl px-6 py-4 hover:shadow-md transition-all duration-300">
-              <div className="bg-[#E5E1DC] p-3 rounded-lg flex-shrink-0">
-                <Shield className="w-5 h-5 text-[#3D3D3D]" />
-              </div>
-              <div className="text-left">
-                <div className="text-[#111] font-semibold text-base" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>MLS Access</div>
-                <div className="text-[#666] text-sm" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Full Exposure</div>
-              </div>
-            </div>
-            <div className="flex items-start gap-3 bg-white rounded-xl px-6 py-4 hover:shadow-md transition-all duration-300">
-              <div className="bg-[#E5E1DC] p-3 rounded-lg flex-shrink-0">
-                <Star className="w-5 h-5 text-[#3D3D3D]" />
-              </div>
-              <div className="text-left">
-                <div className="text-[#111] font-semibold text-base" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Expert Help</div>
-                <div className="text-[#666] text-sm" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>24/7 Support</div>
-              </div>
-            </div>
-            <div className="flex items-start gap-3 bg-white rounded-xl px-6 py-4 hover:shadow-md transition-all duration-300">
-              <div className="bg-[#E5E1DC] p-3 rounded-lg flex-shrink-0">
-                <Search className="w-5 h-5 text-[#3D3D3D]" />
-              </div>
-              <div className="text-left">
-                <div className="text-[#111] font-semibold text-base" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Direct Contact</div>
-                <div className="text-[#666] text-sm" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>No Middleman</div>
-              </div>
-            </div>
-            <div className="flex items-start gap-3 bg-white rounded-xl px-6 py-4 hover:shadow-md transition-all duration-300">
-              <div className="bg-[#E5E1DC] p-3 rounded-lg flex-shrink-0">
-                <Zap className="w-5 h-5 text-[#3D3D3D]" />
-              </div>
-              <div className="text-left">
-                <div className="text-[#111] font-semibold text-base" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>No Hidden Fees</div>
-                <div className="text-[#666] text-sm" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Transparent</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

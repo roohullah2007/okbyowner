@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Users } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const TestimonialsSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -45,14 +45,13 @@ const TestimonialsSection = () => {
   };
 
   return (
-    <section className="bg-[#EEEDEA] py-20">
+    <section className="bg-white py-20">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="flex items-start justify-between mb-12">
           <div>
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-[#E5E1DC] rounded-lg px-4 py-2 mb-6">
-              <Users className="w-4 h-4 text-[#666]" />
+            <div className="inline-flex items-center bg-[#E5E1DC] rounded-lg px-4 py-2 mb-6">
               <span className="text-[#666] text-sm font-medium" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
                 Testimonials
               </span>
@@ -63,7 +62,7 @@ const TestimonialsSection = () => {
               className="text-[40px] md:text-[48px] font-medium text-[#111] leading-tight"
               style={{ fontFamily: 'Instrument Sans, sans-serif' }}
             >
-              What Oklahoma <span className="italic" style={{ fontFamily: 'Lora, serif' }}>homeowners</span> are saying
+              What Oklahoma Homeowners are Saying
             </h2>
           </div>
 
@@ -109,26 +108,19 @@ const TestimonialsSection = () => {
                 </div>
 
                 {/* Author Info */}
-                <div className="flex items-center gap-4 mt-8">
-                  <img
-                    src={testimonial.avatar}
-                    alt={testimonial.name}
-                    className="w-14 h-14 rounded-full object-cover"
-                  />
-                  <div>
-                    <h4
-                      className="text-[#111] text-[20px] font-medium mb-1"
-                      style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 500 }}
-                    >
-                      {testimonial.name}
-                    </h4>
-                    <p
-                      className="text-[#111] text-[16px] font-medium opacity-70"
-                      style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 500 }}
-                    >
-                      {testimonial.role}
-                    </p>
-                  </div>
+                <div className="mt-8">
+                  <h4
+                    className="text-[#111] text-[20px] font-medium mb-1"
+                    style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 500 }}
+                  >
+                    {testimonial.name}
+                  </h4>
+                  <p
+                    className="text-[#111] text-[16px] font-medium opacity-70"
+                    style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 500 }}
+                  >
+                    {testimonial.role}
+                  </p>
                 </div>
               </div>
             ))}

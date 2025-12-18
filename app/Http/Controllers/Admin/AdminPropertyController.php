@@ -76,9 +76,8 @@ class AdminPropertyController extends Controller
 
     public function edit(Property $property)
     {
-        return Inertia::render('Admin/Properties/Edit', [
-            'property' => $property,
-        ]);
+        // Redirect to show page - admins review properties, not edit them
+        return redirect()->route('admin.properties.show', $property->id);
     }
 
     public function update(Request $request, Property $property)

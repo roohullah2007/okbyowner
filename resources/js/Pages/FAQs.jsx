@@ -182,7 +182,7 @@ function FAQs() {
                 className="text-white text-[40px] sm:text-[50px] md:text-[60px] font-medium leading-[1.1] mb-5 drop-shadow-2xl"
                 style={{ fontFamily: 'Instrument Sans, sans-serif' }}
               >
-                Frequently Asked <span className="italic" style={{ fontFamily: 'Lora, serif' }}>Questions</span>
+                Frequently Asked Questions
               </h1>
 
               {/* Subheading */}
@@ -266,7 +266,7 @@ function FAQs() {
             className="text-white text-[32px] md:text-[48px] font-medium mb-4"
             style={{ fontFamily: 'Instrument Sans, sans-serif' }}
           >
-            Still Have <span className="italic" style={{ fontFamily: 'Lora, serif' }}>Questions?</span>
+            Still Have Questions?
           </h2>
           <p
             className="text-white/90 text-[16px] font-medium mb-8 max-w-2xl mx-auto"

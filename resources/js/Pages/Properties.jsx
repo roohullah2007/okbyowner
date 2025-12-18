@@ -1,165 +1,189 @@
 import React, { useState } from 'react';
-import { Head, Link } from '@inertiajs/react';
-import { Search, MapPin, Home, DollarSign, BedDouble, Bath, Maximize2, Heart, Info, SlidersHorizontal, Grid3x3, Map } from 'lucide-react';
+import { Head, Link, useForm, usePage, router } from '@inertiajs/react';
+import { Search, MapPin, Home, DollarSign, BedDouble, Bath, Maximize2, Heart, Info, SlidersHorizontal, Grid3x3, Map, CheckCircle2, AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import MainLayout from '@/Layouts/MainLayout';
 
 const PropertyCard = ({ property }) => {
+  const [isFavorite, setIsFavorite] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+      return favorites.includes(property.id);
+    }
+    return false;
+  });
+
+  // Get the first photo or use placeholder
+  const propertyImage = property.photos && property.photos.length > 0
+    ? property.photos[0]
+    : 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800';
+
+  const statusLabel = property.status === 'for-rent' ? 'FOR RENT' : 'FOR SALE';
+
+  // Handle maximize - open in new tab
+  const handleMaximize = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    window.open(`/properties/${property.slug || property.id}`, '_blank');
+  };
+
+  // Handle favorite toggle
+  const handleFavorite = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    if (isFavorite) {
+      const newFavorites = favorites.filter(id => id !== property.id);
+      localStorage.setItem('favorites', JSON.stringify(newFavorites));
+      setIsFavorite(false);
+    } else {
+      favorites.push(property.id);
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+      setIsFavorite(true);
+    }
+  };
+
+  // Handle info - navigate to property detail
+  const handleInfo = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    router.visit(`/properties/${property.slug || property.id}`);
+  };
+
   return (
-    <div className="bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 group">
-      {/* Property Image */}
-      <div className="relative h-64 overflow-hidden">
-        <img
-          src={property.image}
-          alt={property.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        {/* Status Badge */}
-        <div className="absolute top-4 right-4 bg-[#A41E34] text-white px-3 py-1.5 text-xs font-semibold rounded-full" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-          {property.status === 'for-sale' ? 'FOR SALE' : 'FOR RENT'}
+    <Link href={`/properties/${property.slug || property.id}`} className="block h-full">
+      <div className="bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 group w-[300px] h-[330px] flex flex-col">
+        {/* Property Image */}
+        <div className="relative h-[180px] overflow-hidden flex-shrink-0">
+          <img
+            src={propertyImage}
+            alt={property.property_title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            onError={(e) => e.target.src = 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800'}
+          />
+          {/* Status Badge */}
+          <div className="absolute top-4 right-4 bg-[#A41E34] text-white px-3 py-1.5 text-xs font-semibold rounded-full" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+            {statusLabel}
+          </div>
+
+          {/* MLS Badge */}
+          {property.is_mls_listed && (
+            <div className="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1.5 text-xs font-semibold rounded-full" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+              MLS
+            </div>
+          )}
+
+          {/* Action Buttons */}
+          <div className="absolute bottom-4 right-4 flex gap-2">
+            <button
+              onClick={handleMaximize}
+              className="bg-white/90 hover:bg-white p-2 rounded-lg transition-all duration-300 hover:scale-105"
+              title="Open in new tab"
+            >
+              <Maximize2 className="w-4 h-4 text-gray-800" />
+            </button>
+            <button
+              onClick={handleFavorite}
+              className="bg-white/90 hover:bg-white p-2 rounded-lg transition-all duration-300 hover:scale-105"
+              title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+            >
+              <Heart className={`w-4 h-4 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-[#413936]'}`} />
+            </button>
+            <button
+              onClick={handleInfo}
+              className="bg-white/90 hover:bg-white p-2 rounded-lg transition-all duration-300 hover:scale-105"
+              title="View details"
+            >
+              <Info className="w-4 h-4 text-gray-800" />
+            </button>
+          </div>
         </div>
 
-        {/* Price and Action Buttons */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/75 via-black/40 to-transparent p-4">
-          <div className="flex items-center justify-between">
-            <span className="text-white text-2xl font-medium" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-              ${property.price.toLocaleString()}
+        {/* Property Details */}
+        <div className="px-3 pt-2.5 pb-4 h-[150px] flex flex-col">
+          {/* Price */}
+          <div className="pb-2 mb-2 border-b border-gray-200">
+            <span className="font-bold text-base text-[#293056]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+              ${Number(property.price).toLocaleString()}
             </span>
-            <div className="flex gap-2">
-              <button className="bg-white/90 hover:bg-white p-2 rounded-lg transition-all duration-300 hover:scale-105">
-                <Maximize2 className="w-4 h-4 text-gray-800" />
-              </button>
-              <button className="bg-white/90 hover:bg-white p-2 rounded-lg transition-all duration-300 hover:scale-105">
-                <Heart className="w-4 h-4 text-[#413936]" />
-              </button>
-              <button className="bg-white/90 hover:bg-white p-2 rounded-lg transition-all duration-300 hover:scale-105">
-                <Info className="w-4 h-4 text-gray-800" />
-              </button>
-            </div>
+          </div>
+
+          {/* Address */}
+          <div className="pb-2 mb-2 border-b border-gray-200">
+            <p className="text-sm text-[#293056] line-clamp-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+              {property.address}, {property.city}, {property.state} {property.zip_code}
+            </p>
+          </div>
+
+          {/* Property Stats */}
+          <div>
+            <p className="text-sm text-[#293056]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+              {property.bedrooms}BD | {property.bathrooms}BA | {property.sqft ? `${Number(property.sqft).toLocaleString()} sqft` : 'Area N/A'}
+            </p>
           </div>
         </div>
       </div>
-
-      {/* Property Details */}
-      <div className="p-5">
-        <h3 className="text-lg font-medium text-[#111] mb-1" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-          {property.title}
-        </h3>
-        <p className="text-sm text-[#666] mb-4 flex items-center gap-1" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-          <MapPin className="w-4 h-4" />
-          {property.location}
-        </p>
-
-        {/* Property Stats */}
-        <div className="flex items-center gap-4 text-sm text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-          <span className="flex items-center gap-1">
-            <span className="font-medium">{property.beds}</span> Beds
-          </span>
-          <span className="text-gray-300">•</span>
-          <span className="flex items-center gap-1">
-            <span className="font-medium">{property.baths}</span> Baths
-          </span>
-          <span className="text-gray-300">•</span>
-          <span className="flex items-center gap-1">
-            <span className="font-medium">{property.sqft.toLocaleString()}</span> sqft
-          </span>
-        </div>
-      </div>
-    </div>
+    </Link>
   );
 };
 
-function Properties() {
+function Properties({ properties = { data: [] }, filters = {} }) {
+  const { flash } = usePage().props;
   const [searchParams, setSearchParams] = useState({
-    keyword: '',
-    location: '',
-    propertyType: '',
-    priceMin: '',
-    priceMax: '',
-    bedrooms: '',
-    bathrooms: '',
+    keyword: filters.keyword || '',
+    location: filters.location || '',
+    propertyType: filters.propertyType || '',
+    priceMin: filters.priceMin || '',
+    priceMax: filters.priceMax || '',
+    bedrooms: filters.bedrooms || '',
+    bathrooms: filters.bathrooms || '',
+    sort: filters.sort || 'newest',
   });
 
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'map'
   const [showFilters, setShowFilters] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
-  // Sample properties data - Replace with actual API data
-  const properties = [
-    {
-      id: 1,
-      image: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800',
-      price: 299000,
-      title: 'Beautiful Family Home',
-      location: 'Oklahoma City, OK',
-      beds: 4,
-      baths: 3,
-      sqft: 2500,
-      status: 'for-sale',
-      type: 'single-family-home'
-    },
-    {
-      id: 2,
-      image: 'https://images.pexels.com/photos/1643389/pexels-photo-1643389.jpeg?auto=compress&cs=tinysrgb&w=800',
-      price: 425000,
-      title: 'Modern Ranch Style',
-      location: 'Tulsa, OK',
-      beds: 3,
-      baths: 2,
-      sqft: 1800,
-      status: 'for-sale',
-      type: 'single-family-home'
-    },
-    {
-      id: 3,
-      image: 'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=800',
-      price: 350000,
-      title: 'Luxury Villa',
-      location: 'Norman, OK',
-      beds: 5,
-      baths: 4,
-      sqft: 3200,
-      status: 'for-sale',
-      type: 'single-family-home'
-    },
-    {
-      id: 4,
-      image: 'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=800',
-      price: 275000,
-      title: 'Cozy Cottage',
-      location: 'Edmond, OK',
-      beds: 3,
-      baths: 2,
-      sqft: 1500,
-      status: 'for-sale',
-      type: 'single-family-home'
-    },
-    {
-      id: 5,
-      image: 'https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&w=800',
-      price: 520000,
-      title: 'Executive Estate',
-      location: 'Broken Arrow, OK',
-      beds: 6,
-      baths: 5,
-      sqft: 4000,
-      status: 'for-sale',
-      type: 'single-family-home'
-    },
-    {
-      id: 6,
-      image: 'https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg?auto=compress&cs=tinysrgb&w=800',
-      price: 195000,
-      title: 'Starter Home',
-      location: 'Lawton, OK',
-      beds: 2,
-      baths: 2,
-      sqft: 1200,
-      status: 'for-sale',
-      type: 'single-family-home'
-    },
-  ];
+  // Buyer inquiry form
+  const { data, setData, post, processing, errors, reset } = useForm({
+    name: '',
+    email: '',
+    phone: '',
+    preferred_area: '',
+    price_min: '',
+    price_max: '',
+    mls_setup: '',
+    preapproved: '',
+  });
+
+  const handleBuyerFormSubmit = (e) => {
+    e.preventDefault();
+    post(route('buyer-inquiry.store'), {
+      preserveScroll: true,
+      onSuccess: () => {
+        reset();
+        setFormSubmitted(true);
+        setTimeout(() => setFormSubmitted(false), 5000);
+      },
+    });
+  };
+
+  // Get properties data from pagination
+  const propertyList = properties.data || properties || [];
+  const pagination = properties.data ? properties : null;
 
   const handleSearchChange = (field, value) => {
     setSearchParams({ ...searchParams, [field]: value });
+  };
+
+  const handleSearch = (e) => {
+    e?.preventDefault();
+    router.get('/properties', searchParams, { preserveState: true });
+  };
+
+  const handleSortChange = (value) => {
+    const newParams = { ...searchParams, sort: value };
+    setSearchParams(newParams);
+    router.get('/properties', newParams, { preserveState: true });
   };
 
   return (
@@ -171,8 +195,7 @@ function Properties() {
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-16">
           <div className="max-w-3xl mx-auto text-center">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-white rounded-lg px-4 py-2 mb-6">
-              <Home className="w-4 h-4 text-[#A41E34]" />
+            <div className="inline-flex items-center bg-white rounded-lg px-4 py-2 mb-6">
               <span className="text-[#666] text-sm font-medium" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
                 Browse Properties
               </span>
@@ -183,7 +206,7 @@ function Properties() {
               className="text-[#111] text-[48px] md:text-[60px] font-medium leading-[1.1] mb-4"
               style={{ fontFamily: 'Instrument Sans, sans-serif' }}
             >
-              Find Your Dream <span className="italic" style={{ fontFamily: 'Lora, serif' }}>Property</span>
+              Find Your Dream Property
             </h1>
 
             {/* Subtitle */}
@@ -191,11 +214,12 @@ function Properties() {
               className="text-[#666] text-[14px] md:text-[16px] font-medium mb-8 leading-relaxed max-w-2xl mx-auto"
               style={{ fontFamily: 'Instrument Sans, sans-serif' }}
             >
-              Browse thousands of properties for sale by owner across Oklahoma. No agent fees, direct from owners.
+              Browse thousands of For Sale by Owner properties across Oklahoma.<br />
+              No agent fees. Direct from owners.
             </p>
 
             {/* Quick Search Bar */}
-            <div className="bg-white rounded-2xl shadow-lg p-2 flex flex-col md:flex-row gap-2 max-w-4xl mx-auto">
+            <form onSubmit={handleSearch} className="bg-white rounded-2xl shadow-lg p-2 flex flex-col md:flex-row gap-2 max-w-4xl mx-auto">
               <div className="flex-1 flex items-center gap-2 px-4 py-3 bg-[#F8F7F5] rounded-xl">
                 <Search className="w-5 h-5 text-[#666]" />
                 <input
@@ -207,13 +231,15 @@ function Properties() {
                   onChange={(e) => handleSearchChange('keyword', e.target.value)}
                 />
               </div>
-              <button className="bg-[#A41E34] text-white px-8 py-3 rounded-xl font-medium transition-all duration-300 hover:bg-[#8B1A2C] flex items-center justify-center gap-2"
+              <button
+                type="submit"
+                className="bg-[#A41E34] text-white px-8 py-3 rounded-xl font-medium transition-all duration-300 hover:bg-[#8B1A2C] flex items-center justify-center gap-2"
                 style={{ fontFamily: 'Instrument Sans, sans-serif' }}
               >
                 <Search className="w-5 h-5" />
                 Search
               </button>
-            </div>
+            </form>
 
             {/* Quick Filters */}
             <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
@@ -373,6 +399,37 @@ function Properties() {
                 </div>
               </div>
             </div>
+
+            {/* Apply Filters Button */}
+            <div className="flex justify-end mt-4 gap-3">
+              <button
+                onClick={() => {
+                  setSearchParams({
+                    keyword: '',
+                    location: '',
+                    propertyType: '',
+                    priceMin: '',
+                    priceMax: '',
+                    bedrooms: '',
+                    bathrooms: '',
+                    sort: 'newest',
+                  });
+                  router.get('/properties');
+                  setShowFilters(false);
+                }}
+                className="px-6 py-2.5 border border-[#D0CCC7] rounded-xl text-sm font-medium text-[#111] hover:bg-gray-50 transition-colors"
+                style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+              >
+                Clear All
+              </button>
+              <button
+                onClick={handleSearch}
+                className="px-6 py-2.5 bg-[#A41E34] text-white rounded-xl text-sm font-medium hover:bg-[#8B1A2C] transition-colors"
+                style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+              >
+                Apply Filters
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -387,7 +444,11 @@ function Properties() {
                 Available Properties
               </h2>
               <p className="text-sm text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                Showing {properties.length} properties
+                {pagination ? (
+                  <>Showing {pagination.from || 0} - {pagination.to || 0} of {pagination.total || 0} properties</>
+                ) : (
+                  <>Showing {propertyList.length} properties</>
+                )}
               </p>
             </div>
 
@@ -395,80 +456,345 @@ function Properties() {
               <span className="text-sm text-[#666] hidden sm:inline" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
                 Sort by:
               </span>
-              <select className="px-4 py-2 border border-[#D0CCC7] rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors bg-white"
+              <select
+                className="px-4 py-2 border border-[#D0CCC7] rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors bg-white"
                 style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                value={searchParams.sort}
+                onChange={(e) => handleSortChange(e.target.value)}
               >
-                <option>Newest</option>
-                <option>Price: Low to High</option>
-                <option>Price: High to Low</option>
-                <option>Bedrooms</option>
-                <option>Square Feet</option>
+                <option value="newest">Newest</option>
+                <option value="price_low">Price: Low to High</option>
+                <option value="price_high">Price: High to Low</option>
+                <option value="bedrooms">Bedrooms</option>
+                <option value="sqft">Square Feet</option>
               </select>
             </div>
           </div>
 
           {/* Property Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {properties.map((property) => (
-              <PropertyCard key={property.id} property={property} />
-            ))}
-          </div>
+          {propertyList.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
+              {propertyList.map((property) => (
+                <PropertyCard key={property.id} property={property} />
+              ))}
+            </div>
+          ) : (
+            <div className="bg-white rounded-2xl p-12 text-center">
+              <Home className="w-16 h-16 mx-auto mb-4 text-gray-300" />
+              <h3 className="text-xl font-semibold text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                No Properties Found
+              </h3>
+              <p className="text-[#666] mb-6" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                {searchParams.keyword || searchParams.location
+                  ? 'Try adjusting your search criteria or filters'
+                  : 'Check back soon for new listings'}
+              </p>
+              {(searchParams.keyword || searchParams.location) && (
+                <button
+                  onClick={() => {
+                    setSearchParams({
+                      keyword: '',
+                      location: '',
+                      propertyType: '',
+                      priceMin: '',
+                      priceMax: '',
+                      bedrooms: '',
+                      bathrooms: '',
+                      sort: 'newest',
+                    });
+                    router.get('/properties');
+                  }}
+                  className="inline-flex items-center gap-2 bg-[#A41E34] text-white px-6 py-3 rounded-full font-medium hover:bg-[#8B1A2C] transition-colors"
+                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                >
+                  Clear Filters
+                </button>
+              )}
+            </div>
+          )}
 
           {/* Pagination */}
-          <div className="flex items-center justify-center gap-2 mt-12">
-            <button className="px-4 py-2 border border-[#D0CCC7] rounded-xl text-sm font-medium text-[#111] hover:bg-white transition-colors"
-              style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-            >
-              Previous
-            </button>
-            <button className="px-4 py-2 bg-[#A41E34] text-white rounded-xl text-sm font-medium"
-              style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-            >
-              1
-            </button>
-            <button className="px-4 py-2 border border-[#D0CCC7] rounded-xl text-sm font-medium text-[#111] hover:bg-white transition-colors"
-              style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-            >
-              2
-            </button>
-            <button className="px-4 py-2 border border-[#D0CCC7] rounded-xl text-sm font-medium text-[#111] hover:bg-white transition-colors"
-              style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-            >
-              3
-            </button>
-            <button className="px-4 py-2 border border-[#D0CCC7] rounded-xl text-sm font-medium text-[#111] hover:bg-white transition-colors"
-              style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-            >
-              Next
-            </button>
-          </div>
+          {pagination && pagination.last_page > 1 && (
+            <div className="flex items-center justify-center gap-2 mt-12">
+              {/* Previous Button */}
+              {pagination.prev_page_url ? (
+                <Link
+                  href={pagination.prev_page_url}
+                  className="px-4 py-2 border border-[#D0CCC7] rounded-xl text-sm font-medium text-[#111] hover:bg-white transition-colors flex items-center gap-1"
+                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  Previous
+                </Link>
+              ) : (
+                <button
+                  disabled
+                  className="px-4 py-2 border border-[#D0CCC7] rounded-xl text-sm font-medium text-gray-400 cursor-not-allowed flex items-center gap-1"
+                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  Previous
+                </button>
+              )}
+
+              {/* Page Numbers */}
+              {Array.from({ length: pagination.last_page }, (_, i) => i + 1)
+                .filter(page => {
+                  // Show first, last, current, and adjacent pages
+                  return page === 1 ||
+                    page === pagination.last_page ||
+                    Math.abs(page - pagination.current_page) <= 1;
+                })
+                .map((page, index, array) => {
+                  // Add ellipsis if there's a gap
+                  const showEllipsisBefore = index > 0 && page - array[index - 1] > 1;
+
+                  return (
+                    <React.Fragment key={page}>
+                      {showEllipsisBefore && (
+                        <span className="px-2 text-gray-400">...</span>
+                      )}
+                      <Link
+                        href={`/properties?page=${page}${searchParams.keyword ? `&keyword=${searchParams.keyword}` : ''}${searchParams.sort !== 'newest' ? `&sort=${searchParams.sort}` : ''}`}
+                        className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
+                          page === pagination.current_page
+                            ? 'bg-[#A41E34] text-white'
+                            : 'border border-[#D0CCC7] text-[#111] hover:bg-white'
+                        }`}
+                        style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                      >
+                        {page}
+                      </Link>
+                    </React.Fragment>
+                  );
+                })}
+
+              {/* Next Button */}
+              {pagination.next_page_url ? (
+                <Link
+                  href={pagination.next_page_url}
+                  className="px-4 py-2 border border-[#D0CCC7] rounded-xl text-sm font-medium text-[#111] hover:bg-white transition-colors flex items-center gap-1"
+                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                >
+                  Next
+                  <ChevronRight className="w-4 h-4" />
+                </Link>
+              ) : (
+                <button
+                  disabled
+                  className="px-4 py-2 border border-[#D0CCC7] rounded-xl text-sm font-medium text-gray-400 cursor-not-allowed flex items-center gap-1"
+                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                >
+                  Next
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+          )}
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Buyer Sign-Up Section */}
       <section className="bg-white py-16 md:py-20 border-t border-[#D0CCC7]">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-[32px] md:text-[48px] font-medium text-[#111] mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            Can't Find What You're Looking <span className="italic" style={{ fontFamily: 'Lora, serif' }}>For?</span>
-          </h2>
-          <p className="text-[16px] text-[#666] font-medium mb-8 max-w-2xl mx-auto" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            List your property for FREE and connect directly with buyers across Oklahoma
-          </p>
-          <Link
-            href="/list-property"
-            className="inline-flex items-center gap-2 bg-[#A41E34] text-white rounded-full px-8 py-4 font-medium text-lg transition-all duration-300 hover:bg-[#8B1A2C] hover:shadow-lg"
-            style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-          >
-            List Your Property Free
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <mask id="mask0_56_2205" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
-                <rect width="20" height="20" transform="matrix(-1 0 0 1 20 0)" fill="#D9D9D9"/>
-              </mask>
-              <g mask="url(#mask0_56_2205)">
-                <path d="M13.459 10.8334L11.084 13.2084C10.9173 13.3751 10.8375 13.5695 10.8444 13.7918C10.8513 14.014 10.9312 14.2084 11.084 14.3751C11.2507 14.5418 11.4486 14.6286 11.6777 14.6355C11.9069 14.6425 12.1048 14.5626 12.2715 14.3959L16.084 10.5834C16.2507 10.4168 16.334 10.2223 16.334 10.0001C16.334 9.77787 16.2507 9.58343 16.084 9.41676L12.2715 5.60426C12.1048 5.43759 11.9069 5.35773 11.6777 5.36467C11.4486 5.37162 11.2507 5.45842 11.084 5.62509C10.9312 5.79176 10.8513 5.9862 10.8444 6.20842C10.8375 6.43065 10.9173 6.62509 11.084 6.79176L13.459 9.16676H4.16732C3.93121 9.16676 3.73329 9.24662 3.57357 9.40634C3.41385 9.56606 3.33398 9.76398 3.33398 10.0001C3.33398 10.2362 3.41385 10.4341 3.57357 10.5938C3.73329 10.7536 3.93121 10.8334 4.16732 10.8334H13.459Z" fill="white"/>
-              </g>
-            </svg>
-          </Link>
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="text-[32px] md:text-[48px] font-medium text-[#111] mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                Can't Find What You're Looking For?
+              </h2>
+              <p className="text-[16px] text-[#666] font-medium max-w-2xl mx-auto" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                Tell us what you're looking for in a property, and we'll send you all new listings in your preferred area.
+              </p>
+            </div>
+
+            {/* Success Message */}
+            {(formSubmitted || flash?.success) && (
+              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0" />
+                <p className="text-sm text-green-800" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  {flash?.success || "Thank you! We'll be in touch soon with property alerts matching your criteria."}
+                </p>
+              </div>
+            )}
+
+            {/* Buyer Sign-Up Form */}
+            <form onSubmit={handleBuyerFormSubmit} className="bg-[#EEEDEA] rounded-2xl p-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                {/* Name */}
+                <div>
+                  <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                    Name <span className="text-[#A41E34]">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={data.name}
+                    onChange={(e) => setData('name', e.target.value)}
+                    placeholder="Your full name"
+                    className={`w-full px-4 py-3 border rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors bg-white ${errors.name ? 'border-red-500' : 'border-[#D0CCC7]'}`}
+                    style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                  />
+                  {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                    Email <span className="text-[#A41E34]">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    value={data.email}
+                    onChange={(e) => setData('email', e.target.value)}
+                    placeholder="your@email.com"
+                    className={`w-full px-4 py-3 border rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors bg-white ${errors.email ? 'border-red-500' : 'border-[#D0CCC7]'}`}
+                    style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                  />
+                  {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+                </div>
+
+                {/* Phone */}
+                <div>
+                  <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                    Phone
+                  </label>
+                  <input
+                    type="tel"
+                    value={data.phone}
+                    onChange={(e) => setData('phone', e.target.value)}
+                    placeholder="(555) 555-5555"
+                    className={`w-full px-4 py-3 border rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors bg-white ${errors.phone ? 'border-red-500' : 'border-[#D0CCC7]'}`}
+                    style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                  />
+                  {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
+                </div>
+
+                {/* Area */}
+                <div>
+                  <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                    Preferred Area <span className="text-[#A41E34]">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={data.preferred_area}
+                    onChange={(e) => setData('preferred_area', e.target.value)}
+                    placeholder="City, neighborhood, or ZIP code"
+                    className={`w-full px-4 py-3 border rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors bg-white ${errors.preferred_area ? 'border-red-500' : 'border-[#D0CCC7]'}`}
+                    style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                  />
+                  {errors.preferred_area && <p className="text-red-500 text-xs mt-1">{errors.preferred_area}</p>}
+                </div>
+
+                {/* Price Range */}
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                    Price Range <span className="text-[#A41E34]">*</span>
+                  </label>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <input
+                        type="text"
+                        value={data.price_min}
+                        onChange={(e) => setData('price_min', e.target.value)}
+                        placeholder="Min price"
+                        className={`w-full px-4 py-3 border rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors bg-white ${errors.price_min ? 'border-red-500' : 'border-[#D0CCC7]'}`}
+                        style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                      />
+                      {errors.price_min && <p className="text-red-500 text-xs mt-1">{errors.price_min}</p>}
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        value={data.price_max}
+                        onChange={(e) => setData('price_max', e.target.value)}
+                        placeholder="Max price"
+                        className={`w-full px-4 py-3 border rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors bg-white ${errors.price_max ? 'border-red-500' : 'border-[#D0CCC7]'}`}
+                        style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                      />
+                      {errors.price_max && <p className="text-red-500 text-xs mt-1">{errors.price_max}</p>}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* MLS Setup Question */}
+              <div className={`mb-6 p-4 bg-white rounded-xl border ${errors.mls_setup ? 'border-red-500' : 'border-[#D0CCC7]'}`}>
+                <p className="text-sm text-[#111] mb-3" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  <span className="font-medium">Not working with a real estate agent?</span> We can set you up in the MLS so you'll be the first to know about any new or coming soon listings. <span className="text-[#A41E34]">*</span>
+                </p>
+                <div className="flex gap-4">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="mls_setup"
+                      value="yes"
+                      checked={data.mls_setup === 'yes'}
+                      onChange={(e) => setData('mls_setup', e.target.value)}
+                      className="w-4 h-4 text-[#A41E34] accent-[#A41E34]"
+                    />
+                    <span className="text-sm text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Yes, set me up</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="mls_setup"
+                      value="no"
+                      checked={data.mls_setup === 'no'}
+                      onChange={(e) => setData('mls_setup', e.target.value)}
+                      className="w-4 h-4 text-[#A41E34] accent-[#A41E34]"
+                    />
+                    <span className="text-sm text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>No, thank you</span>
+                  </label>
+                </div>
+                {errors.mls_setup && <p className="text-red-500 text-xs mt-2">{errors.mls_setup}</p>}
+              </div>
+
+              {/* Preapproval Question */}
+              <div className={`mb-8 p-4 bg-white rounded-xl border ${errors.preapproved ? 'border-red-500' : 'border-[#D0CCC7]'}`}>
+                <p className="text-sm text-[#111] mb-3" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  <span className="font-medium">Are you preapproved for a mortgage?</span> <span className="text-[#A41E34]">*</span>
+                </p>
+                <div className="flex gap-4">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="preapproved"
+                      value="yes"
+                      checked={data.preapproved === 'yes'}
+                      onChange={(e) => setData('preapproved', e.target.value)}
+                      className="w-4 h-4 text-[#A41E34] accent-[#A41E34]"
+                    />
+                    <span className="text-sm text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Yes</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="preapproved"
+                      value="no"
+                      checked={data.preapproved === 'no'}
+                      onChange={(e) => setData('preapproved', e.target.value)}
+                      className="w-4 h-4 text-[#A41E34] accent-[#A41E34]"
+                    />
+                    <span className="text-sm text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Not yet</span>
+                  </label>
+                </div>
+                {errors.preapproved && <p className="text-red-500 text-xs mt-2">{errors.preapproved}</p>}
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={processing}
+                className={`w-full bg-[#A41E34] text-white rounded-full px-8 py-4 font-medium text-lg transition-all duration-300 hover:bg-[#8B1A2C] hover:shadow-lg ${processing ? 'opacity-70 cursor-not-allowed' : ''}`}
+                style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+              >
+                {processing ? 'Submitting...' : 'Get Listing Alerts'}
+              </button>
+
+              <p className="text-xs text-[#666] text-center mt-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                By submitting, you agree to receive property alerts and updates. You can unsubscribe at any time.
+              </p>
+            </form>
+          </div>
         </div>
       </section>
     </>

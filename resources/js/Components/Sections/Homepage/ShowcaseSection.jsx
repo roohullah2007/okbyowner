@@ -22,7 +22,7 @@ const ShowcaseSection = () => {
                 <Home className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-white text-[24px] md:text-[32px] font-medium mb-3" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                For <span className="italic" style={{ fontFamily: 'Lora, serif' }}>Sellers</span>
+                For Sellers
               </h3>
               <p className="text-white/90 text-sm md:text-base mb-4 leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
                 List your property for FREE. No commissions, no hidden fees. Keep 100% of your home's value.
@@ -54,7 +54,7 @@ const ShowcaseSection = () => {
                 <Users className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-white text-[24px] md:text-[32px] font-medium mb-3" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                For <span className="italic" style={{ fontFamily: 'Lora, serif' }}>Buyers</span>
+                For Buyers
               </h3>
               <p className="text-white/90 text-sm md:text-base mb-4 leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
                 Find your dream home directly from owners. Save thousands with no buyer agent commissions.
