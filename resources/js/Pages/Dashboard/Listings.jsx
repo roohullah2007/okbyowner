@@ -8,9 +8,7 @@ import {
     Edit,
     Trash2,
     ExternalLink,
-    MoreVertical,
     MapPin,
-    Calendar,
     Home,
     ChevronLeft,
     ChevronRight,
@@ -18,9 +16,6 @@ import {
     Bath,
     Square,
     AlertCircle,
-    TrendingUp,
-    Camera,
-    Star,
     QrCode,
     Download,
     X
@@ -165,12 +160,12 @@ export default function Listings({ listings, filters = {}, counts = {} }) {
                     </Link>
                 </div>
             ) : (
-                <div className="space-y-4">
+                <div className="space-y-3">
                     {listingData.map((listing) => (
-                        <div key={listing.id} className="bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-                            <div className="flex flex-col sm:flex-row">
-                                {/* Image */}
-                                <div className="sm:w-48 md:w-64 h-48 sm:h-auto bg-gray-200 flex-shrink-0">
+                        <div key={listing.id} className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                            <div className="flex">
+                                {/* Image - Smaller */}
+                                <div className="w-28 sm:w-36 h-28 sm:h-32 bg-gray-200 flex-shrink-0">
                                     <img
                                         src={listing.photos?.[0] || '/images/property-placeholder.jpg'}
                                         alt={listing.property_title}
@@ -179,148 +174,111 @@ export default function Listings({ listings, filters = {}, counts = {} }) {
                                     />
                                 </div>
 
-                                {/* Content */}
-                                <div className="flex-1 p-4 sm:p-6">
-                                    <div className="flex items-start justify-between gap-4">
-                                        <div className="flex-1">
-                                            <div className="flex items-center gap-2 mb-1 flex-wrap">
-                                                <span className={`px-2 py-0.5 text-xs font-medium rounded-full capitalize ${getStatusColor(listing.approval_status)}`}>
-                                                    {listing.approval_status}
-                                                </span>
-                                                {listing.listing_tier === 'mls' && (
-                                                    <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-blue-100 text-blue-700 flex items-center gap-1">
-                                                        <Home className="w-3 h-3" />
-                                                        MLS
+                                {/* Content - Compact */}
+                                <div className="flex-1 p-3 sm:p-4 flex flex-col justify-between min-w-0">
+                                    <div>
+                                        {/* Top Row: Title, Status, Price */}
+                                        <div className="flex items-start justify-between gap-2">
+                                            <div className="min-w-0 flex-1">
+                                                <div className="flex items-center gap-2 flex-wrap">
+                                                    <h3 className="text-base font-semibold text-gray-900 truncate" style={{ fontFamily: '"Instrument Sans", sans-serif' }}>
+                                                        {listing.property_title}
+                                                    </h3>
+                                                    <span className={`px-2 py-0.5 text-xs font-medium rounded-full capitalize flex-shrink-0 ${getStatusColor(listing.approval_status)}`}>
+                                                        {listing.approval_status}
                                                     </span>
-                                                )}
-                                                {(listing.listing_tier === 'photos' || listing.has_professional_photos) && (
-                                                    <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-green-100 text-green-700 flex items-center gap-1">
-                                                        <Camera className="w-3 h-3" />
-                                                        Pro Photos
-                                                    </span>
-                                                )}
-                                                {listing.is_featured && (
-                                                    <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-purple-100 text-purple-700 flex items-center gap-1">
-                                                        <Star className="w-3 h-3" />
-                                                        Featured
-                                                    </span>
-                                                )}
-                                                {!listing.is_active && (
-                                                    <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-gray-100 text-gray-600">
-                                                        Inactive
-                                                    </span>
-                                                )}
+                                                    {listing.listing_tier === 'mls' && (
+                                                        <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-blue-100 text-blue-700 flex-shrink-0">MLS</span>
+                                                    )}
+                                                </div>
+                                                <p className="text-xs text-gray-500 flex items-center gap-1 mt-0.5 truncate">
+                                                    <MapPin className="w-3 h-3 flex-shrink-0" />
+                                                    {listing.address}, {listing.city}
+                                                </p>
                                             </div>
-                                            <h3 className="text-lg font-semibold text-gray-900" style={{ fontFamily: '"Instrument Sans", sans-serif' }}>
-                                                {listing.property_title}
-                                            </h3>
-                                            <p className="text-sm text-gray-500 flex items-center gap-1 mt-1">
-                                                <MapPin className="w-4 h-4" />
-                                                {listing.address}, {listing.city}, {listing.state}
-                                            </p>
+                                            <span className="text-lg font-bold text-[#A41E34] flex-shrink-0" style={{ fontFamily: '"Instrument Sans", sans-serif' }}>
+                                                ${Number(listing.price).toLocaleString()}
+                                            </span>
                                         </div>
 
-                                        {/* Actions Dropdown */}
-                                        <div className="relative group">
-                                            <button className="p-2 hover:bg-gray-100 rounded-lg">
-                                                <MoreVertical className="w-5 h-5 text-gray-400" />
-                                            </button>
-                                            <div className="absolute right-0 mt-1 w-44 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
-                                                <Link
-                                                    href={route('dashboard.listings.edit', listing.id)}
-                                                    className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-t-xl"
-                                                >
-                                                    <Edit className="w-4 h-4" />
-                                                    Edit
-                                                </Link>
-                                                <Link
-                                                    href={route('dashboard.listings.upgrade', listing.id)}
-                                                    className="w-full flex items-center gap-2 px-4 py-2 text-sm text-[#A41E34] hover:bg-red-50"
-                                                >
-                                                    <TrendingUp className="w-4 h-4" />
-                                                    Upgrade
-                                                </Link>
-                                                <button
-                                                    onClick={() => {
-                                                        setQrListing(listing);
-                                                        setShowQrModal(true);
-                                                    }}
-                                                    className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50"
-                                                >
-                                                    <QrCode className="w-4 h-4" />
-                                                    QR Code
-                                                </button>
-                                                <Link
-                                                    href={`/properties/${listing.id}`}
-                                                    className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50"
-                                                >
-                                                    <ExternalLink className="w-4 h-4" />
-                                                    View
-                                                </Link>
-                                                <button
-                                                    onClick={() => {
-                                                        setListingToDelete(listing);
-                                                        setShowDeleteModal(true);
-                                                    }}
-                                                    className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-b-xl"
-                                                >
-                                                    <Trash2 className="w-4 h-4" />
-                                                    Delete
-                                                </button>
+                                        {/* Rejection reason - Compact */}
+                                        {listing.approval_status === 'rejected' && listing.rejection_reason && (
+                                            <div className="mt-2 p-2 bg-red-50 rounded-lg flex items-start gap-2">
+                                                <AlertCircle className="w-3 h-3 text-red-600 mt-0.5 flex-shrink-0" />
+                                                <p className="text-xs text-red-700 line-clamp-1">{listing.rejection_reason}</p>
                                             </div>
-                                        </div>
+                                        )}
                                     </div>
 
-                                    {/* Rejection reason */}
-                                    {listing.approval_status === 'rejected' && listing.rejection_reason && (
-                                        <div className="mt-3 p-3 bg-red-50 rounded-lg flex items-start gap-2">
-                                            <AlertCircle className="w-4 h-4 text-red-600 mt-0.5 flex-shrink-0" />
-                                            <div>
-                                                <p className="text-xs font-medium text-red-800">Rejection Reason:</p>
-                                                <p className="text-xs text-red-700">{listing.rejection_reason}</p>
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    <div className="mt-4 flex flex-wrap items-center gap-4">
-                                        <span className="text-2xl font-bold text-[#A41E34]" style={{ fontFamily: '"Instrument Sans", sans-serif' }}>
-                                            ${Number(listing.price).toLocaleString()}
-                                        </span>
-                                        <div className="flex items-center gap-3 text-sm text-gray-500">
+                                    {/* Bottom Row: Stats and Actions */}
+                                    <div className="flex items-center justify-between gap-2 mt-2 pt-2 border-t border-gray-100">
+                                        {/* Stats */}
+                                        <div className="flex items-center gap-3 sm:gap-4 text-xs text-gray-500">
                                             <span className="flex items-center gap-1">
-                                                <Bed className="w-4 h-4" />
-                                                {listing.bedrooms} bed
+                                                <Bed className="w-3 h-3" />
+                                                {listing.bedrooms}
                                             </span>
                                             <span className="flex items-center gap-1">
-                                                <Bath className="w-4 h-4" />
-                                                {listing.bathrooms} bath
+                                                <Bath className="w-3 h-3" />
+                                                {listing.bathrooms}
                                             </span>
                                             {listing.sqft && (
-                                                <span className="flex items-center gap-1">
-                                                    <Square className="w-4 h-4" />
-                                                    {Number(listing.sqft).toLocaleString()} sqft
+                                                <span className="hidden sm:flex items-center gap-1">
+                                                    <Square className="w-3 h-3" />
+                                                    {Number(listing.sqft).toLocaleString()}
                                                 </span>
                                             )}
+                                            <span className="hidden sm:flex items-center gap-1">
+                                                <Eye className="w-3 h-3" />
+                                                {listing.views || 0}
+                                            </span>
+                                            <span className="hidden sm:flex items-center gap-1">
+                                                <MessageSquare className="w-3 h-3" />
+                                                {listing.inquiries_count || 0}
+                                            </span>
+                                            <span className="flex items-center gap-1">
+                                                <QrCode className="w-3 h-3" />
+                                                {listing.qr_scans_count || 0}
+                                            </span>
                                         </div>
-                                    </div>
 
-                                    <div className="mt-4 pt-4 border-t border-gray-100 flex flex-wrap items-center gap-6 text-sm">
-                                        <span className="flex items-center gap-1.5 text-gray-500">
-                                            <Eye className="w-4 h-4" />
-                                            {listing.views || 0} views
-                                        </span>
-                                        <span className="flex items-center gap-1.5 text-gray-500">
-                                            <MessageSquare className="w-4 h-4" />
-                                            {listing.inquiries_count || 0} inquiries
-                                        </span>
-                                        <span className="flex items-center gap-1.5 text-gray-500">
-                                            <QrCode className="w-4 h-4" />
-                                            {listing.qr_scans_count || 0} QR scans
-                                        </span>
-                                        <span className="flex items-center gap-1.5 text-gray-500">
-                                            <Calendar className="w-4 h-4" />
-                                            Listed {formatDate(listing.created_at)}
-                                        </span>
+                                        {/* Action Buttons with Text */}
+                                        <div className="flex items-center gap-1.5 flex-wrap">
+                                            <button
+                                                onClick={() => {
+                                                    setQrListing(listing);
+                                                    setShowQrModal(true);
+                                                }}
+                                                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-white bg-[#A41E34] hover:bg-[#8B1A2C] rounded-lg transition-colors"
+                                            >
+                                                <QrCode className="w-3.5 h-3.5" />
+                                                QR Code
+                                            </button>
+                                            <Link
+                                                href={route('dashboard.listings.edit', listing.id)}
+                                                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                                            >
+                                                <Edit className="w-3.5 h-3.5" />
+                                                Edit
+                                            </Link>
+                                            <Link
+                                                href={`/properties/${listing.slug || listing.id}`}
+                                                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                                            >
+                                                <ExternalLink className="w-3.5 h-3.5" />
+                                                View
+                                            </Link>
+                                            <button
+                                                onClick={() => {
+                                                    setListingToDelete(listing);
+                                                    setShowDeleteModal(true);
+                                                }}
+                                                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors"
+                                            >
+                                                <Trash2 className="w-3.5 h-3.5" />
+                                                Delete
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
