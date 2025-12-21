@@ -20,7 +20,10 @@ import {
     AlertCircle,
     TrendingUp,
     Camera,
-    Star
+    Star,
+    QrCode,
+    Download,
+    X
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -29,6 +32,8 @@ export default function Listings({ listings, filters = {}, counts = {} }) {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [listingToDelete, setListingToDelete] = useState(null);
     const [deleting, setDeleting] = useState(false);
+    const [showQrModal, setShowQrModal] = useState(false);
+    const [qrListing, setQrListing] = useState(null);
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -235,6 +240,16 @@ export default function Listings({ listings, filters = {}, counts = {} }) {
                                                     <TrendingUp className="w-4 h-4" />
                                                     Upgrade
                                                 </Link>
+                                                <button
+                                                    onClick={() => {
+                                                        setQrListing(listing);
+                                                        setShowQrModal(true);
+                                                    }}
+                                                    className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50"
+                                                >
+                                                    <QrCode className="w-4 h-4" />
+                                                    QR Code
+                                                </button>
                                                 <Link
                                                     href={`/properties/${listing.id}`}
                                                     className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50"
@@ -297,6 +312,10 @@ export default function Listings({ listings, filters = {}, counts = {} }) {
                                         <span className="flex items-center gap-1.5 text-gray-500">
                                             <MessageSquare className="w-4 h-4" />
                                             {listing.inquiries_count || 0} inquiries
+                                        </span>
+                                        <span className="flex items-center gap-1.5 text-gray-500">
+                                            <QrCode className="w-4 h-4" />
+                                            {listing.qr_scans_count || 0} QR scans
                                         </span>
                                         <span className="flex items-center gap-1.5 text-gray-500">
                                             <Calendar className="w-4 h-4" />
@@ -363,6 +382,63 @@ export default function Listings({ listings, filters = {}, counts = {} }) {
                             >
                                 {deleting ? 'Deleting...' : 'Delete'}
                             </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* QR Code Modal */}
+            {showQrModal && qrListing && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-2xl p-6 max-w-lg w-full mx-4">
+                        <div className="flex items-center justify-between mb-4">
+                            <h3 className="text-lg font-semibold text-gray-900" style={{ fontFamily: '"Instrument Sans", sans-serif' }}>
+                                QR Code for Your Listing
+                            </h3>
+                            <button
+                                onClick={() => { setShowQrModal(false); setQrListing(null); }}
+                                className="p-2 hover:bg-gray-100 rounded-lg"
+                            >
+                                <X className="w-5 h-5 text-gray-400" />
+                            </button>
+                        </div>
+
+                        <div className="text-center">
+                            {/* QR Code Preview */}
+                            <div className="bg-gray-50 rounded-xl p-6 mb-4">
+                                <img
+                                    src={route('dashboard.listings.qrcode.preview', qrListing.id)}
+                                    alt={`QR Code for ${qrListing.property_title}`}
+                                    className="w-48 h-48 mx-auto"
+                                />
+                            </div>
+
+                            <h4 className="font-medium text-gray-900 mb-1">{qrListing.property_title}</h4>
+                            <p className="text-sm text-gray-500 mb-4">
+                                {qrListing.address}, {qrListing.city}
+                            </p>
+
+                            <div className="bg-blue-50 rounded-xl p-4 mb-6 text-left">
+                                <h5 className="font-medium text-blue-900 mb-2 flex items-center gap-2">
+                                    <QrCode className="w-4 h-4" />
+                                    How to Use Your QR Code
+                                </h5>
+                                <ul className="text-sm text-blue-800 space-y-1">
+                                    <li>• Print on yard signs for drive-by traffic</li>
+                                    <li>• Include in flyers and brochures</li>
+                                    <li>• SVG format - scales perfectly to any size</li>
+                                    <li>• Scans are tracked in your analytics</li>
+                                </ul>
+                            </div>
+
+                            <a
+                                href={route('dashboard.listings.qrcode', qrListing.id)}
+                                download={`qr-${qrListing.id}.svg`}
+                                className="inline-flex items-center gap-2 bg-[#A41E34] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#8B1A2C] transition-colors"
+                            >
+                                <Download className="w-5 h-5" />
+                                Download QR Code (SVG)
+                            </a>
                         </div>
                     </div>
                 </div>

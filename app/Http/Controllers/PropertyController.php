@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Property;
+use App\Models\QrScan;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -117,15 +118,32 @@ class PropertyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Property $property)
+    public function show(Request $request, Property $property)
     {
         // Redirect to SEO-friendly URL with slug if accessed by ID only
         $currentPath = request()->path();
         $expectedPath = 'properties/' . $property->slug;
 
         if ($currentPath !== $expectedPath) {
-            return redirect()->to('/' . $expectedPath, 301);
+            // Preserve query parameters in redirect
+            $queryString = $request->getQueryString();
+            $redirectUrl = '/' . $expectedPath . ($queryString ? '?' . $queryString : '');
+            return redirect()->to($redirectUrl, 301);
         }
+
+        // Track QR code scans
+        if ($request->query('src') === 'qr') {
+            QrScan::create([
+                'property_id' => $property->id,
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'referer' => $request->header('referer'),
+                'scanned_at' => now(),
+            ]);
+        }
+
+        // Increment view count
+        $property->incrementViews();
 
         return Inertia::render('PropertyDetail', [
             'property' => $property

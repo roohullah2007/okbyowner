@@ -23,14 +23,16 @@ class UserDashboardController extends Controller
         $properties = $user->properties()->latest()->take(5)->get();
 
         // Get stats
+        $propertyIds = $user->properties()->pluck('id');
         $stats = [
             'total_listings' => $user->properties()->count(),
             'active_listings' => $user->properties()->where('is_active', true)->where('approval_status', 'approved')->count(),
             'pending_listings' => $user->properties()->where('approval_status', 'pending')->count(),
             'total_views' => $user->properties()->sum('views'),
-            'total_inquiries' => Inquiry::whereIn('property_id', $user->properties()->pluck('id'))->count(),
-            'unread_inquiries' => Inquiry::whereIn('property_id', $user->properties()->pluck('id'))->where('status', 'new')->count(),
+            'total_inquiries' => Inquiry::whereIn('property_id', $propertyIds)->count(),
+            'unread_inquiries' => Inquiry::whereIn('property_id', $propertyIds)->where('status', 'new')->count(),
             'saved_properties' => $user->favorites()->count(),
+            'total_qr_scans' => \App\Models\QrScan::whereIn('property_id', $propertyIds)->count(),
         ];
 
         // Get recent inquiries (messages) for user's properties
@@ -79,7 +81,7 @@ class UserDashboardController extends Controller
             }
         }
 
-        $listings = $query->withCount('inquiries')
+        $listings = $query->withCount(['inquiries', 'qrScans'])
             ->latest()
             ->paginate(10)
             ->withQueryString();

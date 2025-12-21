@@ -25,7 +25,10 @@
       "Bash(if not exist \"F:\\OKByOwner\\storage\\app\\public\\properties\" mkdir \"F:\\OKByOwner\\storage\\app\\public\\properties\")",
       "Bash(php -r:*)",
       "Bash(del \"F:\\\\OKByOwner\\\\resources\\\\js\\\\Pages\\\\Admin\\\\Properties\\\\Edit.jsx\")",
-      "Bash(cmd /c \"del F:\\\\OKByOwner\\\\resources\\\\js\\\\Pages\\\\Admin\\\\Properties\\\\Edit.jsx\")"
+      "Bash(cmd /c \"del F:\\\\OKByOwner\\\\resources\\\\js\\\\Pages\\\\Admin\\\\Properties\\\\Edit.jsx\")",
+      "WebFetch(domain:tandmmortgages.morty.com)",
+      "Bash(php:*)",
+      "Bash(findstr:*)"
     ],
     "deny": [],
     "ask": []

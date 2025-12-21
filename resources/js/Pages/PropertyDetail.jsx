@@ -324,8 +324,30 @@ function PropertyDetail({ property }) {
         </div>
       </section>
 
+      {/* Mobile Sticky CTA Bar */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-50 shadow-lg safe-bottom">
+        <div className="flex gap-3">
+          <a
+            href={`tel:${property.contact_phone}`}
+            className="flex-1 flex items-center justify-center gap-2 bg-[#A41E34] text-white py-3 px-4 rounded-xl font-semibold hover:bg-[#8B1A2C] transition-colors"
+            style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+          >
+            <Phone className="w-5 h-5" />
+            Call Now
+          </a>
+          <button
+            onClick={() => setShowContactForm(true)}
+            className="flex-1 flex items-center justify-center gap-2 bg-[#111] text-white py-3 px-4 rounded-xl font-semibold hover:bg-[#333] transition-colors"
+            style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+          >
+            <Mail className="w-5 h-5" />
+            Message
+          </button>
+        </div>
+      </div>
+
       {/* Property Details */}
-      <section className="bg-[#EEEDEA] py-12">
+      <section className="bg-[#EEEDEA] py-12 pb-32 lg:pb-12">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main Content */}

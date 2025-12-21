@@ -21,6 +21,7 @@ import {
     MoreVertical,
     Edit,
     ExternalLink,
+    QrCode,
 } from 'lucide-react';
 
 function Dashboard({ properties = [], stats = {}, recentInquiries = [] }) {
@@ -41,6 +42,7 @@ function Dashboard({ properties = [], stats = {}, recentInquiries = [] }) {
         { label: 'Active Listings', value: stats.active_listings || 0, icon: Home, color: 'bg-blue-500', subtext: `${stats.pending_listings || 0} pending approval` },
         { label: 'Total Views', value: stats.total_views || 0, icon: Eye, color: 'bg-green-500', subtext: 'All time views' },
         { label: 'Messages', value: stats.total_inquiries || 0, icon: MessageSquare, color: 'bg-purple-500', subtext: `${stats.unread_inquiries || 0} unread` },
+        { label: 'QR Scans', value: stats.total_qr_scans || 0, icon: QrCode, color: 'bg-orange-500', subtext: 'From yard signs' },
         { label: 'Saved Properties', value: stats.saved_properties || 0, icon: Heart, color: 'bg-red-500', subtext: 'Properties saved' },
     ];
 
@@ -200,7 +202,7 @@ function Dashboard({ properties = [], stats = {}, recentInquiries = [] }) {
                     </div>
 
                     {/* Stats Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 lg:gap-6 mb-8">
                         {statCards.map((stat, index) => (
                             <div
                                 key={index}

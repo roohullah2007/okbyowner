@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\AdminActivityController;
 use App\Http\Controllers\BuyerInquiryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\InquiryController;
+use App\Http\Controllers\QrCodeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -52,6 +53,10 @@ Route::get('/contact', function () {
 Route::get('/faqs', function () {
     return Inertia::render('FAQs');
 })->name('faqs');
+
+Route::get('/mortgages', function () {
+    return Inertia::render('Mortgages');
+})->name('mortgages');
 
 Route::get('/list-property', function () {
     return Inertia::render('ListProperty');
@@ -96,6 +101,10 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')-
     Route::get('/listings/{property}/upgrade', [UserDashboardController::class, 'showUpgradeOptions'])->name('.listings.upgrade');
     Route::post('/listings/{property}/upgrade', [UserDashboardController::class, 'submitUpgradeRequest'])->name('.listings.upgrade.submit');
     Route::post('/service-requests/{serviceRequest}/cancel', [UserDashboardController::class, 'cancelUpgradeRequest'])->name('.service-requests.cancel');
+
+    // QR Code Generation (Authenticated - for property owners)
+    Route::get('/listings/{property}/qrcode', [QrCodeController::class, 'generate'])->name('.listings.qrcode');
+    Route::get('/listings/{property}/qrcode/preview', [QrCodeController::class, 'preview'])->name('.listings.qrcode.preview');
 });
 
 // User Profile routes

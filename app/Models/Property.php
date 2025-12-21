@@ -151,6 +151,14 @@ class Property extends Model
     }
 
     /**
+     * Get QR code scans for this property
+     */
+    public function qrScans(): HasMany
+    {
+        return $this->hasMany(QrScan::class);
+    }
+
+    /**
      * Scope for active properties
      */
     public function scopeActive($query)

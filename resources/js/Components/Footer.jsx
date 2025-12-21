@@ -81,6 +81,7 @@ const Footer = () => {
               {[
                 { label: 'For Sellers', href: '/sellers' },
                 { label: 'For Buyers', href: '/buyers' },
+                { label: 'Mortgage Info', href: '/mortgages' },
                 { label: 'About Us', href: '/about' },
                 { label: 'Privacy Policy', href: '/privacy-policy' },
                 { label: 'Terms of Use', href: '/terms-of-use' }
