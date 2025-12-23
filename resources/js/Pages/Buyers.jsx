@@ -1,6 +1,6 @@
 import React from 'react';
 import { Head, Link } from '@inertiajs/react';
-import { Search, Home, DollarSign, Shield, Clock, CheckCircle, Users, ChevronRight, FileCheck, Building, Calculator, ClipboardCheck, Key, BadgeCheck } from 'lucide-react';
+import { Search, Home, DollarSign, Shield, Clock, CheckCircle, Users, ChevronRight, FileCheck, Building, Calculator, ClipboardCheck, Key, BadgeCheck, Percent, Handshake, FileText } from 'lucide-react';
 import MainLayout from '@/Layouts/MainLayout';
 
 function Buyers() {
@@ -8,7 +8,7 @@ function Buyers() {
     {
       step: '01',
       title: 'Browse Properties',
-      description: 'Search our extensive database of properties for sale by owner across Oklahoma.'
+      description: 'Search our database of properties for sale by owner across Oklahoma.'
     },
     {
       step: '02',
@@ -18,7 +18,7 @@ function Buyers() {
     {
       step: '03',
       title: 'Make an Offer',
-      description: 'Negotiate directly with owners and make your offer without agent interference. If you\'re financing the property, make sure you\'re pre-approved.'
+      description: 'Negotiate directly with owners and make your offer. If you\'re financing the property, make sure you\'re Pre-approved.'
     },
     {
       step: '04',
@@ -50,7 +50,7 @@ function Buyers() {
     {
       icon: FileCheck,
       title: 'Get Pre-Approved First',
-      description: 'Before you start house hunting, get pre-approved for a mortgage. This tells sellers you\'re serious and shows exactly what you can afford.'
+      description: 'Before you start house hunting, get pre-approved with T&M Mortgages. It takes 15 minutes online and tells sellers you\'re a serious buyer.'
     },
     {
       icon: Calculator,
@@ -88,7 +88,7 @@ function Buyers() {
     {
       step: '02',
       title: 'Gather Your Documents',
-      description: 'Collect pay stubs, W-2s, tax returns, bank statements, and identification. Self-employed buyers may need additional documentation.'
+      description: 'Collect pay stubs, W-2s, tax returns, bank statements, and identification.'
     },
     {
       step: '03',
@@ -135,7 +135,7 @@ function Buyers() {
                 className="text-white text-[14px] md:text-[16px] font-medium mb-8 leading-relaxed max-w-2xl drop-shadow-lg"
                 style={{ fontFamily: 'Instrument Sans, sans-serif' }}
               >
-                Browse thousands of properties for sale by owner across Oklahoma. Buy direct from owners, save on commissions, and negotiate your best deal.
+                Browse properties for sale by owner across Oklahoma. Negotiate your best deal, and save on commissions.
               </p>
 
               {/* CTA Buttons */}
@@ -218,7 +218,7 @@ function Buyers() {
       {/* Stats Section */}
       <section className="bg-[#EEEDEA] py-16 md:py-20">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left Side - Content */}
             <div>
               {/* Badge */}
@@ -241,42 +241,25 @@ function Buyers() {
                 className="text-[14px] text-[#666] font-medium mb-8 leading-relaxed"
                 style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 500 }}
               >
-                Join thousands of buyers who have found their dream homes and saved thousands buying homes By Owner.
+                Join other buyers who have found their dream homes and saved thousands by buying homes By Owner.
               </p>
 
-              {/* Buttons */}
-              <div className="flex flex-wrap gap-3">
-                <Link
-                  href="/properties"
-                  className="inline-flex items-center gap-[0.4rem] bg-[#A41E34] text-white rounded-full px-5 py-[0.875rem] font-medium leading-[120%] transition-all duration-[400ms] ease-[cubic-bezier(0.645,0.045,0.355,1)] hover:bg-[#8B1A2C]"
-                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-                >
-                  <span>View Properties</span>
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <mask id="mask0_56_2205" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
-                      <rect width="20" height="20" transform="matrix(-1 0 0 1 20 0)" fill="#D9D9D9"/>
-                    </mask>
-                    <g mask="url(#mask0_56_2205)">
-                      <path d="M13.459 10.8334L11.084 13.2084C10.9173 13.3751 10.8375 13.5695 10.8444 13.7918C10.8513 14.014 10.9312 14.2084 11.084 14.3751C11.2507 14.5418 11.4486 14.6286 11.6777 14.6355C11.9069 14.6425 12.1048 14.5626 12.2715 14.3959L16.084 10.5834C16.2507 10.4168 16.334 10.2223 16.334 10.0001C16.334 9.77787 16.2507 9.58343 16.084 9.41676L12.2715 5.60426C12.1048 5.43759 11.9069 5.35773 11.6777 5.36467C11.4486 5.37162 11.2507 5.45842 11.084 5.62509C10.9312 5.79176 10.8513 5.9862 10.8444 6.20842C10.8375 6.43065 10.9173 6.62509 11.084 6.79176L13.459 9.16676H4.16732C3.93121 9.16676 3.73329 9.24662 3.57357 9.40634C3.41385 9.56606 3.33398 9.76398 3.33398 10.0001C3.33398 10.2362 3.41385 10.4341 3.57357 10.5938C3.73329 10.7536 3.93121 10.8334 4.16732 10.8334H13.459Z" fill="white"/>
-                    </g>
-                  </svg>
-                </Link>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-[0.4rem] bg-transparent border border-[#D0CCC7] text-[#111] rounded-full px-5 py-[0.875rem] font-medium leading-[120%] transition-all duration-[400ms] ease-[cubic-bezier(0.645,0.045,0.355,1)] hover:bg-[#E5E1DC]"
-                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-                >
-                  <span>Contact Us</span>
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <mask id="mask0_56_2206" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
-                      <rect width="20" height="20" transform="matrix(-1 0 0 1 20 0)" fill="#D9D9D9"/>
-                    </mask>
-                    <g mask="url(#mask0_56_2206)">
-                      <path d="M13.459 10.8334L11.084 13.2084C10.9173 13.3751 10.8375 13.5695 10.8444 13.7918C10.8513 14.014 10.9312 14.2084 11.084 14.3751C11.2507 14.5418 11.4486 14.6286 11.6777 14.6355C11.9069 14.6425 12.1048 14.5626 12.2715 14.3959L16.084 10.5834C16.2507 10.4168 16.334 10.2223 16.334 10.0001C16.334 9.77787 16.2507 9.58343 16.084 9.41676L12.2715 5.60426C12.1048 5.43759 11.9069 5.35773 11.6777 5.36467C11.4486 5.37162 11.2507 5.45842 11.084 5.62509C10.9312 5.79176 10.8513 5.9862 10.8444 6.20842C10.8375 6.43065 10.9173 6.62509 11.084 6.79176L13.459 9.16676H4.16732C3.93121 9.16676 3.73329 9.24662 3.57357 9.40634C3.41385 9.56606 3.33398 9.76398 3.33398 10.0001C3.33398 10.2362 3.41385 10.4341 3.57357 10.5938C3.73329 10.7536 3.93121 10.8334 4.16732 10.8334H13.459Z" fill="currentColor"/>
-                    </g>
-                  </svg>
-                </Link>
-              </div>
+              {/* Button */}
+              <Link
+                href="/properties"
+                className="inline-flex items-center gap-[0.4rem] bg-[#A41E34] text-white rounded-full px-5 py-[0.875rem] font-medium leading-[120%] transition-all duration-[400ms] ease-[cubic-bezier(0.645,0.045,0.355,1)] hover:bg-[#8B1A2C]"
+                style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+              >
+                <span>View Properties</span>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <mask id="mask0_56_2205" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+                    <rect width="20" height="20" transform="matrix(-1 0 0 1 20 0)" fill="#D9D9D9"/>
+                  </mask>
+                  <g mask="url(#mask0_56_2205)">
+                    <path d="M13.459 10.8334L11.084 13.2084C10.9173 13.3751 10.8375 13.5695 10.8444 13.7918C10.8513 14.014 10.9312 14.2084 11.084 14.3751C11.2507 14.5418 11.4486 14.6286 11.6777 14.6355C11.9069 14.6425 12.1048 14.5626 12.2715 14.3959L16.084 10.5834C16.2507 10.4168 16.334 10.2223 16.334 10.0001C16.334 9.77787 16.2507 9.58343 16.084 9.41676L12.2715 5.60426C12.1048 5.43759 11.9069 5.35773 11.6777 5.36467C11.4486 5.37162 11.2507 5.45842 11.084 5.62509C10.9312 5.79176 10.8513 5.9862 10.8444 6.20842C10.8375 6.43065 10.9173 6.62509 11.084 6.79176L13.459 9.16676H4.16732C3.93121 9.16676 3.73329 9.24662 3.57357 9.40634C3.41385 9.56606 3.33398 9.76398 3.33398 10.0001C3.33398 10.2362 3.41385 10.4341 3.57357 10.5938C3.73329 10.7536 3.93121 10.8334 4.16732 10.8334H13.459Z" fill="white"/>
+                  </g>
+                </svg>
+              </Link>
             </div>
 
             {/* Right Side - Image Grid */}
@@ -349,36 +332,32 @@ function Buyers() {
                     {item.description}
                   </p>
                 </div>
-                {index < howItWorks.length - 1 && (
-                  <div className="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
-                    <ChevronRight className="w-6 h-6 text-[#D0CCC7]" />
-                  </div>
-                )}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Pre-Approval Section */}
+      {/* Pre-Approval Section - T&M Mortgages Integration */}
       <section className="bg-[#EEEDEA] py-16 md:py-20">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           {/* Section Header */}
           <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 bg-[#E5E1DC] rounded-lg px-4 py-2 mb-6">
+            <div className="inline-flex items-center bg-[#E5E1DC] rounded-lg px-4 py-2 mb-6">
               <span className="text-[#666] text-sm font-medium" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
                 Get Ready to Buy
               </span>
             </div>
             <h2 className="text-[32px] md:text-[48px] font-medium text-[#111] mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-              Get Pre-Approved for a Mortgage
+              Get Pre-Approved with T&M Mortgage
             </h2>
             <p className="text-[16px] text-[#666] font-medium max-w-2xl mx-auto" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-              Pre-approval is the first step to becoming a competitive buyer. It shows sellers you're serious and ready to close.
+              Pre-approval is the first step to becoming a competitive buyer.<br />
+              It shows sellers you're serious and ready to close.
             </p>
           </div>
 
-          {/* Pre-Approval Steps */}
+          {/* Pre-Approval Steps Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {preApprovalSteps.map((item, index) => (
               <div key={index} className="relative">
@@ -393,62 +372,76 @@ function Buyers() {
                     {item.description}
                   </p>
                 </div>
-                {index < preApprovalSteps.length - 1 && (
-                  <div className="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
-                    <ChevronRight className="w-6 h-6 text-[#D0CCC7]" />
-                  </div>
-                )}
               </div>
             ))}
           </div>
 
-          {/* Pre-Approval Benefits Box */}
-          <div className="bg-white rounded-2xl p-8 md:p-10">
+          {/* Pre-Approval CTA Box */}
+          <div className="bg-gradient-to-br from-[#A41E34] to-[#7A1628] rounded-3xl p-8 md:p-12 text-white">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
-                <h3 className="text-2xl font-medium text-[#111] mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                  Why Pre-Approval Matters
+                <h3 className="text-2xl md:text-3xl font-medium mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  Ready to Get Pre-Approved?
                 </h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-[#A41E34] flex-shrink-0 mt-0.5" />
-                    <span className="text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Know exactly how much home you can afford</span>
+                <p className="text-white/80 mb-6 leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  Take the first step toward homeownership. Our simple online application takes just 15 minutes and won't impact your credit score.
+                </p>
+                <ul className="space-y-3 mb-6">
+                  <li className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-300 flex-shrink-0" />
+                    <span className="text-white/90" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Know your exact budget before you shop</span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-[#A41E34] flex-shrink-0 mt-0.5" />
-                    <span className="text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Stand out to sellers as a serious buyer</span>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-300 flex-shrink-0" />
+                    <span className="text-white/90" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Show sellers you're a serious buyer</span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-[#A41E34] flex-shrink-0 mt-0.5" />
-                    <span className="text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Lock in interest rates before they change</span>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-300 flex-shrink-0" />
+                    <span className="text-white/90" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Lock in your rate before it changes</span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-[#A41E34] flex-shrink-0 mt-0.5" />
-                    <span className="text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Speed up the closing process when you find your home</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-[#A41E34] flex-shrink-0 mt-0.5" />
-                    <span className="text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Identify and fix credit issues before they delay your purchase</span>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-300 flex-shrink-0" />
+                    <span className="text-white/90" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Close faster when you find your home</span>
                   </li>
                 </ul>
+                <a
+                  href="https://tandmmortgages.morty.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-white text-[#A41E34] rounded-full px-8 py-4 font-semibold hover:bg-gray-100 transition-all duration-300"
+                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                >
+                  Get Pre-Approved Now
+                  <ChevronRight className="w-5 h-5" />
+                </a>
               </div>
-              <div className="bg-[#EEEDEA] rounded-xl p-6">
-                <div className="text-center">
-                  <BadgeCheck className="w-12 h-12 text-[#A41E34] mx-auto mb-4" />
-                  <h4 className="text-lg font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                    Not Working with an Agent?
-                  </h4>
-                  <p className="text-sm text-[#666] mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                    We can set you up in the MLS so you'll be the first to know about new listings that match your criteria.
-                  </p>
-                  <Link
-                    href="/properties"
-                    className="inline-flex items-center gap-2 bg-[#A41E34] text-white rounded-full px-6 py-3 font-medium transition-all duration-300 hover:bg-[#8B1A2C]"
-                    style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-                  >
-                    Sign Up for Alerts
-                    <ChevronRight className="w-4 h-4" />
-                  </Link>
+              <div className="space-y-4">
+                <div className="flex items-center gap-4 bg-white/10 rounded-xl p-5">
+                  <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <FileText className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-lg" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Simple Online Application</p>
+                    <p className="text-white/70 text-sm" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Complete from your phone or computer - no paperwork</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 bg-white/10 rounded-xl p-5">
+                  <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Shield className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-lg" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>No Credit Score Impact</p>
+                    <p className="text-white/70 text-sm" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Soft pull for pre-qualification, no hard inquiry</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 bg-white/10 rounded-xl p-5">
+                  <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Users className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-lg" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Personal Support</p>
+                    <p className="text-white/70 text-sm" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Real loan officers ready to answer your questions</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -511,7 +504,7 @@ function Buyers() {
                 Frequently Asked<br />Questions
               </h2>
               <p className="text-[16px] text-[#666] font-medium leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                Have questions? We've got answers. Learn more about buying properties through OKByOwner.
+                Have questions? We've got answers. Learn more about buying properties through OK BY OWNER.
               </p>
             </div>
 

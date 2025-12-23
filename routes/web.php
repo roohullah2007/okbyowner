@@ -105,6 +105,9 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')-
     // QR Code Generation (Authenticated - for property owners)
     Route::get('/listings/{property}/qrcode', [QrCodeController::class, 'generate'])->name('.listings.qrcode');
     Route::get('/listings/{property}/qrcode/preview', [QrCodeController::class, 'preview'])->name('.listings.qrcode.preview');
+
+    // Order Free Materials (Stickers, Yard Signs)
+    Route::post('/listings/{property}/order', [UserDashboardController::class, 'submitOrder'])->name('.listings.order');
 });
 
 // User Profile routes

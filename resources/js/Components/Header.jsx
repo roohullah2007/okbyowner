@@ -157,7 +157,7 @@ const Header = () => {
                 href="/list-property"
                 className="hidden sm:flex items-center justify-start gap-1.5 bg-[#000000] text-gray-100 rounded-full py-2.5 px-6 lg:px-8 font-medium text-sm leading-[120%] transition-[background-color] duration-[400ms] ease-[cubic-bezier(0.645,0.045,0.355,1)] hover:bg-[#111111]"
               >
-                <span className="hidden md:inline">List Property</span>
+                <span className="hidden md:inline">List Your Property</span>
                 <span className="md:hidden">List</span>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <mask id="mask0_56_2205" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
@@ -317,7 +317,7 @@ const Header = () => {
                   className="block sm:hidden mt-2 text-center bg-[#A41E34] text-white rounded-full py-3 px-6 font-medium transition-all duration-300 hover:bg-[#8B1A2C]"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  List Property
+                  List Your Property
                 </Link>
               </div>
             </nav>

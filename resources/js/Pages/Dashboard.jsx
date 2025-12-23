@@ -35,15 +35,14 @@ function Dashboard({ properties = [], stats = {}, recentInquiries = [] }) {
         { name: 'Messages', href: route('dashboard.messages'), icon: MessageSquare, current: route().current('dashboard.messages'), badge: stats.unread_inquiries || 0 },
         { name: 'Saved Properties', href: route('dashboard.favorites'), icon: Heart, current: route().current('dashboard.favorites') },
         { name: 'Profile', href: route('profile.edit'), icon: User, current: route().current('profile.edit') },
-        { name: 'Settings', href: route('profile.edit'), icon: Settings, current: false },
     ];
 
     const statCards = [
-        { label: 'Active Listings', value: stats.active_listings || 0, icon: Home, color: 'bg-blue-500', subtext: `${stats.pending_listings || 0} pending approval` },
-        { label: 'Total Views', value: stats.total_views || 0, icon: Eye, color: 'bg-green-500', subtext: 'All time views' },
-        { label: 'Messages', value: stats.total_inquiries || 0, icon: MessageSquare, color: 'bg-purple-500', subtext: `${stats.unread_inquiries || 0} unread` },
-        { label: 'QR Scans', value: stats.total_qr_scans || 0, icon: QrCode, color: 'bg-orange-500', subtext: 'From yard signs' },
-        { label: 'Saved Properties', value: stats.saved_properties || 0, icon: Heart, color: 'bg-red-500', subtext: 'Properties saved' },
+        { label: 'Active Listings', value: stats.active_listings || 0, icon: Home, subtext: `${stats.pending_listings || 0} pending approval` },
+        { label: 'Total Views', value: stats.total_views || 0, icon: Eye, subtext: 'All time views' },
+        { label: 'Messages', value: stats.total_inquiries || 0, icon: MessageSquare, subtext: `${stats.unread_inquiries || 0} unread` },
+        { label: 'QR Scans', value: stats.total_qr_scans || 0, icon: QrCode, subtext: 'From yard signs' },
+        { label: 'Saved Properties', value: stats.saved_properties || 0, icon: Heart, subtext: 'Properties saved' },
     ];
 
     const getStatusColor = (status) => {
@@ -148,7 +147,7 @@ function Dashboard({ properties = [], stats = {}, recentInquiries = [] }) {
                                     <span className={`ml-auto px-2 py-0.5 text-xs rounded-full ${
                                         item.current
                                             ? 'bg-white/20 text-white'
-                                            : 'bg-[#A41E34] text-white'
+                                            : 'bg-gray-900 text-white'
                                     }`}>
                                         {item.badge}
                                     </span>
@@ -209,8 +208,8 @@ function Dashboard({ properties = [], stats = {}, recentInquiries = [] }) {
                                 className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
                             >
                                 <div className="flex items-start justify-between mb-4">
-                                    <div className={`${stat.color} p-3 rounded-xl`}>
-                                        <stat.icon className="w-6 h-6 text-white" />
+                                    <div className="bg-gray-100 p-3 rounded-xl">
+                                        <stat.icon className="w-6 h-6 text-gray-600" />
                                     </div>
                                     {stat.value > 0 && <TrendingUp className="w-5 h-5 text-green-500" />}
                                 </div>
@@ -268,8 +267,8 @@ function Dashboard({ properties = [], stats = {}, recentInquiries = [] }) {
                                 <div className="divide-y divide-gray-100">
                                     {properties.map((listing) => (
                                         <div key={listing.id} className="p-4 lg:p-6 hover:bg-gray-50 transition-colors">
-                                            <div className="flex gap-4">
-                                                <div className="w-24 h-24 lg:w-32 lg:h-24 bg-gray-200 rounded-xl overflow-hidden flex-shrink-0">
+                                            <div className="flex gap-4 h-[120px]">
+                                                <div className="w-28 sm:w-36 h-full bg-gray-200 rounded-xl overflow-hidden flex-shrink-0">
                                                     <img
                                                         src={listing.photos?.[0] || '/images/property-placeholder.jpg'}
                                                         alt={listing.property_title}

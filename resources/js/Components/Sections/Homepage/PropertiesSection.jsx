@@ -1,124 +1,8 @@
 import React, { useState } from 'react';
-import { Link, router } from '@inertiajs/react';
-import { ChevronLeft, ChevronRight, Maximize2, Heart, Info, MapPin } from 'lucide-react';
-
-const PropertyCard = ({ property }) => {
-  const [isFavorite, setIsFavorite] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-      return favorites.includes(property.id);
-    }
-    return false;
-  });
-
-  const handleMaximize = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    window.open(`/properties/${property.slug || property.id}`, '_blank');
-  };
-
-  const handleFavorite = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-    if (isFavorite) {
-      const newFavorites = favorites.filter(id => id !== property.id);
-      localStorage.setItem('favorites', JSON.stringify(newFavorites));
-      setIsFavorite(false);
-    } else {
-      favorites.push(property.id);
-      localStorage.setItem('favorites', JSON.stringify(favorites));
-      setIsFavorite(true);
-    }
-  };
-
-  const handleInfo = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    router.visit(`/properties/${property.slug || property.id}`);
-  };
-
-  const imageUrl = property.photos && property.photos.length > 0
-    ? property.photos[0]
-    : 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800';
-
-  return (
-    <Link href={`/properties/${property.slug || property.id}`} className="block">
-      <div className="bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 group border border-gray-200">
-        {/* Property Image */}
-        <div className="relative h-56 overflow-hidden">
-          <img
-            src={imageUrl}
-            alt={property.property_title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-          {/* FOR SALE Badge */}
-          <div className="absolute top-4 right-4 bg-[#413936] text-white px-3 py-1.5 text-xs font-medium rounded-full" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            FOR SALE
-          </div>
-
-          {/* Price and Action Buttons */}
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/75 via-black/40 to-transparent p-4">
-            <div className="flex items-center justify-between">
-              <span className="text-white text-2xl font-medium" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                ${Number(property.price).toLocaleString()}
-              </span>
-              <div className="flex gap-2">
-                <button
-                  onClick={handleMaximize}
-                  className="bg-white/90 hover:bg-white p-2 rounded-lg transition-all duration-300 hover:scale-105"
-                  title="Open in new tab"
-                >
-                  <Maximize2 className="w-4 h-4 text-gray-800" />
-                </button>
-                <button
-                  onClick={handleFavorite}
-                  className="bg-white/90 hover:bg-white p-2 rounded-lg transition-all duration-300 hover:scale-105"
-                  title={isFavorite ? "Remove from favorites" : "Add to favorites"}
-                >
-                  <Heart className={`w-4 h-4 ${isFavorite ? 'text-red-500 fill-red-500' : 'text-[#413936]'}`} />
-                </button>
-                <button
-                  onClick={handleInfo}
-                  className="bg-white/90 hover:bg-white p-2 rounded-lg transition-all duration-300 hover:scale-105"
-                  title="View details"
-                >
-                  <Info className="w-4 h-4 text-gray-800" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Property Details */}
-        <div className="p-5">
-          <h3 className="text-lg font-medium text-[#111] mb-1" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            {property.address}
-          </h3>
-          <p className="text-sm text-[#666] mb-4 flex items-center gap-1" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            <MapPin className="w-4 h-4 flex-shrink-0" />
-            {property.city}, {property.state || 'OK'} {property.zip_code}
-          </p>
-
-          {/* Property Stats */}
-          <div className="flex items-center gap-4 text-sm text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            <span className="flex items-center gap-1">
-              <span className="font-medium">{property.bedrooms}</span> Beds
-            </span>
-            <span className="text-gray-300">•</span>
-            <span className="flex items-center gap-1">
-              <span className="font-medium">{property.bathrooms}</span> Baths
-            </span>
-            <span className="text-gray-300">•</span>
-            <span className="flex items-center gap-1">
-              <span className="font-medium">{Number(property.sqft).toLocaleString()}</span> sqft
-            </span>
-          </div>
-        </div>
-      </div>
-    </Link>
-  );
-};
+import { Link } from '@inertiajs/react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import PropertyCard from '@/Components/PropertyCard';
+import AuthModal from '@/Components/AuthModal';
 
 // Sample properties for fallback
 const sampleProperties = [
@@ -198,11 +82,12 @@ const sampleProperties = [
 
 const PropertiesSection = ({ properties = [] }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   // Use real properties if available, otherwise fall back to sample data
   const displayProperties = properties.length > 0 ? properties : sampleProperties;
 
-  const propertiesPerSlide = 3;
+  const propertiesPerSlide = 4;
   const totalSlides = Math.ceil(displayProperties.length / propertiesPerSlide);
 
   const nextSlide = () => {
@@ -255,9 +140,13 @@ const PropertiesSection = ({ properties = [] }) => {
           )}
 
           {/* Property Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center">
             {getCurrentProperties().map((property) => (
-              <PropertyCard key={property.id} property={property} />
+              <PropertyCard
+                key={property.id}
+                property={property}
+                onAuthRequired={() => setShowAuthModal(true)}
+              />
             ))}
           </div>
 
@@ -297,6 +186,9 @@ const PropertiesSection = ({ properties = [] }) => {
           </Link>
         </div>
       </div>
+
+      {/* Auth Modal */}
+      <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
     </section>
   );
 };

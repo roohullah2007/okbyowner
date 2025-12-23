@@ -18,9 +18,15 @@ import {
     AlertCircle,
     QrCode,
     Download,
-    X
+    X,
+    Sticker,
+    SignpostBig,
+    Package,
+    Check,
+    Loader2
 } from 'lucide-react';
 import { useState } from 'react';
+import { useForm } from '@inertiajs/react';
 
 export default function Listings({ listings, filters = {}, counts = {} }) {
     const [search, setSearch] = useState(filters.search || '');
@@ -29,6 +35,50 @@ export default function Listings({ listings, filters = {}, counts = {} }) {
     const [deleting, setDeleting] = useState(false);
     const [showQrModal, setShowQrModal] = useState(false);
     const [qrListing, setQrListing] = useState(null);
+
+    // Order modals
+    const [showOrderModal, setShowOrderModal] = useState(false);
+    const [orderType, setOrderType] = useState(null); // 'stickers' or 'yard_sign'
+    const [orderListing, setOrderListing] = useState(null);
+    const [orderSuccess, setOrderSuccess] = useState(false);
+
+    const orderForm = useForm({
+        service_type: '',
+        shipping_name: '',
+        shipping_address: '',
+        shipping_city: '',
+        shipping_state: 'Oklahoma',
+        shipping_zip: '',
+        shipping_phone: '',
+        quantity: 2,
+        notes: '',
+    });
+
+    const openOrderModal = (listing, type) => {
+        setOrderListing(listing);
+        setOrderType(type);
+        setOrderSuccess(false);
+        orderForm.reset();
+        orderForm.setData('service_type', type);
+        setShowOrderModal(true);
+    };
+
+    const submitOrder = (e) => {
+        e.preventDefault();
+        orderForm.post(route('dashboard.listings.order', orderListing.id), {
+            onSuccess: () => {
+                setOrderSuccess(true);
+            },
+        });
+    };
+
+    const closeOrderModal = () => {
+        setShowOrderModal(false);
+        setOrderListing(null);
+        setOrderType(null);
+        setOrderSuccess(false);
+        orderForm.reset();
+    };
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -254,6 +304,20 @@ export default function Listings({ listings, filters = {}, counts = {} }) {
                                                 <QrCode className="w-3.5 h-3.5" />
                                                 QR Code
                                             </button>
+                                            <button
+                                                onClick={() => openOrderModal(listing, 'qr_stickers')}
+                                                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-orange-700 bg-orange-50 hover:bg-orange-100 rounded-lg transition-colors"
+                                            >
+                                                <Sticker className="w-3.5 h-3.5" />
+                                                Free Stickers
+                                            </button>
+                                            <button
+                                                onClick={() => openOrderModal(listing, 'yard_sign')}
+                                                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-green-700 bg-green-50 hover:bg-green-100 rounded-lg transition-colors"
+                                            >
+                                                <SignpostBig className="w-3.5 h-3.5" />
+                                                Free Yard Sign
+                                            </button>
                                             <Link
                                                 href={route('dashboard.listings.edit', listing.id)}
                                                 className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
@@ -397,6 +461,214 @@ export default function Listings({ listings, filters = {}, counts = {} }) {
                                 <Download className="w-5 h-5" />
                                 Download QR Code (SVG)
                             </a>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Order Stickers / Yard Sign Modal */}
+            {showOrderModal && orderListing && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+                        <div className="p-6">
+                            <div className="flex items-center justify-between mb-4">
+                                <h3 className="text-lg font-semibold text-gray-900" style={{ fontFamily: '"Instrument Sans", sans-serif' }}>
+                                    {orderType === 'qr_stickers' ? 'Order Free QR Stickers' : 'Order Free Yard Sign'}
+                                </h3>
+                                <button
+                                    onClick={closeOrderModal}
+                                    className="p-2 hover:bg-gray-100 rounded-lg"
+                                >
+                                    <X className="w-5 h-5 text-gray-400" />
+                                </button>
+                            </div>
+
+                            {orderSuccess ? (
+                                <div className="text-center py-8">
+                                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <Check className="w-8 h-8 text-green-600" />
+                                    </div>
+                                    <h4 className="text-xl font-semibold text-gray-900 mb-2">Order Submitted!</h4>
+                                    <p className="text-gray-500 mb-6">
+                                        {orderType === 'qr_stickers'
+                                            ? 'Your free QR stickers will be mailed to you within 3-5 business days.'
+                                            : 'Your free yard sign will be mailed to you within 5-7 business days.'
+                                        }
+                                    </p>
+                                    <button
+                                        onClick={closeOrderModal}
+                                        className="inline-flex items-center gap-2 bg-[#A41E34] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#8B1A2C] transition-colors"
+                                    >
+                                        Done
+                                    </button>
+                                </div>
+                            ) : (
+                                <>
+                                    {/* Property Info */}
+                                    <div className="bg-gray-50 rounded-xl p-4 mb-6">
+                                        <p className="text-sm text-gray-500">Ordering for:</p>
+                                        <p className="font-medium text-gray-900">{orderListing.property_title}</p>
+                                        <p className="text-sm text-gray-600">{orderListing.address}, {orderListing.city}</p>
+                                    </div>
+
+                                    {/* What You Get */}
+                                    <div className={`rounded-xl p-4 mb-6 ${orderType === 'qr_stickers' ? 'bg-orange-50' : 'bg-green-50'}`}>
+                                        <h5 className={`font-medium mb-2 flex items-center gap-2 ${orderType === 'qr_stickers' ? 'text-orange-900' : 'text-green-900'}`}>
+                                            {orderType === 'qr_stickers' ? <Sticker className="w-4 h-4" /> : <SignpostBig className="w-4 h-4" />}
+                                            What You'll Receive (FREE)
+                                        </h5>
+                                        <ul className={`text-sm space-y-1 ${orderType === 'qr_stickers' ? 'text-orange-800' : 'text-green-800'}`}>
+                                            {orderType === 'qr_stickers' ? (
+                                                <>
+                                                    <li>• Waterproof vinyl QR code stickers</li>
+                                                    <li>• 3" x 3" size - perfect for yard signs</li>
+                                                    <li>• Weather resistant for outdoor use</li>
+                                                    <li>• Links directly to your listing</li>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <li>• Professional 18" x 24" yard sign</li>
+                                                    <li>• Durable corrugated plastic</li>
+                                                    <li>• Metal H-frame stake included</li>
+                                                    <li>• QR code printed on sign</li>
+                                                    <li>• OK BY OWNER branding</li>
+                                                </>
+                                            )}
+                                        </ul>
+                                    </div>
+
+                                    <form onSubmit={submitOrder} className="space-y-4">
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Your Name *
+                                            </label>
+                                            <input
+                                                type="text"
+                                                value={orderForm.data.shipping_name}
+                                                onChange={(e) => orderForm.setData('shipping_name', e.target.value)}
+                                                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#A41E34]/20 focus:border-[#A41E34]"
+                                                required
+                                            />
+                                            {orderForm.errors.shipping_name && (
+                                                <p className="text-red-500 text-xs mt-1">{orderForm.errors.shipping_name}</p>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Street Address *
+                                            </label>
+                                            <input
+                                                type="text"
+                                                value={orderForm.data.shipping_address}
+                                                onChange={(e) => orderForm.setData('shipping_address', e.target.value)}
+                                                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#A41E34]/20 focus:border-[#A41E34]"
+                                                required
+                                            />
+                                            {orderForm.errors.shipping_address && (
+                                                <p className="text-red-500 text-xs mt-1">{orderForm.errors.shipping_address}</p>
+                                            )}
+                                        </div>
+
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                    City *
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    value={orderForm.data.shipping_city}
+                                                    onChange={(e) => orderForm.setData('shipping_city', e.target.value)}
+                                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#A41E34]/20 focus:border-[#A41E34]"
+                                                    required
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                    ZIP Code *
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    value={orderForm.data.shipping_zip}
+                                                    onChange={(e) => orderForm.setData('shipping_zip', e.target.value)}
+                                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#A41E34]/20 focus:border-[#A41E34]"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Phone Number *
+                                            </label>
+                                            <input
+                                                type="tel"
+                                                value={orderForm.data.shipping_phone}
+                                                onChange={(e) => orderForm.setData('shipping_phone', e.target.value)}
+                                                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#A41E34]/20 focus:border-[#A41E34]"
+                                                required
+                                            />
+                                        </div>
+
+                                        {orderType === 'qr_stickers' && (
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                    Quantity
+                                                </label>
+                                                <select
+                                                    value={orderForm.data.quantity}
+                                                    onChange={(e) => orderForm.setData('quantity', parseInt(e.target.value))}
+                                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#A41E34]/20 focus:border-[#A41E34]"
+                                                >
+                                                    <option value={2}>2 stickers</option>
+                                                    <option value={4}>4 stickers</option>
+                                                    <option value={6}>6 stickers</option>
+                                                </select>
+                                            </div>
+                                        )}
+
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Special Instructions (optional)
+                                            </label>
+                                            <textarea
+                                                value={orderForm.data.notes}
+                                                onChange={(e) => orderForm.setData('notes', e.target.value)}
+                                                rows={2}
+                                                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#A41E34]/20 focus:border-[#A41E34]"
+                                                placeholder="Any special delivery instructions..."
+                                            />
+                                        </div>
+
+                                        <div className="flex gap-3 pt-2">
+                                            <button
+                                                type="button"
+                                                onClick={closeOrderModal}
+                                                className="flex-1 px-4 py-3 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium transition-colors"
+                                            >
+                                                Cancel
+                                            </button>
+                                            <button
+                                                type="submit"
+                                                disabled={orderForm.processing}
+                                                className="flex-1 inline-flex items-center justify-center gap-2 bg-[#A41E34] text-white px-4 py-3 rounded-xl font-semibold hover:bg-[#8B1A2C] transition-colors disabled:opacity-50"
+                                            >
+                                                {orderForm.processing ? (
+                                                    <>
+                                                        <Loader2 className="w-4 h-4 animate-spin" />
+                                                        Submitting...
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <Package className="w-4 h-4" />
+                                                        Submit Order
+                                                    </>
+                                                )}
+                                            </button>
+                                        </div>
+                                    </form>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>

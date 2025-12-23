@@ -8,26 +8,26 @@ function Sellers() {
     {
       step: '01',
       icon: FileText,
-      title: 'Create Your Listing',
-      description: 'Fill out our simple form with property details, upload photos, and set your price.'
+      title: 'Create Your FREE Listing',
+      description: 'Sign up to list your property, upload photos, and post open houses. ALL buyer inquiries go directly to you.'
     },
     {
       step: '02',
       icon: Megaphone,
-      title: 'Get Promoted',
-      description: 'Your listing goes live instantly and gets promoted to thousands of active buyers.'
+      title: 'Market Your Property',
+      description: 'We promote your listing across our platform and optional MLS syndications for maximum visibility. Share your listing on social media.'
     },
     {
       step: '03',
       icon: Users,
       title: 'Connect with Buyers',
-      description: 'Receive inquiries directly. Schedule showings and answer questions on your terms.'
+      description: 'Receive inquiries directly from interested buyers. Communicate and schedule showings on your terms.'
     },
     {
       step: '04',
       icon: Handshake,
       title: 'Close the Deal',
-      description: 'Accept an offer and work with a closing attorney to complete the sale.'
+      description: 'Accept an offer, execute the contract, and work with a closing company to close the deal. Keep more of your equity!'
     }
   ];
 
@@ -116,12 +116,6 @@ function Sellers() {
       okByOwner: 'Yes - all inquiries to you',
       flatFee: 'Varies by service',
       traditional: 'Through agent only'
-    },
-    {
-      feature: 'Listing Duration',
-      okByOwner: 'Until sold',
-      flatFee: '6-12 months',
-      traditional: '6 month contract'
     }
   ];
 
@@ -129,32 +123,28 @@ function Sellers() {
 
   const faqs = [
     {
-      question: "How long has OKByOwner.com been around?",
-      answer: "We have been helping sellers market their homes since 1997."
+      question: "How much does it cost to list my property?",
+      answer: "Our basic listing is completely FREE forever. We also offer premium packages starting at $99 for additional exposure and marketing tools."
     },
     {
-      question: "Why is it free to list on OK By Owner?",
-      answer: "Unlike other national websites that let you list for free, only to give your buyer leads to paying real estate agents. Should you decide to upgrade to professional photos, multimedia, or the MLS, you'll use us, like hundreds of other successful for-sale-by-owners."
+      question: "Do I need a real estate license to sell my own home?",
+      answer: "No, homeowners can sell their own property without a license. We provide all the tools and guidance you need."
     },
     {
-      question: "What is the normal turnaround time after the photographer takes the photos? And do I own the multimedia?",
-      answer: "You can expect a 24-hour turnaround time. Yes, all multimedia is yours to share on other websites."
+      question: "How long does my listing stay active?",
+      answer: "Your free listing stays active until your property sells. Premium listings include priority placement and additional marketing."
     },
     {
-      question: "Why should I list on the MLS?",
-      answer: "Listing on the MLS dramatically increases your chances of getting your house sold faster. 96.5% of our sellers who have listed and sold on the MLS were referred by a buyer's agent who found the listing on the MLS."
+      question: "What is MLS syndication?",
+      answer: "MLS (Multiple Listing Service) syndication puts your property on the same platform real estate agents use, giving you maximum exposure to buyers and agents."
     },
     {
-      question: "Do I have to pay a buyer's agent a commission?",
-      answer: "No, all commissions are negotiable, as are the price and other terms of an offer. While some buyers may pay their agent directly, others prefer the commission to be paid by the seller, with the commission rolled into the price. It's worth noting that buyers may instruct their agent only to show properties where the seller offers a commission to the buyer's agent."
+      question: "Can I edit my listing after it's published?",
+      answer: "Yes! You can edit your listing anytime - update photos, change the price, or modify the description as needed."
     },
     {
-      question: "How long does it take for my property to be listed on the MLS?",
-      answer: "Once all paperwork is complete and photos are delivered, you will be listed within two business days. Once listed, you will receive a link to your listing with the MLS number. Payment will be due after you are listed. You can pay by Cash, Check, Credit Card, PayPal, Venmo, or Cash App."
-    },
-    {
-      question: "Can I cancel my MLS listing at any time?",
-      answer: "Yes. You can cancel your listing at any time if you are not under contract with an agent representing a buyer."
+      question: "What happens when I receive an offer?",
+      answer: "Buyers will contact you directly through our platform. You can review offers, negotiate terms, and accept the one that works best for you."
     }
   ];
 
@@ -259,7 +249,7 @@ function Sellers() {
               <div className="bg-[#E5E1DC] p-3 rounded-lg flex-shrink-0">
                 <Zap className="w-5 h-5 text-[#3D3D3D]" />
               </div>
-              <div className="text-left">
+              <div className="text-left whitespace-nowrap">
                 <div className="text-[#111] font-semibold text-base" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Free Listing</div>
                 <div className="text-[#666] text-sm" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>List for $0</div>
               </div>
@@ -268,25 +258,25 @@ function Sellers() {
               <div className="bg-[#E5E1DC] p-3 rounded-lg flex-shrink-0">
                 <Camera className="w-5 h-5 text-[#3D3D3D]" />
               </div>
-              <div className="text-left">
+              <div className="text-left whitespace-nowrap">
                 <div className="text-[#111] font-semibold text-base" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Photos & Media</div>
-                <div className="text-[#666] text-sm" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Professional Quality</div>
+                <div className="text-[#666] text-sm" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Pro Quality</div>
               </div>
             </div>
             <div className="flex items-start gap-3 bg-white rounded-xl px-6 py-4 hover:shadow-md transition-all duration-300">
               <div className="bg-[#E5E1DC] p-3 rounded-lg flex-shrink-0">
                 <BarChart3 className="w-5 h-5 text-[#3D3D3D]" />
               </div>
-              <div className="text-left">
+              <div className="text-left whitespace-nowrap">
                 <div className="text-[#111] font-semibold text-base" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>MLS Access</div>
-                <div className="text-[#666] text-sm" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Maximum Exposure</div>
+                <div className="text-[#666] text-sm" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Max Exposure</div>
               </div>
             </div>
             <div className="flex items-start gap-3 bg-white rounded-xl px-6 py-4 hover:shadow-md transition-all duration-300">
               <div className="bg-[#E5E1DC] p-3 rounded-lg flex-shrink-0">
                 <Users className="w-5 h-5 text-[#3D3D3D]" />
               </div>
-              <div className="text-left">
+              <div className="text-left whitespace-nowrap">
                 <div className="text-[#111] font-semibold text-base" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Direct Contact</div>
                 <div className="text-[#666] text-sm" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Talk to Buyers</div>
               </div>
@@ -295,7 +285,7 @@ function Sellers() {
               <div className="bg-[#E5E1DC] p-3 rounded-lg flex-shrink-0">
                 <DollarSign className="w-5 h-5 text-[#3D3D3D]" />
               </div>
-              <div className="text-left">
+              <div className="text-left whitespace-nowrap">
                 <div className="text-[#111] font-semibold text-base" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Keep Your Equity</div>
                 <div className="text-[#666] text-sm" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>No Commissions</div>
               </div>
@@ -304,8 +294,92 @@ function Sellers() {
         </div>
       </div>
 
+      {/* Why Sell With Us Section */}
+      <section className="bg-[#EEEDEA] py-16 md:py-20">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            {/* Left Side - Content */}
+            <div>
+              {/* Badge */}
+              <div className="inline-flex items-center bg-[#E5E1DC] rounded-lg px-4 py-2 mb-6">
+                <span className="text-[#666] text-sm font-medium" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  Why Sell With Us
+                </span>
+              </div>
+
+              {/* Main Heading */}
+              <h2
+                className="text-[24px] md:text-[28px] text-[#111] font-medium leading-tight mb-6"
+                style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 500 }}
+              >
+                Selling your home doesn't have to cost a fortune. OK BY OWNER empowers Oklahoma homeowners to list, market, and sell their properties without paying hefty realtor commissions.
+              </h2>
+
+              {/* Subheading */}
+              <p
+                className="text-[14px] text-[#666] font-medium mb-8 leading-relaxed"
+                style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 500 }}
+              >
+                Join thousands of homeowners who have saved thousands with our free listing platform, MLS access, and expert support.
+              </p>
+
+              {/* Button */}
+              <Link
+                href="/list-property"
+                className="inline-flex items-center gap-[0.4rem] bg-[#A41E34] text-white rounded-full px-5 py-[0.875rem] font-medium leading-[120%] transition-all duration-[400ms] ease-[cubic-bezier(0.645,0.045,0.355,1)] hover:bg-[#8B1A2C]"
+                style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+              >
+                <span>List Your Property</span>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <mask id="mask0_56_2205" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+                    <rect width="20" height="20" transform="matrix(-1 0 0 1 20 0)" fill="#D9D9D9"/>
+                  </mask>
+                  <g mask="url(#mask0_56_2205)">
+                    <path d="M13.459 10.8334L11.084 13.2084C10.9173 13.3751 10.8375 13.5695 10.8444 13.7918C10.8513 14.014 10.9312 14.2084 11.084 14.3751C11.2507 14.5418 11.4486 14.6286 11.6777 14.6355C11.9069 14.6425 12.1048 14.5626 12.2715 14.3959L16.084 10.5834C16.2507 10.4168 16.334 10.2223 16.334 10.0001C16.334 9.77787 16.2507 9.58343 16.084 9.41676L12.2715 5.60426C12.1048 5.43759 11.9069 5.35773 11.6777 5.36467C11.4486 5.37162 11.2507 5.45842 11.084 5.62509C10.9312 5.79176 10.8513 5.9862 10.8444 6.20842C10.8375 6.43065 10.9173 6.62509 11.084 6.79176L13.459 9.16676H4.16732C3.93121 9.16676 3.73329 9.24662 3.57357 9.40634C3.41385 9.56606 3.33398 9.76398 3.33398 10.0001C3.33398 10.2362 3.41385 10.4341 3.57357 10.5938C3.73329 10.7536 3.93121 10.8334 4.16732 10.8334H13.459Z" fill="white"/>
+                  </g>
+                </svg>
+              </Link>
+            </div>
+
+            {/* Right Side - Image Grid */}
+            <div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="overflow-hidden rounded-2xl h-[195px]">
+                  <img
+                    src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=600"
+                    alt="Modern home exterior"
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  />
+                </div>
+                <div className="overflow-hidden rounded-2xl h-[195px]">
+                  <img
+                    src="https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=600"
+                    alt="Luxury property"
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  />
+                </div>
+                <div className="overflow-hidden rounded-2xl h-[195px]">
+                  <img
+                    src="https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=600"
+                    alt="Beautiful home interior"
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  />
+                </div>
+                <div className="overflow-hidden rounded-2xl h-[195px]">
+                  <img
+                    src="https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&w=600"
+                    alt="Dream home"
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Free Listing Section */}
-      <section id="services" className="bg-[#EEEDEA] py-20">
+      <section id="services" className="bg-white py-20">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Side - Content */}
@@ -606,11 +680,6 @@ function Sellers() {
                       {item.description}
                     </p>
                   </div>
-                  {index < howItWorks.length - 1 && (
-                    <div className="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
-                      <ChevronRight className="w-6 h-6 text-[#D0CCC7]" />
-                    </div>
-                  )}
                 </div>
               );
             })}
@@ -703,7 +772,7 @@ function Sellers() {
                 className="text-[14px] font-medium text-[#666] mb-10 leading-relaxed"
                 style={{ fontFamily: 'Instrument Sans, sans-serif' }}
               >
-                Selling your home by owner can raise many questions. We've provided answers to the most common questions about our For Sale By Owner (FSBO) marketing services, MLS listings, and the home selling process in Oklahoma. Whether you're curious about how to list your property, what costs are involved, or how our website works, you'll find detailed answers below. Can't find an answer to your question? Contact us, and we'll be happy to provide assistance and guidance for your needs.
+                Have questions? We've got answers. Learn more about selling your property through OK BY OWNER.
               </p>
               <Link
                 href="/contact"
@@ -763,10 +832,10 @@ function Sellers() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-white py-20 border-t border-[#D0CCC7]">
+      <section className="bg-[#EEEDEA] py-20">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-[32px] md:text-[48px] font-medium text-[#111] mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            Ready to Sell Your Property?
+            Ready to List Your Property?
           </h2>
           <p className="text-[16px] text-[#666] font-medium mb-8 max-w-2xl mx-auto" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
             Join thousands of Oklahomans who have saved thousands in broker commissions
@@ -776,7 +845,7 @@ function Sellers() {
             className="inline-flex items-center gap-2 bg-[#A41E34] text-white rounded-full px-8 py-4 font-medium text-lg transition-all duration-300 hover:bg-[#8B1A2C] hover:shadow-lg"
             style={{ fontFamily: 'Instrument Sans, sans-serif' }}
           >
-            Start Your Free Listing
+            Start Listing for Free
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <mask id="mask0_56_2208" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
                 <rect width="20" height="20" transform="matrix(-1 0 0 1 20 0)" fill="#D9D9D9"/>

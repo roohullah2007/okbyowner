@@ -1,41 +1,56 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
-import { Camera, Compass, Video, Box, Sun, TrendingUp, Clock, DollarSign, Eye } from 'lucide-react';
+import { Users, TrendingUp, Clock, DollarSign } from 'lucide-react';
 
 const StatsSection = () => {
   const stats = [
     {
-      icon: Clock,
-      number: '32%',
-      label: 'Faster Sales',
-      description: 'with professional photos'
-    },
-    {
-      icon: DollarSign,
-      number: '4%',
-      label: 'Higher Price',
-      description: 'on average sale price'
-    },
-    {
-      icon: Eye,
-      number: '118%',
-      label: 'More Views',
-      description: 'online engagement'
+      icon: Users,
+      number: '96.5%',
+      label: 'Agent Referrals',
+      description: 'of MLS sales came from buyer agents'
     },
     {
       icon: TrendingUp,
-      number: '95%',
-      label: 'Start Online',
-      description: 'of home searches'
+      number: '32%',
+      label: 'Faster Sales',
+      description: 'when listed on MLS'
+    },
+    {
+      icon: DollarSign,
+      number: '$5,500+',
+      label: 'Average Savings',
+      description: 'vs traditional 6% commission'
+    },
+    {
+      icon: Clock,
+      number: '24hrs',
+      label: 'Quick Listing',
+      description: 'live on MLS within a day'
     }
   ];
 
-  const services = [
-    { icon: Camera, label: 'Professional Photos + Drone', color: '#A41E34' },
-    { icon: Compass, label: 'Floor Plans', color: '#3B82F6' },
-    { icon: Video, label: 'Video Walkthrough Tours', color: '#10B981' },
-    { icon: Box, label: 'Matterport 3D Tours', color: '#8B5CF6' },
-    { icon: Sun, label: 'Virtual Twilight', color: '#F59E0B' }
+  const steps = [
+    {
+      number: '01',
+      title: 'Choose Your Package',
+      description: 'Select the flat-fee MLS package that fits your needs and budget.'
+    },
+    {
+      number: '02',
+      title: 'Submit Your Listing',
+      description: 'Provide property details, photos, and pricing information.'
+    },
+    {
+      number: '03',
+      title: 'Go Live on MLS',
+      description: 'Your listing appears on the MLS and syndicates to Zillow, Realtor.com, and more.'
+    },
+    {
+      number: '04',
+      title: 'Receive Offers',
+      description: 'Buyer agents contact you directly. You handle negotiations and closing.'
+    }
   ];
 
   return (
@@ -43,18 +58,14 @@ const StatsSection = () => {
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="text-center mb-12">
-          {/* Badge */}
-          <div className="inline-flex items-center bg-[#E5E1DC] rounded-lg px-4 py-2 mb-6">
-            <span className="text-[#666] text-sm font-medium" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-              Our Services
-            </span>
-          </div>
           <h2 className="text-[32px] md:text-[40px] font-medium text-[#111] mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            Enhance Your Listing with Professional Multimedia
+            Get Maximum Exposure by Listing on the MLS
           </h2>
           <p className="text-[14px] md:text-[16px] text-[#666] font-medium max-w-3xl mx-auto leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            High-quality photos and videos attract more buyers, reduce time on market, and secure higher sale prices.
-            Create a strong first impression that turns online browsers into serious buyers.
+            Reach More Buyers by Working with Agents.
+          </p>
+          <p className="text-[14px] md:text-[16px] text-[#666] font-medium max-w-3xl mx-auto leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+            A local flat-fee MLS listing increases the likelihood of selling your property faster.
           </p>
         </div>
 
@@ -93,92 +104,63 @@ const StatsSection = () => {
           })}
         </div>
 
-        {/* Services & Benefits */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left - Services */}
-          <div>
+        {/* MLS Info & How It Works */}
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          {/* Left - Why MLS */}
+          <div className="bg-white rounded-2xl p-8">
             <h3
               className="text-[24px] font-medium text-[#111] mb-6"
               style={{ fontFamily: 'Instrument Sans, sans-serif' }}
             >
-              Our Multimedia Services
+              Why List on the MLS?
             </h3>
-            <div className="space-y-3">
-              {services.map((service, idx) => {
-                const IconComponent = service.icon;
-                return (
-                  <div
-                    key={idx}
-                    className="bg-[#EEEDEA] rounded-xl p-4 flex items-center gap-4 hover:bg-[#E5E1DC] transition-all duration-300 cursor-pointer group"
-                  >
-                    <div
-                      className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
-                      style={{ backgroundColor: `${service.color}15` }}
-                    >
-                      <IconComponent
-                        className="w-6 h-6 transition-transform duration-300 group-hover:scale-110"
-                        style={{ color: service.color }}
-                      />
-                    </div>
-                    <span
-                      className="text-[#111] text-[16px] font-medium"
-                      style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-                    >
-                      {service.label}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Right - Benefits */}
-          <div className="bg-[#EEEDEA] rounded-2xl p-8">
-            <h3
-              className="text-[24px] font-medium text-[#111] mb-6"
+            <p
+              className="text-[14px] md:text-[16px] text-[#666] mb-6 leading-relaxed"
               style={{ fontFamily: 'Instrument Sans, sans-serif' }}
             >
-              Why Invest in Professional Media?
-            </h3>
+              Listing on the MLS significantly increases your chances of selling your house faster.
+              96.5% of our sellers who have listed and sold on the MLS were referred by a buyer's agent
+              who found the listing on the MLS.
+            </p>
             <ul className="space-y-4 mb-8">
               <li className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-[#A41E34] rounded-full mt-2 flex-shrink-0"></div>
                 <p className="text-[14px] text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                  <strong className="text-[#111]">Faster Sales:</strong> Professional photos help listings sell up to 32% faster than those with amateur images.
+                  <strong className="text-[#111]">Maximum Exposure:</strong> Your listing syndicates to Zillow, Realtor.com, Trulia, Redfin, and hundreds more sites.
                 </p>
               </li>
               <li className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-[#A41E34] rounded-full mt-2 flex-shrink-0"></div>
                 <p className="text-[14px] text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                  <strong className="text-[#111]">Higher Prices:</strong> Professionally presented homes command around 4% higher selling price on average.
+                  <strong className="text-[#111]">Buyer Agent Access:</strong> Agents actively searching for properties for their clients will find your home.
                 </p>
               </li>
               <li className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-[#A41E34] rounded-full mt-2 flex-shrink-0"></div>
                 <p className="text-[14px] text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                  <strong className="text-[#111]">Better First Impressions:</strong> Quality visuals build buyer trust and make them less likely to click away to competitors.
+                  <strong className="text-[#111]">Save Thousands:</strong> Pay a flat fee instead of the traditional 3% listing agent commission.
                 </p>
               </li>
               <li className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-[#A41E34] rounded-full mt-2 flex-shrink-0"></div>
                 <p className="text-[14px] text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                  <strong className="text-[#111]">Showcase Best Features:</strong> Professionals use lighting and angles to highlight your property's unique selling points.
+                  <strong className="text-[#111]">Full Control:</strong> You set the price, schedule showings, and negotiate directly with buyers.
                 </p>
               </li>
               <li className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-[#A41E34] rounded-full mt-2 flex-shrink-0"></div>
                 <p className="text-[14px] text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                  <strong className="text-[#111]">Competitive Edge:</strong> In a digital-first world, great images make buyers stay and explore your listing.
+                  <strong className="text-[#111]">Professional Credibility:</strong> Buyers and agents take MLS listings more seriously than FSBO-only listings.
                 </p>
               </li>
             </ul>
 
             <Link
-              href="/services"
+              href="/sellers"
               className="inline-flex items-center gap-[0.4rem] bg-[#A41E34] text-white rounded-full px-5 py-[0.875rem] font-medium leading-[120%] transition-all duration-[400ms] ease-[cubic-bezier(0.645,0.045,0.355,1)] hover:bg-[#8B1A2C]"
               style={{ fontFamily: 'Instrument Sans, sans-serif' }}
             >
-              <span>View Our Services</span>
+              <span>View MLS Packages</span>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <mask id="mask0_stats" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
                   <rect width="20" height="20" transform="matrix(-1 0 0 1 20 0)" fill="#D9D9D9"/>
@@ -188,6 +170,50 @@ const StatsSection = () => {
                 </g>
               </svg>
             </Link>
+          </div>
+
+          {/* Right - How It Works */}
+          <div>
+            <h3
+              className="text-[24px] font-medium text-[#111] mb-6"
+              style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+            >
+              How a Flat-Fee MLS Listing Works
+            </h3>
+            <div className="space-y-4">
+              {steps.map((step, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-xl p-5 hover:shadow-lg transition-all duration-300"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-[#A41E34] rounded-lg flex items-center justify-center flex-shrink-0">
+                      <span className="text-white text-sm font-semibold">{step.number}</span>
+                    </div>
+                    <div>
+                      <h4
+                        className="text-[16px] font-medium text-[#111] mb-1"
+                        style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                      >
+                        {step.title}
+                      </h4>
+                      <p
+                        className="text-[14px] text-[#666]"
+                        style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                      >
+                        {step.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6 p-4 bg-[#A41E34]/5 rounded-xl border border-[#A41E34]/20">
+              <p className="text-[14px] text-[#666] text-center" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                <strong className="text-[#111]">Powered by FFMLSOK</strong> - Oklahoma's trusted flat-fee MLS listing service
+              </p>
+            </div>
           </div>
         </div>
       </div>

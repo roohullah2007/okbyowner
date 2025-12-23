@@ -432,4 +432,64 @@ class UserDashboardController extends Controller
 
         return back()->with('success', 'Service request cancelled successfully.');
     }
+
+    /**
+     * Submit an order for free materials (QR stickers or yard sign)
+     */
+    public function submitOrder(Request $request, Property $property)
+    {
+        // Check ownership
+        if ($property->user_id !== Auth::id()) {
+            abort(403, 'You do not own this property.');
+        }
+
+        $validated = $request->validate([
+            'service_type' => 'required|in:qr_stickers,yard_sign',
+            'shipping_name' => 'required|string|max:255',
+            'shipping_address' => 'required|string|max:255',
+            'shipping_city' => 'required|string|max:100',
+            'shipping_state' => 'required|string|max:50',
+            'shipping_zip' => 'required|string|max:20',
+            'shipping_phone' => 'required|string|max:20',
+            'quantity' => 'nullable|integer|min:1|max:10',
+            'notes' => 'nullable|string|max:1000',
+        ]);
+
+        // Check if there's already a pending request for this service type on this property
+        $existingRequest = $property->serviceRequests()
+            ->where('service_type', $validated['service_type'])
+            ->whereIn('status', ['pending', 'approved', 'in_progress'])
+            ->first();
+
+        if ($existingRequest) {
+            return back()->withErrors(['service_type' => 'You already have a pending order for this item.']);
+        }
+
+        // Build shipping info for notes
+        $shippingInfo = "Ship to:\n" .
+            $validated['shipping_name'] . "\n" .
+            $validated['shipping_address'] . "\n" .
+            $validated['shipping_city'] . ", " . $validated['shipping_state'] . " " . $validated['shipping_zip'] . "\n" .
+            "Phone: " . $validated['shipping_phone'];
+
+        if ($validated['service_type'] === 'qr_stickers') {
+            $shippingInfo .= "\nQuantity: " . ($validated['quantity'] ?? 2) . " stickers";
+        }
+
+        if (!empty($validated['notes'])) {
+            $shippingInfo .= "\n\nNotes: " . $validated['notes'];
+        }
+
+        // Create the service request
+        ServiceRequest::create([
+            'user_id' => Auth::id(),
+            'property_id' => $property->id,
+            'service_type' => $validated['service_type'],
+            'notes' => $shippingInfo,
+            'status' => 'pending',
+        ]);
+
+        $itemName = $validated['service_type'] === 'qr_stickers' ? 'QR stickers' : 'yard sign';
+        return back()->with('success', "Your free {$itemName} order has been submitted!");
+    }
 }

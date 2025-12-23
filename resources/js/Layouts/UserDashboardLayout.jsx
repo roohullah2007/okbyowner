@@ -7,7 +7,6 @@ import {
     MessageSquare,
     Heart,
     User,
-    Settings,
     LogOut,
     Menu,
     X
@@ -24,7 +23,6 @@ export default function UserDashboardLayout({ children, title }) {
         { name: 'Messages', href: route('dashboard.messages'), icon: MessageSquare, current: route().current('dashboard.messages*') },
         { name: 'Saved Properties', href: route('dashboard.favorites'), icon: Heart, current: route().current('dashboard.favorites*') },
         { name: 'Profile', href: route('profile.edit'), icon: User, current: route().current('profile.edit') },
-        { name: 'Settings', href: route('profile.edit'), icon: Settings, current: false },
     ];
 
     return (
@@ -61,7 +59,7 @@ export default function UserDashboardLayout({ children, title }) {
                     {/* User Info */}
                     <div className="p-4 border-b border-gray-100">
                         <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 bg-[#A41E34] rounded-full flex items-center justify-center text-white font-semibold text-lg">
+                            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-[#A41E34] font-semibold text-lg">
                                 {user.name.charAt(0).toUpperCase()}
                             </div>
                             <div className="flex-1 min-w-0">

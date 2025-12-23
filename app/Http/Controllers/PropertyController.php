@@ -210,6 +210,10 @@ class PropertyController extends Controller
         $query = Property::where('is_active', true)
             ->where('approval_status', 'approved');
 
+        // Filter by status (for-sale, for-rent, sold) - default to for-sale
+        $status = $request->status ?? 'for-sale';
+        $query->where('status', $status);
+
         // Search by keyword
         if ($request->keyword) {
             $keyword = $request->keyword;
@@ -276,7 +280,7 @@ class PropertyController extends Controller
 
         return Inertia::render('Properties', [
             'properties' => $properties,
-            'filters' => $request->only(['keyword', 'location', 'propertyType', 'priceMin', 'priceMax', 'bedrooms', 'bathrooms', 'sort']),
+            'filters' => $request->only(['keyword', 'location', 'status', 'propertyType', 'priceMin', 'priceMax', 'bedrooms', 'bathrooms', 'sort']),
         ]);
     }
 }

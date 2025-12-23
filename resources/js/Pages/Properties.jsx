@@ -1,136 +1,17 @@
 import React, { useState } from 'react';
 import { Head, Link, useForm, usePage, router } from '@inertiajs/react';
-import { Search, MapPin, Home, DollarSign, BedDouble, Bath, Maximize2, Heart, Info, SlidersHorizontal, Grid3x3, Map, CheckCircle2, AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, MapPin, Home, DollarSign, BedDouble, Bath, Grid3x3, Map, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
 import MainLayout from '@/Layouts/MainLayout';
-
-const PropertyCard = ({ property }) => {
-  const [isFavorite, setIsFavorite] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-      return favorites.includes(property.id);
-    }
-    return false;
-  });
-
-  // Get the first photo or use placeholder
-  const propertyImage = property.photos && property.photos.length > 0
-    ? property.photos[0]
-    : 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800';
-
-  const statusLabel = property.status === 'for-rent' ? 'FOR RENT' : 'FOR SALE';
-
-  // Handle maximize - open in new tab
-  const handleMaximize = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    window.open(`/properties/${property.slug || property.id}`, '_blank');
-  };
-
-  // Handle favorite toggle
-  const handleFavorite = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-    if (isFavorite) {
-      const newFavorites = favorites.filter(id => id !== property.id);
-      localStorage.setItem('favorites', JSON.stringify(newFavorites));
-      setIsFavorite(false);
-    } else {
-      favorites.push(property.id);
-      localStorage.setItem('favorites', JSON.stringify(favorites));
-      setIsFavorite(true);
-    }
-  };
-
-  // Handle info - navigate to property detail
-  const handleInfo = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    router.visit(`/properties/${property.slug || property.id}`);
-  };
-
-  return (
-    <Link href={`/properties/${property.slug || property.id}`} className="block h-full">
-      <div className="bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 group w-[300px] h-[330px] flex flex-col">
-        {/* Property Image */}
-        <div className="relative h-[180px] overflow-hidden flex-shrink-0">
-          <img
-            src={propertyImage}
-            alt={property.property_title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            onError={(e) => e.target.src = 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800'}
-          />
-          {/* Status Badge */}
-          <div className="absolute top-4 right-4 bg-[#A41E34] text-white px-3 py-1.5 text-xs font-semibold rounded-full" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            {statusLabel}
-          </div>
-
-          {/* MLS Badge */}
-          {property.is_mls_listed && (
-            <div className="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1.5 text-xs font-semibold rounded-full" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-              MLS
-            </div>
-          )}
-
-          {/* Action Buttons */}
-          <div className="absolute bottom-4 right-4 flex gap-2">
-            <button
-              onClick={handleMaximize}
-              className="bg-white/90 hover:bg-white p-2 rounded-lg transition-all duration-300 hover:scale-105"
-              title="Open in new tab"
-            >
-              <Maximize2 className="w-4 h-4 text-gray-800" />
-            </button>
-            <button
-              onClick={handleFavorite}
-              className="bg-white/90 hover:bg-white p-2 rounded-lg transition-all duration-300 hover:scale-105"
-              title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-            >
-              <Heart className={`w-4 h-4 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-[#413936]'}`} />
-            </button>
-            <button
-              onClick={handleInfo}
-              className="bg-white/90 hover:bg-white p-2 rounded-lg transition-all duration-300 hover:scale-105"
-              title="View details"
-            >
-              <Info className="w-4 h-4 text-gray-800" />
-            </button>
-          </div>
-        </div>
-
-        {/* Property Details */}
-        <div className="px-3 pt-2.5 pb-4 h-[150px] flex flex-col">
-          {/* Price */}
-          <div className="pb-2 mb-2 border-b border-gray-200">
-            <span className="font-bold text-base text-[#293056]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-              ${Number(property.price).toLocaleString()}
-            </span>
-          </div>
-
-          {/* Address */}
-          <div className="pb-2 mb-2 border-b border-gray-200">
-            <p className="text-sm text-[#293056] line-clamp-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-              {property.address}, {property.city}, {property.state} {property.zip_code}
-            </p>
-          </div>
-
-          {/* Property Stats */}
-          <div>
-            <p className="text-sm text-[#293056]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-              {property.bedrooms}BD | {property.bathrooms}BA | {property.sqft ? `${Number(property.sqft).toLocaleString()} sqft` : 'Area N/A'}
-            </p>
-          </div>
-        </div>
-      </div>
-    </Link>
-  );
-};
+import PropertyCard from '@/Components/PropertyCard';
+import AuthModal from '@/Components/AuthModal';
 
 function Properties({ properties = { data: [] }, filters = {} }) {
   const { flash } = usePage().props;
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const [searchParams, setSearchParams] = useState({
     keyword: filters.keyword || '',
     location: filters.location || '',
+    status: filters.status || 'for-sale',
     propertyType: filters.propertyType || '',
     priceMin: filters.priceMin || '',
     priceMax: filters.priceMax || '',
@@ -140,7 +21,6 @@ function Properties({ properties = { data: [] }, filters = {} }) {
   });
 
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'map'
-  const [showFilters, setShowFilters] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   // Buyer inquiry form
@@ -241,17 +121,8 @@ function Properties({ properties = { data: [] }, filters = {} }) {
               </button>
             </form>
 
-            {/* Quick Filters */}
+            {/* View Toggle */}
             <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
-              <button
-                onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center gap-2 bg-white border border-[#D0CCC7] text-[#111] rounded-full px-5 py-2.5 font-medium text-sm transition-all duration-300 hover:bg-[#E5E1DC]"
-                style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-              >
-                <SlidersHorizontal className="w-4 h-4" />
-                Filters
-              </button>
-
               <div className="flex items-center gap-2 bg-white border border-[#D0CCC7] rounded-full px-2 py-1">
                 <button
                   onClick={() => setViewMode('grid')}
@@ -282,11 +153,10 @@ function Properties({ properties = { data: [] }, filters = {} }) {
         <div className="border-b border-[#D0CCC7]"></div>
       </div>
 
-      {/* Advanced Filters Panel */}
-      {showFilters && (
-        <div className="bg-white border-b border-[#D0CCC7] py-6">
-          <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* Filters Panel */}
+      <div className="bg-[#E5E1DC] border-b border-[#D0CCC7] py-6">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {/* Location */}
               <div>
                 <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
@@ -400,39 +270,65 @@ function Properties({ properties = { data: [] }, filters = {} }) {
               </div>
             </div>
 
-            {/* Apply Filters Button */}
-            <div className="flex justify-end mt-4 gap-3">
-              <button
-                onClick={() => {
-                  setSearchParams({
-                    keyword: '',
-                    location: '',
-                    propertyType: '',
-                    priceMin: '',
-                    priceMax: '',
-                    bedrooms: '',
-                    bathrooms: '',
-                    sort: 'newest',
-                  });
-                  router.get('/properties');
-                  setShowFilters(false);
-                }}
-                className="px-6 py-2.5 border border-[#D0CCC7] rounded-xl text-sm font-medium text-[#111] hover:bg-gray-50 transition-colors"
-                style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-              >
-                Clear All
-              </button>
-              <button
-                onClick={handleSearch}
-                className="px-6 py-2.5 bg-[#A41E34] text-white rounded-xl text-sm font-medium hover:bg-[#8B1A2C] transition-colors"
-                style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-              >
-                Apply Filters
-              </button>
+            {/* Status Dropdown & Action Buttons */}
+            <div className="flex justify-between items-center mt-4 gap-3">
+              {/* Status Dropdown */}
+              <div className="flex items-center gap-2">
+                <label className="text-sm font-medium text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  Status:
+                </label>
+                <div className="relative">
+                  <Home className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#666]" />
+                  <select
+                    value={searchParams.status}
+                    onChange={(e) => {
+                      const newParams = { ...searchParams, status: e.target.value };
+                      setSearchParams(newParams);
+                      router.get('/properties', newParams, { preserveState: true });
+                    }}
+                    className="min-w-[160px] pl-10 pr-4 py-2.5 border border-[#D0CCC7] rounded-xl text-sm outline-none focus:border-[#999] transition-colors appearance-none bg-white cursor-pointer"
+                    style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                  >
+                    <option value="for-sale">For Sale</option>
+                    <option value="for-rent">For Rent</option>
+                    <option value="sold">Sold</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-3">
+                <button
+                  onClick={() => {
+                    setSearchParams({
+                      keyword: '',
+                      location: '',
+                      status: 'for-sale',
+                      propertyType: '',
+                      priceMin: '',
+                      priceMax: '',
+                      bedrooms: '',
+                      bathrooms: '',
+                      sort: 'newest',
+                    });
+                    router.get('/properties');
+                  }}
+                  className="px-6 py-2.5 border border-[#D0CCC7] rounded-xl text-sm font-medium text-[#111] hover:bg-white transition-colors"
+                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                >
+                  Clear All
+                </button>
+                <button
+                  onClick={handleSearch}
+                  className="px-6 py-2.5 bg-[#A41E34] text-white rounded-xl text-sm font-medium hover:bg-[#8B1A2C] transition-colors"
+                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                >
+                  Apply Filters
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      )}
 
       {/* Properties Section */}
       <section className="bg-[#EEEDEA] py-16 md:py-20">
@@ -441,7 +337,7 @@ function Properties({ properties = { data: [] }, filters = {} }) {
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
             <div>
               <h2 className="text-2xl md:text-[32px] font-medium text-[#111] mb-1" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                Available Properties
+                {searchParams.status === 'sold' ? 'Recently Sold' : searchParams.status === 'for-rent' ? 'For Rent' : 'For Sale'}
               </h2>
               <p className="text-sm text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
                 {pagination ? (
@@ -475,7 +371,11 @@ function Properties({ properties = { data: [] }, filters = {} }) {
           {propertyList.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
               {propertyList.map((property) => (
-                <PropertyCard key={property.id} property={property} />
+                <PropertyCard
+                  key={property.id}
+                  property={property}
+                  onAuthRequired={() => setShowAuthModal(true)}
+                />
               ))}
             </div>
           ) : (
@@ -495,6 +395,7 @@ function Properties({ properties = { data: [] }, filters = {} }) {
                     setSearchParams({
                       keyword: '',
                       location: '',
+                      status: 'for-sale',
                       propertyType: '',
                       priceMin: '',
                       priceMax: '',
@@ -599,7 +500,7 @@ function Properties({ properties = { data: [] }, filters = {} }) {
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-10">
-              <h2 className="text-[32px] md:text-[48px] font-medium text-[#111] mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+              <h2 className="text-[28px] md:text-[40px] font-medium text-[#111] mb-4 whitespace-nowrap" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
                 Can't Find What You're Looking For?
               </h2>
               <p className="text-[16px] text-[#666] font-medium max-w-2xl mx-auto" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
@@ -797,6 +698,9 @@ function Properties({ properties = { data: [] }, filters = {} }) {
           </div>
         </div>
       </section>
+
+      {/* Auth Modal */}
+      <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
     </>
   );
 }

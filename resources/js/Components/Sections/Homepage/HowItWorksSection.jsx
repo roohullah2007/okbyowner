@@ -4,23 +4,23 @@ const HowItWorksSection = () => {
   const steps = [
     {
       number: '01',
-      title: 'Create Your Listing',
-      description: 'Fill out our simple form with property details, upload photos, and set your price.'
+      title: 'Create Your FREE Listing',
+      description: 'Sign up to list your property, upload photos, and post open houses. ALL buyer inquiries go directly to you.'
     },
     {
       number: '02',
-      title: 'Get Promoted',
-      description: 'Your listing goes live instantly and gets promoted to thousands of active buyers.'
+      title: 'Market Your Property',
+      description: 'We promote your listing across our platform and optional MLS syndications for maximum visibility. Share your listing on social media.'
     },
     {
       number: '03',
       title: 'Connect with Buyers',
-      description: 'Receive inquiries directly. Schedule showings and answer questions on your terms.'
+      description: 'Receive inquiries directly from interested buyers. Communicate and schedule showings on your terms.'
     },
     {
       number: '04',
       title: 'Close the Deal',
-      description: 'Accept an offer and work with a closing attorney to complete the sale.'
+      description: 'Accept an offer, execute the contract, and work with a closing company to close the deal. Keep more of your equity!'
     }
   ];
 
@@ -50,9 +50,7 @@ const HowItWorksSection = () => {
         {/* Steps Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {steps.map((step, index) => (
-            <div key={index} className="relative">
-              {/* Step Card */}
-              <div className="bg-white rounded-2xl p-6 h-full hover:shadow-lg transition-all duration-300">
+            <div key={index} className="bg-white rounded-2xl p-6 h-full hover:shadow-lg transition-all duration-300">
                 {/* Step Number */}
                 <div className="text-[#A41E34] text-sm font-semibold mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
                   STEP {step.number}
@@ -67,16 +65,6 @@ const HowItWorksSection = () => {
                 <p className="text-sm text-[#666] leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
                   {step.description}
                 </p>
-              </div>
-
-              {/* Connector Arrow - Desktop Only */}
-              {index < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="#D0CCC7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-              )}
             </div>
           ))}
         </div>

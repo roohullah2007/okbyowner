@@ -338,12 +338,19 @@ function Mortgages() {
 
           <div className="max-w-[1280px] mx-auto px-4 sm:px-6 relative z-10 w-full">
             <div className="max-w-3xl">
+              {/* Badge */}
+              <div className="inline-flex items-center bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
+                <span className="text-white text-sm font-medium" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  Powered by T&M Mortgages
+                </span>
+              </div>
+
               {/* Main Heading */}
               <h1
                 className="text-white text-[40px] sm:text-[50px] md:text-[60px] font-medium leading-[1.1] mb-5 drop-shadow-2xl"
                 style={{ fontFamily: 'Instrument Sans, sans-serif' }}
               >
-                Find Your Best<br />Mortgage Rate
+                Your Home,<br />Our Mortgage
               </h1>
 
               {/* Subheading */}
@@ -351,34 +358,36 @@ function Mortgages() {
                 className="text-white text-[14px] md:text-[16px] font-medium mb-8 leading-relaxed max-w-2xl drop-shadow-lg"
                 style={{ fontFamily: 'Instrument Sans, sans-serif' }}
               >
-                Compare rates from Oklahoma's top lenders. Whether you're buying your first home, refinancing, or tapping into your equity, we'll help you find the right loan for your situation.
+                OK BY OWNER now offers in-house mortgage services through T&M Mortgages. Get pre-approved in minutes, compare rates from 25+ lenders, and close with confidence. One seamless experience from home search to keys in hand.
               </p>
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-[0.4rem] mb-12">
-                <Link
-                  href="#rates"
+                <a
+                  href="https://tandmmortgages.morty.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="button inline-flex items-center gap-[0.4rem] bg-[#A41E34] text-white rounded-full px-5 py-[0.875rem] font-medium leading-[120%] transition-all duration-[400ms] ease-[cubic-bezier(0.645,0.045,0.355,1)] hover:bg-[#8B1A2C]"
                   style={{ fontFamily: 'Instrument Sans, sans-serif' }}
                 >
-                  <ShoppingCart className="w-5 h-5" />
-                  <span>Purchase</span>
-                </Link>
+                  <BadgeCheck className="w-5 h-5" />
+                  <span>Get Pre-Approved</span>
+                </a>
                 <Link
                   href="#rates"
                   className="button inline-flex items-center gap-[0.4rem] bg-white/10 backdrop-blur-md border border-white/30 text-white rounded-full px-5 py-[0.875rem] font-medium leading-[120%] transition-all duration-[400ms] ease-[cubic-bezier(0.645,0.045,0.355,1)] hover:bg-white/20"
                   style={{ fontFamily: 'Instrument Sans, sans-serif' }}
                 >
-                  <TrendingUp className="w-5 h-5" />
-                  <span>Refinance</span>
+                  <Calculator className="w-5 h-5" />
+                  <span>Compare Rates</span>
                 </Link>
                 <Link
-                  href="#rates"
+                  href="#why-us"
                   className="button inline-flex items-center gap-[0.4rem] bg-white/10 backdrop-blur-md border border-white/30 text-white rounded-full px-5 py-[0.875rem] font-medium leading-[120%] transition-all duration-[400ms] ease-[cubic-bezier(0.645,0.045,0.355,1)] hover:bg-white/20"
                   style={{ fontFamily: 'Instrument Sans, sans-serif' }}
                 >
-                  <Home className="w-5 h-5" />
-                  <span>HELOC</span>
+                  <Info className="w-5 h-5" />
+                  <span>Why T&M?</span>
                 </Link>
               </div>
             </div>
@@ -394,26 +403,158 @@ function Mortgages() {
               <div className="bg-[#A41E34]/10 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
                 <Percent className="w-8 h-8 text-[#A41E34]" />
               </div>
-              <h3 className="text-[#111] font-semibold text-xl mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Competitive Rates</h3>
-              <p className="text-[#666] text-sm leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Compare rates from multiple lenders to find the lowest available for your situation</p>
+              <h3 className="text-[#111] font-semibold text-xl mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>25+ Lender Network</h3>
+              <p className="text-[#666] text-sm leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>We shop your loan across our network of 25+ lenders to find you the absolute best rate</p>
             </div>
             <div className="bg-white rounded-2xl p-6 md:p-8 hover:shadow-lg transition-all duration-300 text-center">
               <div className="bg-[#A41E34]/10 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
                 <Clock className="w-8 h-8 text-[#A41E34]" />
               </div>
-              <h3 className="text-[#111] font-semibold text-xl mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Fast Pre-Approval</h3>
-              <p className="text-[#666] text-sm leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Get pre-approved quickly and show sellers you're a serious, qualified buyer</p>
+              <h3 className="text-[#111] font-semibold text-xl mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>15-Min Pre-Approval</h3>
+              <p className="text-[#666] text-sm leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Get pre-approved online in as little as 15 minutes. No office visits required.</p>
             </div>
             <div className="bg-white rounded-2xl p-6 md:p-8 hover:shadow-lg transition-all duration-300 text-center">
               <div className="bg-[#A41E34]/10 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <Users className="w-8 h-8 text-[#A41E34]" />
+                <Handshake className="w-8 h-8 text-[#A41E34]" />
               </div>
-              <h3 className="text-[#111] font-semibold text-xl mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Expert Support</h3>
-              <p className="text-[#666] text-sm leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Work with experienced mortgage professionals who understand FSBO transactions</p>
+              <h3 className="text-[#111] font-semibold text-xl mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Seamless Experience</h3>
+              <p className="text-[#666] text-sm leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>One partner from property search to closing. We understand FSBO transactions.</p>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Why T&M Mortgages Section */}
+      <section id="why-us" className="bg-white py-16 md:py-20">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Side - Content */}
+            <div>
+              {/* Badge */}
+              <div className="inline-flex items-center bg-[#A41E34]/10 rounded-lg px-4 py-2 mb-6">
+                <span className="text-[#A41E34] text-sm font-semibold" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  T&M Mortgages
+                </span>
+              </div>
+
+              {/* Main Heading */}
+              <h2
+                className="text-[28px] md:text-[36px] text-[#111] font-medium leading-tight mb-6"
+                style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 500 }}
+              >
+                Why Get Your Mortgage Through Us?
+              </h2>
+
+              {/* Description */}
+              <p
+                className="text-[16px] text-[#666] font-medium mb-8 leading-relaxed"
+                style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 500 }}
+              >
+                When you find your dream home on OK BY OWNER, getting financing shouldn't slow you down. T&M Mortgages is our in-house mortgage partner, providing you with a seamless home buying experience from start to finish.
+              </p>
+
+              {/* Benefits */}
+              <div className="space-y-4 mb-8">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-[#A41E34] flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Insider Understanding</h4>
+                    <p className="text-sm text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>We know FSBO transactions inside and out. No confusion, no delays.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-[#A41E34] flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Better Communication</h4>
+                    <p className="text-sm text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>One team handling your home search and mortgage. Everything stays coordinated.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-[#A41E34] flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Wholesale Rates</h4>
+                    <p className="text-sm text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Access to wholesale rates from 25+ lenders that you won't find shopping on your own.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-[#A41E34] flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Oklahoma Focused</h4>
+                    <p className="text-sm text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Local expertise with knowledge of Oklahoma-specific programs and assistance.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* CTA */}
+              <a
+                href="https://tandmmortgages.morty.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-[#A41E34] text-white rounded-full px-6 py-4 font-medium hover:bg-[#8B1A2C] transition-all duration-300"
+                style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+              >
+                Start Your Application
+                <ChevronRight className="w-5 h-5" />
+              </a>
+            </div>
+
+            {/* Right Side - Card */}
+            <div className="bg-gradient-to-br from-[#A41E34] to-[#7A1628] rounded-3xl p-8 md:p-10 text-white">
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 rounded-full mb-6">
+                  <Home className="w-10 h-10 text-white" />
+                </div>
+                <h3 className="text-2xl md:text-3xl font-medium mb-3" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  Ready to Get Pre-Approved?
+                </h3>
+                <p className="text-white/80 text-sm leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  It only takes 15 minutes. No impact to your credit score for pre-qualification.
+                </p>
+              </div>
+
+              <div className="space-y-4 mb-8">
+                <div className="flex items-center gap-3 bg-white/10 rounded-xl p-4">
+                  <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                    <FileText className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="font-medium" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Simple Online Application</p>
+                    <p className="text-white/70 text-sm" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Complete from your phone or computer</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 bg-white/10 rounded-xl p-4">
+                  <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                    <Shield className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="font-medium" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Secure & Confidential</p>
+                    <p className="text-white/70 text-sm" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Bank-level encryption protects your data</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 bg-white/10 rounded-xl p-4">
+                  <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                    <User className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="font-medium" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Personal Support</p>
+                    <p className="text-white/70 text-sm" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Real humans available to help you</p>
+                  </div>
+                </div>
+              </div>
+
+              <a
+                href="https://tandmmortgages.morty.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full bg-white text-[#A41E34] text-center py-4 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300"
+                style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+              >
+                Get Pre-Approved Now
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Mortgage Rates Today Section */}
       <section id="rates" className="bg-white py-16 md:py-20">
@@ -759,14 +900,16 @@ function Mortgages() {
                                 <p className="text-sm font-semibold text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>{downPaymentPercent}%</p>
                               </div>
                             </div>
-                            <Link
-                              href="/contact"
+                            <a
+                              href="https://tandmmortgages.morty.com/"
+                              target="_blank"
+                              rel="noopener noreferrer"
                               className="inline-flex items-center gap-2 bg-[#A41E34] text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-[#8B1A2C] transition-all"
                               style={{ fontFamily: 'Instrument Sans, sans-serif' }}
                             >
-                              Get This Rate
+                              Apply with T&M
                               <ChevronRight className="w-4 h-4" />
-                            </Link>
+                            </a>
                           </div>
                         </div>
                       </div>
@@ -937,14 +1080,16 @@ function Mortgages() {
 
           {/* CTA */}
           <div className="text-center mt-12">
-            <Link
-              href="#rates"
+            <a
+              href="https://tandmmortgages.morty.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-[#A41E34] text-white rounded-full px-8 py-4 font-medium hover:bg-[#8B1A2C] transition-all duration-300"
               style={{ fontFamily: 'Instrument Sans, sans-serif' }}
             >
-              Get Started Today
+              Get Pre-Approved with T&M
               <ChevronRight className="w-5 h-5" />
-            </Link>
+            </a>
           </div>
         </div>
       </section>
@@ -1029,23 +1174,27 @@ function Mortgages() {
                   </li>
                 </ul>
               </div>
-              <div className="bg-[#EEEDEA] rounded-xl p-6">
+              <div className="bg-gradient-to-br from-[#A41E34] to-[#7A1628] rounded-xl p-6 text-white">
                 <div className="text-center">
-                  <DollarSign className="w-12 h-12 text-[#A41E34] mx-auto mb-4" />
-                  <h4 className="text-lg font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                    Need Help Finding a Lender?
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-white/20 rounded-full mb-4">
+                    <BadgeCheck className="w-6 h-6" />
+                  </div>
+                  <h4 className="text-lg font-medium mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                    Get Pre-Approved with T&M
                   </h4>
-                  <p className="text-sm text-[#666] mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                    Contact us and we can recommend trusted mortgage professionals who work with For Sale By Owner transactions.
+                  <p className="text-sm text-white/80 mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                    Our in-house mortgage team understands Oklahoma programs and FSBO transactions. Let us help you get the best rate.
                   </p>
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center gap-2 bg-[#A41E34] text-white rounded-full px-6 py-3 font-medium transition-all duration-300 hover:bg-[#8B1A2C]"
+                  <a
+                    href="https://tandmmortgages.morty.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-white text-[#A41E34] rounded-full px-6 py-3 font-medium transition-all duration-300 hover:bg-gray-100"
                     style={{ fontFamily: 'Instrument Sans, sans-serif' }}
                   >
-                    Get Recommendations
+                    Start Application
                     <ChevronRight className="w-4 h-4" />
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>

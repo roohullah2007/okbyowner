@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { MapPin, BedDouble, Bath, Maximize2, Calendar, Home, Heart, Share2, ArrowLeft, Phone, Mail, CheckCircle2, ChevronLeft, ChevronRight, Copy, Check } from 'lucide-react';
+import { MapPin, BedDouble, Bath, Maximize2, Calendar, Home, Heart, Share2, ArrowLeft, Phone, Mail, CheckCircle2, ChevronLeft, ChevronRight, Copy, Check, BadgeCheck, Calculator, DollarSign } from 'lucide-react';
 import MainLayout from '@/Layouts/MainLayout';
 
 function PropertyDetail({ property }) {
@@ -545,6 +545,77 @@ function PropertyDetail({ property }) {
                     </button>
                   </form>
                 )}
+              </div>
+
+              {/* Mortgage Pre-Approval CTA */}
+              <div className="bg-gradient-to-br from-[#A41E34] to-[#7A1628] rounded-2xl p-6 mt-6 text-white">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="bg-white/20 p-2 rounded-lg">
+                    <BadgeCheck className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-lg font-semibold" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                    Need Financing?
+                  </h3>
+                </div>
+                <p className="text-sm text-white/80 mb-4 leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  Get pre-approved in 15 minutes with T&M Mortgages. Compare rates from 25+ lenders.
+                </p>
+                <div className="space-y-2 mb-4">
+                  <div className="flex items-center gap-2 text-sm text-white/90">
+                    <CheckCircle2 className="w-4 h-4 text-green-300" />
+                    <span style={{ fontFamily: 'Instrument Sans, sans-serif' }}>No credit score impact</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-white/90">
+                    <CheckCircle2 className="w-4 h-4 text-green-300" />
+                    <span style={{ fontFamily: 'Instrument Sans, sans-serif' }}>100% online application</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-white/90">
+                    <CheckCircle2 className="w-4 h-4 text-green-300" />
+                    <span style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Competitive rates</span>
+                  </div>
+                </div>
+                <a
+                  href="https://tandmmortgages.morty.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full bg-white text-[#A41E34] text-center py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
+                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                >
+                  Get Pre-Approved
+                </a>
+              </div>
+
+              {/* Monthly Payment Estimate */}
+              <div className="bg-white rounded-2xl p-6 mt-6 border border-gray-100">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="bg-[#EEEDEA] p-2 rounded-lg">
+                    <Calculator className="w-5 h-5 text-[#A41E34]" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                    Est. Monthly Payment
+                  </h3>
+                </div>
+                <div className="text-center py-4">
+                  <p className="text-3xl font-bold text-[#A41E34]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                    {new Intl.NumberFormat('en-US', {
+                      style: 'currency',
+                      currency: 'USD',
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 0,
+                    }).format(Math.round((property.price * 0.8 * (0.065/12) * Math.pow(1 + 0.065/12, 360)) / (Math.pow(1 + 0.065/12, 360) - 1)))}
+                    <span className="text-lg text-[#666] font-normal">/mo</span>
+                  </p>
+                  <p className="text-xs text-[#666] mt-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                    Based on 20% down, 6.5% rate, 30-year fixed
+                  </p>
+                </div>
+                <Link
+                  href="/mortgages"
+                  className="block w-full text-center text-[#A41E34] py-2 text-sm font-medium hover:underline"
+                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                >
+                  Calculate with your terms →
+                </Link>
               </div>
             </div>
           </div>
