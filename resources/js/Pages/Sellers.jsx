@@ -688,7 +688,7 @@ function Sellers() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="bg-[#EEEDEA] py-20">
+      <section className="bg-white py-20">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-12">
@@ -832,7 +832,7 @@ function Sellers() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-[#EEEDEA] py-20">
+      <section className="bg-[#EEEDEA] py-20 border-t border-[#D0CCC7]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-[32px] md:text-[48px] font-medium text-[#111] mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
             Ready to List Your Property?

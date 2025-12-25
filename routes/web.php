@@ -10,10 +10,12 @@ use App\Http\Controllers\Admin\AdminInquiryController;
 use App\Http\Controllers\Admin\AdminContactController;
 use App\Http\Controllers\Admin\AdminSettingsController;
 use App\Http\Controllers\Admin\AdminActivityController;
+use App\Http\Controllers\Admin\AdminMediaOrderController;
 use App\Http\Controllers\BuyerInquiryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\QrCodeController;
+use App\Http\Controllers\MediaOrderController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -57,6 +59,11 @@ Route::get('/faqs', function () {
 Route::get('/mortgages', function () {
     return Inertia::render('Mortgages');
 })->name('mortgages');
+
+// Packages & Media Ordering
+Route::get('/our-packages', [MediaOrderController::class, 'index'])->name('packages');
+Route::get('/packages', [MediaOrderController::class, 'index']); // Alias
+Route::post('/media-order', [MediaOrderController::class, 'store'])->name('media-order.store');
 
 Route::get('/list-property', function () {
     return Inertia::render('ListProperty');
@@ -108,6 +115,11 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')-
 
     // Order Free Materials (Stickers, Yard Signs)
     Route::post('/listings/{property}/order', [UserDashboardController::class, 'submitOrder'])->name('.listings.order');
+
+    // Media Orders
+    Route::get('/media-orders', [MediaOrderController::class, 'userOrders'])->name('.media-orders');
+    Route::get('/media-orders/{mediaOrder}', [MediaOrderController::class, 'show'])->name('.media-orders.show');
+    Route::post('/media-orders/{mediaOrder}/cancel', [MediaOrderController::class, 'cancel'])->name('.media-orders.cancel');
 });
 
 // User Profile routes
@@ -181,6 +193,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::post('/settings/store', [AdminSettingsController::class, 'store'])->name('settings.store');
     Route::delete('/settings/{setting}', [AdminSettingsController::class, 'destroy'])->name('settings.destroy');
     Route::post('/settings/initialize', [AdminSettingsController::class, 'initializeDefaults'])->name('settings.initialize');
+
+    // Media Orders Management
+    Route::get('/media-orders', [AdminMediaOrderController::class, 'index'])->name('media-orders.index');
+    Route::get('/media-orders/{mediaOrder}', [AdminMediaOrderController::class, 'show'])->name('media-orders.show');
+    Route::post('/media-orders/{mediaOrder}/status', [AdminMediaOrderController::class, 'updateStatus'])->name('media-orders.status');
+    Route::post('/media-orders/{mediaOrder}/paid', [AdminMediaOrderController::class, 'markPaid'])->name('media-orders.paid');
+    Route::post('/media-orders/{mediaOrder}/notes', [AdminMediaOrderController::class, 'addNotes'])->name('media-orders.notes');
+    Route::post('/media-orders/{mediaOrder}/schedule', [AdminMediaOrderController::class, 'schedule'])->name('media-orders.schedule');
+    Route::delete('/media-orders/{mediaOrder}', [AdminMediaOrderController::class, 'destroy'])->name('media-orders.destroy');
 });
 
 require __DIR__.'/auth.php';

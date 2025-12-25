@@ -40,6 +40,10 @@ const Header = () => {
                 Sellers
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#A52A3D] group-hover:w-full transition-all duration-300"></span>
               </Link>
+              <Link href="/our-packages" className="text-[14px] font-instrument font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors relative group">
+                Packages
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#A52A3D] group-hover:w-full transition-all duration-300"></span>
+              </Link>
               <Link href="/mortgages" className="text-[14px] font-instrument font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors relative group">
                 Mortgage
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#A52A3D] group-hover:w-full transition-all duration-300"></span>
@@ -221,6 +225,13 @@ const Header = () => {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Sellers
+              </Link>
+              <Link
+                href="/our-packages"
+                className="block text-[16px] font-semibold text-[#111111] hover:text-[#A52A3D] transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Packages
               </Link>
               <Link
                 href="/mortgages"
