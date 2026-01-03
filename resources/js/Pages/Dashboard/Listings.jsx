@@ -531,7 +531,7 @@ export default function Listings({ listings, filters = {}, counts = {} }) {
                                                     <li>• Durable corrugated plastic</li>
                                                     <li>• Metal H-frame stake included</li>
                                                     <li>• QR code printed on sign</li>
-                                                    <li>• OK BY OWNER branding</li>
+                                                    <li>• OKByOwner branding</li>
                                                 </>
                                             )}
                                         </ul>

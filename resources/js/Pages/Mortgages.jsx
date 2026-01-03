@@ -29,19 +29,19 @@ function Mortgages() {
     {
       icon: Home,
       title: 'Conventional Loans',
-      description: 'Traditional mortgages not backed by the government. Typically require 3-20% down payment and good credit scores.',
+      description: 'Traditional mortgages are not backed by the government. Typically require 3-20% down payment and good credit scores.',
       features: ['Competitive interest rates', 'Flexible terms (15-30 years)', 'PMI removed at 20% equity']
     },
     {
       icon: Shield,
       title: 'FHA Loans',
-      description: 'Government-backed loans ideal for first-time buyers. Lower down payment and credit requirements.',
+      description: 'Government-backed loans are ideal for first-time buyers. Lower down payment and credit requirements.',
       features: ['3.5% minimum down payment', 'Credit scores as low as 580', 'Lower closing costs']
     },
     {
       icon: BadgeCheck,
       title: 'VA Loans',
-      description: 'Exclusive benefits for veterans and active military. Often the best mortgage option available.',
+      description: 'Exclusive benefits for veterans and active military. Often, the best mortgage option available.',
       features: ['No down payment required', 'No PMI requirement', 'Competitive rates']
     },
     {
@@ -61,7 +61,7 @@ function Mortgages() {
     {
       icon: PiggyBank,
       title: 'Save for Down Payment',
-      description: 'Aim for 20% down to avoid PMI, but many programs allow as little as 3% down. Don\'t forget closing costs (2-5%).'
+      description: 'Aim for 20% down to avoid PMI, but many programs allow as little as 3% down. Don\'t forget to factor in closing costs (2-5%).'
     },
     {
       icon: Calculator,
@@ -76,7 +76,7 @@ function Mortgages() {
     {
       icon: TrendingUp,
       title: 'Lock Your Rate',
-      description: 'Once you find a good rate, lock it in. Rate locks typically last 30-60 days and protect you from market fluctuations.'
+      description: 'Once you find your rate, lock it in. Rate locks typically last 30-60 days and protect you from market fluctuations.'
     },
     {
       icon: HelpCircle,
@@ -92,25 +92,25 @@ function Mortgages() {
     },
     {
       question: 'How much down payment do I need?',
-      answer: 'It depends on the loan type. Conventional loans require 3-20%, FHA loans need 3.5%, VA and USDA loans offer 0% down options. Putting 20% down avoids private mortgage insurance (PMI).'
+      answer: 'It depends on the loan type. Conventional loans require 3-20% down; FHA loans require 3.5%; VA and USDA loans offer 0% down options. Putting 20% down avoids private mortgage insurance (PMI).'
     },
     {
       question: 'What\'s the difference between pre-qualification and pre-approval?',
-      answer: 'Pre-qualification is an estimate based on self-reported information. Pre-approval involves a credit check and document verification, making it a stronger commitment from the lender and more attractive to sellers.'
+      answer: 'Pre-qualification is an estimate based on self-reported information. Pre-approval involves a credit check and document verification, making it a more substantial commitment from the lender and more attractive to sellers.'
     },
     {
       question: 'How long does it take to get a mortgage?',
-      answer: 'From application to closing typically takes 30-45 days. However, getting pre-approved can be done in 1-3 days. Having all documents ready speeds up the process.'
+      answer: 'From application to closing typically takes 30-45 days. However, pre-approval can be completed in 1-3 days. Having all documents ready speeds up the process.'
     },
     {
       question: 'Should I get a fixed or adjustable rate?',
-      answer: 'Fixed rates stay the same for the loan term, providing payment stability. Adjustable rates (ARMs) start lower but can change after the initial period. Fixed is usually better if you plan to stay long-term.'
+      answer: 'Fixed rates stay the same for the loan term, providing payment stability. Adjustable-rate mortgages (ARMs) start at a lower rate but can adjust after the initial period. Fixed is usually better if you plan to stay long-term.'
     }
   ];
 
   return (
     <>
-      <Head title="Mortgages - OK BY OWNER" />
+      <Head title="Mortgages - OKByOwner" />
 
       {/* Hero Section */}
       <div className="relative pt-0 md:pt-[77px]">
@@ -118,7 +118,7 @@ function Mortgages() {
           {/* Background Image */}
           <div className="absolute inset-0 z-0">
             <img
-              src="https://images.pexels.com/photos/7578939/pexels-photo-7578939.jpeg?auto=compress&cs=tinysrgb&w=1920"
+              src="https://images.pexels.com/photos/8293778/pexels-photo-8293778.jpeg?auto=compress&cs=tinysrgb&w=1920"
               alt="Mortgage Financing - Oklahoma"
               className="w-full h-full object-cover"
             />
@@ -140,7 +140,7 @@ function Mortgages() {
                 className="text-white text-[40px] sm:text-[50px] md:text-[60px] font-medium leading-[1.1] mb-5 drop-shadow-2xl"
                 style={{ fontFamily: 'Instrument Sans, sans-serif' }}
               >
-                Your Home,<br />Our Mortgage
+                Get a mortgage from<br />T&M Mortgages
               </h1>
 
               {/* Subheading */}
@@ -148,13 +148,13 @@ function Mortgages() {
                 className="text-white text-[14px] md:text-[16px] font-medium mb-8 leading-relaxed max-w-2xl drop-shadow-lg"
                 style={{ fontFamily: 'Instrument Sans, sans-serif' }}
               >
-                OK BY OWNER now offers in-house mortgage services through T&M Mortgages. Get pre-approved in minutes, compare rates from 25+ lenders, and close with confidence. One seamless experience from home search to keys in hand.
+                OKByOwner has partnered with T&M Mortgages as its preferred lender. Get pre-approved in minutes, compare rates from 25+ lenders, and close with confidence—one seamless experience from home search to keys in hand.
               </p>
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-[0.4rem] mb-12">
                 <a
-                  href="https://tandmmortgages.morty.com/"
+                  href="https://tandmmortgages.com/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="button inline-flex items-center gap-[0.4rem] bg-[#A41E34] text-white rounded-full px-5 py-[0.875rem] font-medium leading-[120%] transition-all duration-[400ms] ease-[cubic-bezier(0.645,0.045,0.355,1)] hover:bg-[#8B1A2C]"
@@ -163,14 +163,16 @@ function Mortgages() {
                   <BadgeCheck className="w-5 h-5" />
                   <span>Get Pre-Approved</span>
                 </a>
-                <Link
-                  href="#rates"
+                <a
+                  href="https://tandmmortgages.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="button inline-flex items-center gap-[0.4rem] bg-white/10 backdrop-blur-md border border-white/30 text-white rounded-full px-5 py-[0.875rem] font-medium leading-[120%] transition-all duration-[400ms] ease-[cubic-bezier(0.645,0.045,0.355,1)] hover:bg-white/20"
                   style={{ fontFamily: 'Instrument Sans, sans-serif' }}
                 >
                   <Calculator className="w-5 h-5" />
                   <span>Compare Rates</span>
-                </Link>
+                </a>
                 <Link
                   href="#why-us"
                   className="button inline-flex items-center gap-[0.4rem] bg-white/10 backdrop-blur-md border border-white/30 text-white rounded-full px-5 py-[0.875rem] font-medium leading-[120%] transition-all duration-[400ms] ease-[cubic-bezier(0.645,0.045,0.355,1)] hover:bg-white/20"
@@ -194,21 +196,21 @@ function Mortgages() {
                 <Percent className="w-8 h-8 text-[#A41E34]" />
               </div>
               <h3 className="text-[#111] font-semibold text-xl mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>25+ Lender Network</h3>
-              <p className="text-[#666] text-sm leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>We shop your loan across our network of 25+ lenders to find you the absolute best rate</p>
+              <p className="text-[#666] text-sm leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Instantly find the most competitive deal from over 25 lenders in our network.</p>
             </div>
             <div className="bg-white rounded-2xl p-6 md:p-8 hover:shadow-lg transition-all duration-300 text-center">
               <div className="bg-[#A41E34]/10 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
                 <Clock className="w-8 h-8 text-[#A41E34]" />
               </div>
-              <h3 className="text-[#111] font-semibold text-xl mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>15-Min Pre-Approval</h3>
-              <p className="text-[#666] text-sm leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Get pre-approved online in as little as 15 minutes. No office visits required.</p>
+              <h3 className="text-[#111] font-semibold text-xl mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Get Pre-Approval</h3>
+              <p className="text-[#666] text-sm leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Complete a simple online application to receive fast pre-approval, giving you confidence and leverage in your home search.</p>
             </div>
             <div className="bg-white rounded-2xl p-6 md:p-8 hover:shadow-lg transition-all duration-300 text-center">
               <div className="bg-[#A41E34]/10 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
                 <Handshake className="w-8 h-8 text-[#A41E34]" />
               </div>
-              <h3 className="text-[#111] font-semibold text-xl mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Seamless Experience</h3>
-              <p className="text-[#666] text-sm leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>One partner from property search to closing. We understand FSBO transactions.</p>
+              <h3 className="text-[#111] font-semibold text-xl mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Close with Ease</h3>
+              <p className="text-[#666] text-sm leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Enjoy a streamlined closing process with digital tools and expert support, making finalizing your mortgage quick and hassle-free.</p>
             </div>
           </div>
         </div>
@@ -232,7 +234,7 @@ function Mortgages() {
                 className="text-[28px] md:text-[36px] text-[#111] font-medium leading-tight mb-6"
                 style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 500 }}
               >
-                Why Get Your Mortgage Through Us?
+                Why use T&M Mortgages?
               </h2>
 
               {/* Description */}
@@ -240,7 +242,7 @@ function Mortgages() {
                 className="text-[16px] text-[#666] font-medium mb-8 leading-relaxed"
                 style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 500 }}
               >
-                When you find your dream home on OK BY OWNER, getting financing shouldn't slow you down. T&M Mortgages is our in-house mortgage partner, providing you with a seamless home buying experience from start to finish.
+                When you find your dream home on OKByOwner, getting financing shouldn't slow you down. T&M Mortgages is our preferred mortgage partner, providing you with a seamless home-buying experience from start to finish.
               </p>
 
               {/* Benefits */}
@@ -248,22 +250,22 @@ function Mortgages() {
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-6 h-6 text-[#A41E34] flex-shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-semibold text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Insider Understanding</h4>
-                    <p className="text-sm text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>We know FSBO transactions inside and out. No confusion, no delays.</p>
+                    <h4 className="font-semibold text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Affordability</h4>
+                    <p className="text-sm text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Services and tools that make buying a home affordable for you.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-6 h-6 text-[#A41E34] flex-shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-semibold text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Better Communication</h4>
-                    <p className="text-sm text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>One team handling your home search and mortgage. Everything stays coordinated.</p>
+                    <h4 className="font-semibold text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Low Price</h4>
+                    <p className="text-sm text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Competitive pricing from our marketplace of top lenders.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-6 h-6 text-[#A41E34] flex-shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-semibold text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Wholesale Rates</h4>
-                    <p className="text-sm text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Access to wholesale rates from 25+ lenders that you won't find shopping on your own.</p>
+                    <h4 className="font-semibold text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Marketplace</h4>
+                    <p className="text-sm text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Thousands of home financing options that can fit your needs.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -277,7 +279,7 @@ function Mortgages() {
 
               {/* CTA */}
               <a
-                href="https://tandmmortgages.morty.com/"
+                href="https://tandmmortgages.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-[#A41E34] text-white rounded-full px-6 py-4 font-medium hover:bg-[#8B1A2C] transition-all duration-300"
@@ -298,7 +300,7 @@ function Mortgages() {
                   Ready to Get Pre-Approved?
                 </h3>
                 <p className="text-white/80 text-sm leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                  It only takes 15 minutes. No impact to your credit score for pre-qualification.
+                  It only takes 15 minutes
                 </p>
               </div>
 
@@ -333,7 +335,7 @@ function Mortgages() {
               </div>
 
               <a
-                href="https://tandmmortgages.morty.com/"
+                href="https://tandmmortgages.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full bg-white text-[#A41E34] text-center py-4 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300"
@@ -363,7 +365,7 @@ function Mortgages() {
               We search thousands of loan options so you don't have to! Find the most competitive rates including: 15, 20 and 30-year fixed rates, 10/6, 7/6 and 5/6 ARMs, FHA, Jumbo, low down payment options and more.
             </p>
             <a
-              href="https://tandmmortgages.morty.com/#todays-rates"
+              href="https://tandmmortgages.com/#todays-rates"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-[#A41E34] text-white rounded-full px-6 py-3 font-medium hover:bg-[#8B1A2C] transition-all duration-300"
@@ -373,107 +375,6 @@ function Mortgages() {
               View Today's Live Rates
               <ChevronRight className="w-5 h-5" />
             </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="bg-[#EEEDEA] py-16 md:py-20">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Side - Content */}
-            <div>
-              {/* Badge */}
-              <div className="inline-flex items-center bg-[#E5E1DC] rounded-lg px-4 py-2 mb-6">
-                <span className="text-[#666] text-sm font-medium" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                  Mortgage Guide
-                </span>
-              </div>
-
-              {/* Main Heading */}
-              <h2
-                className="text-[24px] md:text-[28px] text-[#111] font-medium leading-tight mb-6"
-                style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 500 }}
-              >
-                Getting a mortgage doesn't have to be complicated. Understanding your options and preparing properly can save you thousands over the life of your loan.
-              </h2>
-
-              {/* Subheading */}
-              <p
-                className="text-[14px] text-[#666] font-medium mb-8 leading-relaxed"
-                style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 500 }}
-              >
-                Whether you're a first-time buyer or refinancing, we'll help you understand the mortgage landscape in Oklahoma.
-              </p>
-
-              {/* Buttons */}
-              <div className="flex flex-wrap gap-3">
-                <Link
-                  href="/buyers"
-                  className="inline-flex items-center gap-[0.4rem] bg-[#A41E34] text-white rounded-full px-5 py-[0.875rem] font-medium leading-[120%] transition-all duration-[400ms] ease-[cubic-bezier(0.645,0.045,0.355,1)] hover:bg-[#8B1A2C]"
-                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-                >
-                  <span>Buyer's Guide</span>
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <mask id="mask0_56_2205" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
-                      <rect width="20" height="20" transform="matrix(-1 0 0 1 20 0)" fill="#D9D9D9"/>
-                    </mask>
-                    <g mask="url(#mask0_56_2205)">
-                      <path d="M13.459 10.8334L11.084 13.2084C10.9173 13.3751 10.8375 13.5695 10.8444 13.7918C10.8513 14.014 10.9312 14.2084 11.084 14.3751C11.2507 14.5418 11.4486 14.6286 11.6777 14.6355C11.9069 14.6425 12.1048 14.5626 12.2715 14.3959L16.084 10.5834C16.2507 10.4168 16.334 10.2223 16.334 10.0001C16.334 9.77787 16.2507 9.58343 16.084 9.41676L12.2715 5.60426C12.1048 5.43759 11.9069 5.35773 11.6777 5.36467C11.4486 5.37162 11.2507 5.45842 11.084 5.62509C10.9312 5.79176 10.8513 5.9862 10.8444 6.20842C10.8375 6.43065 10.9173 6.62509 11.084 6.79176L13.459 9.16676H4.16732C3.93121 9.16676 3.73329 9.24662 3.57357 9.40634C3.41385 9.56606 3.33398 9.76398 3.33398 10.0001C3.33398 10.2362 3.41385 10.4341 3.57357 10.5938C3.73329 10.7536 3.93121 10.8334 4.16732 10.8334H13.459Z" fill="white"/>
-                    </g>
-                  </svg>
-                </Link>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-[0.4rem] bg-transparent border border-[#D0CCC7] text-[#111] rounded-full px-5 py-[0.875rem] font-medium leading-[120%] transition-all duration-[400ms] ease-[cubic-bezier(0.645,0.045,0.355,1)] hover:bg-[#E5E1DC]"
-                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-                >
-                  <span>Contact Us</span>
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <mask id="mask0_56_2206" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
-                      <rect width="20" height="20" transform="matrix(-1 0 0 1 20 0)" fill="#D9D9D9"/>
-                    </mask>
-                    <g mask="url(#mask0_56_2206)">
-                      <path d="M13.459 10.8334L11.084 13.2084C10.9173 13.3751 10.8375 13.5695 10.8444 13.7918C10.8513 14.014 10.9312 14.2084 11.084 14.3751C11.2507 14.5418 11.4486 14.6286 11.6777 14.6355C11.9069 14.6425 12.1048 14.5626 12.2715 14.3959L16.084 10.5834C16.2507 10.4168 16.334 10.2223 16.334 10.0001C16.334 9.77787 16.2507 9.58343 16.084 9.41676L12.2715 5.60426C12.1048 5.43759 11.9069 5.35773 11.6777 5.36467C11.4486 5.37162 11.2507 5.45842 11.084 5.62509C10.9312 5.79176 10.8513 5.9862 10.8444 6.20842C10.8375 6.43065 10.9173 6.62509 11.084 6.79176L13.459 9.16676H4.16732C3.93121 9.16676 3.73329 9.24662 3.57357 9.40634C3.41385 9.56606 3.33398 9.76398 3.33398 10.0001C3.33398 10.2362 3.41385 10.4341 3.57357 10.5938C3.73329 10.7536 3.93121 10.8334 4.16732 10.8334H13.459Z" fill="currentColor"/>
-                    </g>
-                  </svg>
-                </Link>
-              </div>
-            </div>
-
-            {/* Right Side - Image Grid */}
-            <div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="overflow-hidden rounded-2xl h-[195px]">
-                  <img
-                    src="https://images.pexels.com/photos/3760067/pexels-photo-3760067.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    alt="Couple reviewing mortgage documents"
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
-                </div>
-                <div className="overflow-hidden rounded-2xl h-[195px]">
-                  <img
-                    src="https://images.pexels.com/photos/7578939/pexels-photo-7578939.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    alt="Home keys"
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
-                </div>
-                <div className="overflow-hidden rounded-2xl h-[195px]">
-                  <img
-                    src="https://images.pexels.com/photos/8293651/pexels-photo-8293651.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    alt="Financial planning"
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
-                </div>
-                <div className="overflow-hidden rounded-2xl h-[195px]">
-                  <img
-                    src="https://images.pexels.com/photos/1115804/pexels-photo-1115804.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    alt="Dream home"
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -529,7 +430,7 @@ function Mortgages() {
           {/* CTA */}
           <div className="text-center mt-12">
             <a
-              href="https://tandmmortgages.morty.com/"
+              href="https://tandmmortgages.com/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-[#A41E34] text-white rounded-full px-8 py-4 font-medium hover:bg-[#8B1A2C] transition-all duration-300"
@@ -631,10 +532,10 @@ function Mortgages() {
                     Get Pre-Approved with T&M
                   </h4>
                   <p className="text-sm text-white/80 mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                    Our in-house mortgage team understands Oklahoma programs and FSBO transactions. Let us help you get the best rate.
+                    Our preferred mortgage team understands Oklahoma programs and FSBO transactions. Let us help you get the best rate.
                   </p>
                   <a
-                    href="https://tandmmortgages.morty.com/"
+                    href="https://tandmmortgages.com/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 bg-white text-[#A41E34] rounded-full px-6 py-3 font-medium transition-all duration-300 hover:bg-gray-100"
@@ -664,7 +565,7 @@ function Mortgages() {
               Mortgage Tips
             </h2>
             <p className="text-[16px] text-[#666] font-medium max-w-2xl mx-auto" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-              Smart strategies to get the best mortgage terms and save money over the life of your loan
+              Innovative strategies to get the best mortgage terms and save money over the life of your loan
             </p>
           </div>
 

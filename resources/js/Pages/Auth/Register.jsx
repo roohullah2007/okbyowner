@@ -62,7 +62,7 @@ function Register() {
                                 style={{ fontFamily: '"Instrument Sans", sans-serif' }}
                             >
                                 Join<br />
-                                <span className="text-[#A41E34]">OK BY OWNER</span>
+                                <span className="text-[#A41E34]">OKByOwner</span>
                             </h2>
                             <p className="text-white/80 text-lg max-w-md mb-8" style={{ fontFamily: '"Poppins", sans-serif' }}>
                                 Create your free account and start your journey to selling or buying property directly, without the middleman.
@@ -95,7 +95,7 @@ function Register() {
                                 <Link href="/">
                                     <img
                                         src="/images/okbyowner-logo.png"
-                                        alt="OK BY OWNER"
+                                        alt="OKByOwner"
                                         className="h-10 mx-auto"
                                     />
                                 </Link>

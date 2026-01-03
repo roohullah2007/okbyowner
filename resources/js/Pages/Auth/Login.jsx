@@ -42,7 +42,7 @@ function Login({ status, canResetPassword }) {
                                 style={{ fontFamily: '"Instrument Sans", sans-serif' }}
                             >
                                 Welcome Back to<br />
-                                <span className="text-[#A41E34]">OK BY OWNER</span>
+                                <span className="text-[#A41E34]">OKByOwner</span>
                             </h2>
                             <p className="text-white/80 text-lg max-w-md" style={{ fontFamily: '"Poppins", sans-serif' }}>
                                 Sign in to manage your property listings, connect with buyers, and take control of your real estate journey.
@@ -58,7 +58,7 @@ function Login({ status, canResetPassword }) {
                                 <Link href="/">
                                     <img
                                         src="/images/okbyowner-logo.png"
-                                        alt="OK BY OWNER"
+                                        alt="OKByOwner"
                                         className="h-10 mx-auto"
                                     />
                                 </Link>
@@ -213,7 +213,7 @@ function Login({ status, canResetPassword }) {
                                     </div>
                                     <div className="relative flex justify-center text-sm">
                                         <span className="px-4 bg-white text-gray-500" style={{ fontFamily: '"Poppins", sans-serif' }}>
-                                            New to OK BY OWNER?
+                                            New to OKByOwner?
                                         </span>
                                     </div>
                                 </div>

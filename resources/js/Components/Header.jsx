@@ -17,7 +17,7 @@ const Header = () => {
             <Link href="/" className="flex items-center">
               <img
                 src="/images/okbyowner-logo.png"
-                alt="OK BY OWNER"
+                alt="OKByOwner"
                 className="h-[32px] sm:h-[40px] w-auto"
               />
             </Link>

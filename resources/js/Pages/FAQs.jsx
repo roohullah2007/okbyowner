@@ -52,19 +52,19 @@ function FAQs() {
       icon: Home,
       faqs: [
         {
-          question: "What is OK BY OWNER?",
-          answer: "OK BY OWNER is Oklahoma's leading For Sale By Owner (FSBO) platform that allows homeowners to list, market, and sell their properties without paying traditional realtor commissions. We provide all the tools and support you need to sell your home successfully."
+          question: "What is OKByOwner?",
+          answer: "OKByOwner is Oklahoma's leading For Sale By Owner (FSBO) platform that allows homeowners to list, market, and sell their properties without paying traditional realtor commissions. We provide all the tools and support you need to sell your home successfully."
         },
         {
           question: "How do I get started listing my property?",
           answer: "Simply click on 'List Your Property' button, create a free account, and follow our step-by-step listing process. You'll add property details, upload photos, set your price, and your listing will be live within minutes."
         },
         {
-          question: "Do I need to be a licensed realtor to use OK BY OWNER?",
-          answer: "No, you don't need any license or real estate experience. OK BY OWNER is specifically designed for homeowners who want to sell their property themselves. We provide all the guidance and tools you need."
+          question: "Do I need to be a licensed realtor to use OKByOwner?",
+          answer: "No, you don't need any license or real estate experience. OKByOwner is specifically designed for homeowners who want to sell their property themselves. We provide all the guidance and tools you need."
         },
         {
-          question: "What areas does OK BY OWNER serve?",
+          question: "What areas does OKByOwner serve?",
           answer: "We serve all of Oklahoma, including major cities like Oklahoma City, Tulsa, Norman, Broken Arrow, Edmond, and all surrounding areas throughout the state."
         }
       ]
@@ -83,7 +83,7 @@ function FAQs() {
         },
         {
           question: "How much money can I save by selling FSBO?",
-          answer: "Traditional real estate commissions typically range from 5-6% of your home's sale price. On a $300,000 home, that's $15,000-$18,000 in commissions. By selling with OK BY OWNER, you keep that money in your pocket."
+          answer: "Traditional real estate commissions typically range from 5-6% of your home's sale price. On a $300,000 home, that's $15,000-$18,000 in commissions. By selling with OKByOwner, you keep that money in your pocket."
         },
         {
           question: "Do I need to offer a buyer's agent commission?",
@@ -151,7 +151,7 @@ function FAQs() {
 
   return (
     <>
-      <Head title="Frequently Asked Questions - OK BY OWNER" />
+      <Head title="Frequently Asked Questions - OKByOwner" />
 
       {/* Hero Section */}
       <div className="relative pt-0 md:pt-[77px]">

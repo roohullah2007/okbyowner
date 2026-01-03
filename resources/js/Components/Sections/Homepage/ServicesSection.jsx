@@ -1,118 +1,143 @@
 import React, { useState } from 'react';
 import { Link } from '@inertiajs/react';
-import { X, Camera, Plane, Box, Compass, Video, Sun } from 'lucide-react';
+import { X, Camera, FileText, Video, Box, Sun, Film, Home } from 'lucide-react';
 
 const ServicesSection = () => {
   const [selectedService, setSelectedService] = useState(null);
 
   const services = [
     {
-      title: 'Professional Photography',
-      link: '/services/photography',
+      title: 'Photos + Drone',
+      link: '/our-packages',
       icon: Camera,
       color: '#A41E34',
-      modalTitle: 'Professional Photography',
+      modalTitle: 'Professional Photography + Drone',
       modalImage: 'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=800',
-      modalDescription: 'Make a stunning first impression with professional real estate photography. Our experienced photographers capture your property in the best light, highlighting key features that attract buyers.',
+      modalDescription: 'Make a stunning first impression with professional HDR interior and exterior photography. Our FAA-certified drone pilots capture breathtaking aerial shots that showcase your property and neighborhood from above.',
       features: [
         'HDR photography for vibrant, balanced images',
-        'Interior and exterior shots',
-        'Twilight/dusk photography available',
+        'Interior and exterior shots included',
+        'FAA-certified drone pilots',
+        'High-resolution aerial photos',
         'Quick 24-48 hour turnaround',
         'Edited and optimized for MLS and web'
       ],
-      cta: 'Book Photography',
-      ctaLink: '/services/photography'
+      cta: 'View Packages',
+      ctaLink: '/our-packages'
     },
     {
-      title: 'Drone & Aerial Footage',
-      link: '/services/drone',
-      icon: Plane,
-      color: '#3B82F6',
-      modalTitle: 'Drone & Aerial Footage',
-      modalImage: 'https://images.pexels.com/photos/1438832/pexels-photo-1438832.jpeg?auto=compress&cs=tinysrgb&w=800',
-      modalDescription: 'Showcase your property from breathtaking angles with professional drone photography and video. Perfect for large properties, unique locations, and highlighting neighborhood features.',
+      title: 'Basic Floorplan',
+      link: '/our-packages',
+      icon: FileText,
+      color: '#10B981',
+      modalTitle: 'Basic Floor Plans',
+      modalImage: 'https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=800',
+      modalDescription: 'Help buyers visualize the layout and flow of your property with detailed, professionally created floor plans. Essential for serious buyers making informed decisions.',
       features: [
-        'FAA-certified drone pilots',
-        'High-resolution aerial photos',
-        '4K aerial video footage',
-        'Property boundary visualization',
-        'Neighborhood context shots'
+        '2D floor plan layout',
+        'Accurate room dimensions',
+        'Room labels included',
+        'Digital delivery format',
+        'Print-ready PDF formats',
+        'Fast turnaround'
       ],
-      cta: 'Book Drone Service',
-      ctaLink: '/services/drone'
+      cta: 'View Packages',
+      ctaLink: '/our-packages'
     },
     {
-      title: 'Virtual Tours & 3D Walkthrough',
-      link: '/services/virtual-tours',
+      title: 'HD Video Walkthrough',
+      link: '/our-packages',
+      icon: Video,
+      color: '#EF4444',
+      modalTitle: 'HD Video Walkthrough',
+      modalImage: 'https://images.pexels.com/photos/7031406/pexels-photo-7031406.jpeg?auto=compress&cs=tinysrgb&w=800',
+      modalDescription: 'Bring your property to life with a professional HD video walkthrough. Perfect for out-of-town buyers and social media marketing, video tours create an emotional connection with potential buyers.',
+      features: [
+        'Professional HD videography with stabilization',
+        'Smooth cinematic walkthrough',
+        'Music-backed production',
+        'Drone footage integration available',
+        'Social media optimized versions',
+        'YouTube and MLS ready'
+      ],
+      cta: 'View Packages',
+      ctaLink: '/our-packages'
+    },
+    {
+      title: 'Matterport 3D Tour',
+      link: '/our-packages',
       icon: Box,
       color: '#8B5CF6',
-      modalTitle: 'Virtual Tours & 3D Walkthrough',
+      modalTitle: 'Matterport 3D Tour',
       modalImage: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800',
-      modalDescription: 'Offer buyers an immersive 24/7 open house experience with Matterport 3D tours. Let them explore every room at their own pace from anywhere in the world.',
+      modalDescription: 'Offer buyers an immersive 24/7 open house experience with Matterport 3D tours. Let them explore every room at their own pace from anywhere in the world with industry-leading technology.',
       features: [
         'Dollhouse view of entire property',
         'Self-guided virtual walkthrough',
         'Measurement tools for buyers',
         'Embeddable on any website',
-        'VR headset compatible'
+        'VR headset compatible',
+        'High-quality capture technology'
       ],
-      cta: 'Get 3D Tour',
-      ctaLink: '/services/virtual-tours'
+      cta: 'View Packages',
+      ctaLink: '/our-packages'
     },
     {
-      title: 'Floor Plans',
-      link: '/services/floor-plans',
-      icon: Compass,
-      color: '#10B981',
-      modalTitle: 'Professional Floor Plans',
-      modalImage: 'https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=800',
-      modalDescription: 'Help buyers visualize the layout and flow of your property with detailed, professionally created floor plans. Essential for serious buyers making informed decisions.',
-      features: [
-        '2D and 3D floor plan options',
-        'Accurate room dimensions',
-        'Furniture placement visualization',
-        'Interactive digital versions',
-        'Print-ready PDF formats'
-      ],
-      cta: 'Order Floor Plans',
-      ctaLink: '/services/floor-plans'
-    },
-    {
-      title: 'Video Tours',
-      link: '/services/video-tours',
-      icon: Video,
-      color: '#EF4444',
-      modalTitle: 'Video Walkthrough Tours',
-      modalImage: 'https://images.pexels.com/photos/7031406/pexels-photo-7031406.jpeg?auto=compress&cs=tinysrgb&w=800',
-      modalDescription: 'Bring your property to life with cinematic video tours. Perfect for out-of-town buyers and social media marketing, video tours create an emotional connection with potential buyers.',
-      features: [
-        'Professional videography with stabilization',
-        'Narrated or music-backed options',
-        'Drone footage integration',
-        'Social media optimized versions',
-        'YouTube and MLS ready'
-      ],
-      cta: 'Book Video Tour',
-      ctaLink: '/services/video-tours'
-    },
-    {
-      title: 'Twilight & Lifestyle Shoots',
-      link: '/services/twilight-photography',
+      title: 'Virtual Twilight',
+      link: '/our-packages',
       icon: Sun,
       color: '#F59E0B',
-      modalTitle: 'Twilight & Lifestyle Photography',
+      modalTitle: 'Virtual Twilight Photography',
       modalImage: 'https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg?auto=compress&cs=tinysrgb&w=800',
-      modalDescription: 'Capture the magic of golden hour with stunning twilight photography. These dramatic images create an emotional connection and make your listing stand out from the competition.',
+      modalDescription: 'Transform your daytime exterior photos into stunning twilight shots. Virtual twilight creates dramatic, magazine-worthy images that make your listing stand out from the competition without scheduling an evening shoot.',
       features: [
-        'Golden hour timing for best lighting',
-        'Interior lights on for warm glow',
-        'Dramatic sky and ambiance',
-        'Virtual twilight conversion available',
-        'Perfect for luxury listings'
+        'Dramatic dusk/twilight sky effects',
+        'Interior lights digitally illuminated',
+        'Warm, inviting ambiance',
+        'No evening shoot required',
+        'Perfect for luxury listings',
+        'Quick digital turnaround'
       ],
-      cta: 'Book Twilight Shoot',
-      ctaLink: '/services/twilight-photography'
+      cta: 'View Packages',
+      ctaLink: '/our-packages'
+    },
+    {
+      title: 'Reels / TikTok Video',
+      link: '/our-packages',
+      icon: Film,
+      color: '#EC4899',
+      modalTitle: 'Reels / TikTok Video',
+      modalImage: 'https://images.pexels.com/photos/7578901/pexels-photo-7578901.jpeg?auto=compress&cs=tinysrgb&w=800',
+      modalDescription: 'Reach more buyers with short-form vertical video content optimized for Instagram Reels, TikTok, and YouTube Shorts. Engaging, trendy content designed to go viral and attract maximum attention.',
+      features: [
+        'Vertical video format (9:16)',
+        'Trending music and effects',
+        'Fast-paced engaging edits',
+        'Optimized for social algorithms',
+        'Multiple platform ready',
+        'Caption-friendly design'
+      ],
+      cta: 'View Packages',
+      ctaLink: '/our-packages'
+    },
+    {
+      title: 'Zillow 3D + Floor Plan',
+      link: '/our-packages',
+      icon: Home,
+      color: '#3B82F6',
+      modalTitle: 'Zillow 3D Home Tour + Floor Plan',
+      modalImage: 'https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg?auto=compress&cs=tinysrgb&w=800',
+      modalDescription: 'Get featured on Zillow with their native 3D Home Tour and interactive floor plan. Zillow prioritizes listings with 3D tours, giving your property more visibility and engagement on the platform.',
+      features: [
+        'Zillow-native 3D tour format',
+        'Interactive floor plan included',
+        'Boosted Zillow visibility',
+        'Mobile-friendly experience',
+        'Easy buyer navigation',
+        'Integrated with Zillow listing'
+      ],
+      cta: 'View Packages',
+      ctaLink: '/our-packages'
     },
   ];
 
@@ -134,8 +159,15 @@ const ServicesSection = () => {
               className="text-[40px] text-[#111] font-medium leading-tight uppercase"
               style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 500 }}
             >
-              Everything You Need to Sell Successfully
+              Showcase Your Property
             </h2>
+            {/* Sub Heading */}
+            <p
+              className="text-[20px] text-[#666] font-medium mt-2"
+              style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+            >
+              with professional photos, 3D tours, floor plans, and more.
+            </p>
           </div>
 
           {/* Right Side - Description and Buttons */}
@@ -145,7 +177,7 @@ const ServicesSection = () => {
               className="text-[16px] text-[#666] font-medium mb-8 leading-relaxed"
               style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 500 }}
             >
-              Listings with professional photos sell up to 32% faster and command around 4% higher prices. High-quality visuals capture buyer attention, build trust, and showcase your property's best features.
+              Give your property the best first impression to lead to a faster, higher-priced sale. Listings with professional photos sell up to 32% faster and command around 4% higher prices.
             </p>
 
             {/* Buttons */}

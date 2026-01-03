@@ -191,7 +191,7 @@ function ListProperty() {
 
   return (
     <>
-      <Head title="List Your Property - OK BY OWNER" />
+      <Head title="List Your Property - OKByOwner" />
 
       {/* Hero Section */}
       <div className="relative pt-0 md:pt-[77px]">
@@ -243,7 +243,7 @@ function ListProperty() {
                     Property Listed Successfully!
                   </h3>
                   <p className="text-green-700 mb-4" style={{ fontFamily: '"Instrument Sans", sans-serif' }}>
-                    Thank you for listing your property with OK BY OWNER. Your listing is now pending approval and will be reviewed by our team within 24-48 hours.
+                    Thank you for listing your property with OKByOwner. Your listing is now pending approval and will be reviewed by our team within 24-48 hours.
                   </p>
                   <p className="text-green-600 text-sm mb-6" style={{ fontFamily: '"Instrument Sans", sans-serif' }}>
                     You will receive an email notification once your listing is approved and live on our website.

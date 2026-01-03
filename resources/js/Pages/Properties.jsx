@@ -68,7 +68,7 @@ function Properties({ properties = { data: [] }, filters = {} }) {
 
   return (
     <>
-      <Head title="Properties - OK BY OWNER" />
+      <Head title="Properties - OKByOwner" />
 
       {/* Hero Section */}
       <div className="relative bg-[#EEEDEA] pt-0 md:pt-[77px]">

@@ -32,7 +32,7 @@ function About() {
       name: 'Jennifer Martinez',
       location: 'Oklahoma City, OK',
       rating: 5,
-      text: 'I saved over $18,000 in commission fees by using OK BY OWNER. The platform was incredibly easy to use, and I had my home sold in just 3 weeks!'
+      text: 'I saved over $18,000 in commission fees by using OKByOwner. The platform was incredibly easy to use, and I had my home sold in just 3 weeks!'
     },
     {
       name: 'Robert Thompson',
@@ -61,7 +61,7 @@ function About() {
 
   return (
     <>
-      <Head title="About Us - OK BY OWNER" />
+      <Head title="About Us - OKByOwner" />
 
       {/* Hero Section */}
       <div className="relative pt-0 md:pt-[77px]">
@@ -154,7 +154,7 @@ function About() {
                   className="text-[14px] md:text-[16px] text-[#666] font-medium leading-relaxed"
                   style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 500 }}
                 >
-                  OK BY OWNER was founded in 1997 with a simple belief: homeowners deserve to keep their hard-earned equity. After watching countless friends and family members pay tens of thousands in broker commissions, we knew there had to be a better way.
+                  OKByOwner was founded in 1997 with a simple belief: homeowners deserve to keep their hard-earned equity. After watching countless friends and family members pay tens of thousands in broker commissions, we knew there had to be a better way.
                 </p>
                 <p
                   className="text-[14px] md:text-[16px] text-[#666] font-medium leading-relaxed"

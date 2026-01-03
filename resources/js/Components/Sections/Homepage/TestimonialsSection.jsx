@@ -9,7 +9,7 @@ const TestimonialsSection = () => {
       id: 1,
       company: "Oklahoma City Homeowner",
       companyIcon: "okc",
-      quote: "OK BY OWNER saved us over $15,000 in commission fees when we sold our home. The MLS listing got our property in front of thousands of buyers, and the process was so much easier than we expected. We had full control and expert support every step of the way.",
+      quote: "OKByOwner saved us over $15,000 in commission fees when we sold our home. The MLS listing got our property in front of thousands of buyers, and the process was so much easier than we expected. We had full control and expert support every step of the way.",
       name: "Sarah Mitchell",
       role: "Sold home in Oklahoma City",
       avatar: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=200"
@@ -18,7 +18,7 @@ const TestimonialsSection = () => {
       id: 2,
       company: "Tulsa Property Seller",
       companyIcon: "tulsa",
-      quote: "I was skeptical about selling without a realtor, but OK BY OWNER made it incredibly simple. The free listing, professional tools, and responsive support team gave me everything I needed. We sold in just 45 days and kept thousands more in our pocket.",
+      quote: "I was skeptical about selling without a realtor, but OKByOwner made it incredibly simple. The free listing, professional tools, and responsive support team gave me everything I needed. We sold in just 45 days and kept thousands more in our pocket.",
       name: "Michael Torres",
       role: "Sold home in Tulsa",
       avatar: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=200"

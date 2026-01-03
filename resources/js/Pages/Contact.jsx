@@ -75,7 +75,7 @@ function Contact() {
 
   return (
     <>
-      <Head title="Contact Us - OK BY OWNER" />
+      <Head title="Contact Us - OKByOwner" />
 
       {/* Hero Section */}
       <div className="relative pt-0 md:pt-[77px]">

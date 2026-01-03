@@ -50,7 +50,7 @@ const FAQSection = () => {
     },
     {
       category: "Free Listing",
-      question: "Why is it free to list on OK By Owner?",
+      question: "Why is it free to list on OKByOwner?",
       answer: "Unlike other national websites that let you list for free, only to give your buyer leads to paying real estate agents. Should you decide to upgrade to professional photos, multimedia, or the MLS, you'll use us, like hundreds of other successful for-sale-by-owners."
     },
     // Multimedia FAQs

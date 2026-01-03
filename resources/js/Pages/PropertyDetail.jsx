@@ -137,7 +137,7 @@ function PropertyDetail({ property }) {
 
   return (
     <>
-      <Head title={`${property.property_title} - OK BY OWNER`} />
+      <Head title={`${property.property_title} - OKByOwner`} />
 
       {/* Back Button */}
       <div className="bg-[#EEEDEA] pt-[77px]">

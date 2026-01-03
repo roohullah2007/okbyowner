@@ -104,7 +104,7 @@ function Buyers() {
 
   return (
     <>
-      <Head title="Buyers - OK BY OWNER" />
+      <Head title="Buyers - OKByOwner" />
 
       {/* Hero Section */}
       <div className="relative pt-0 md:pt-[77px]">
@@ -504,7 +504,7 @@ function Buyers() {
                 Frequently Asked<br />Questions
               </h2>
               <p className="text-[16px] text-[#666] font-medium leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                Have questions? We've got answers. Learn more about buying properties through OK BY OWNER.
+                Have questions? We've got answers. Learn more about buying properties through OKByOwner.
               </p>
             </div>
 

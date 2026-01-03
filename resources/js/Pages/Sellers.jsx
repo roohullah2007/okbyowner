@@ -155,13 +155,13 @@ function Sellers() {
   const testimonials = [
     {
       id: 1,
-      quote: "OK BY OWNER saved us over $15,000 in commission fees when we sold our home. The MLS listing got our property in front of thousands of buyers, and the process was so much easier than we expected. We had full control and expert support every step of the way.",
+      quote: "OKByOwner saved us over $15,000 in commission fees when we sold our home. The MLS listing got our property in front of thousands of buyers, and the process was so much easier than we expected. We had full control and expert support every step of the way.",
       name: "Sarah Mitchell",
       role: "Sold home in Oklahoma City"
     },
     {
       id: 2,
-      quote: "I was skeptical about selling without a realtor, but OK BY OWNER made it incredibly simple. The free listing, professional tools, and responsive support team gave me everything I needed. We sold in just 45 days and kept thousands more in our pocket.",
+      quote: "I was skeptical about selling without a realtor, but OKByOwner made it incredibly simple. The free listing, professional tools, and responsive support team gave me everything I needed. We sold in just 45 days and kept thousands more in our pocket.",
       name: "Michael Torres",
       role: "Sold home in Tulsa"
     },
@@ -312,7 +312,7 @@ function Sellers() {
                 className="text-[24px] md:text-[28px] text-[#111] font-medium leading-tight mb-6"
                 style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 500 }}
               >
-                Selling your home doesn't have to cost a fortune. OK BY OWNER empowers Oklahoma homeowners to list, market, and sell their properties without paying hefty realtor commissions.
+                Selling your home doesn't have to cost a fortune. OKByOwner empowers Oklahoma homeowners to list, market, and sell their properties without paying hefty realtor commissions.
               </h2>
 
               {/* Subheading */}
@@ -772,7 +772,7 @@ function Sellers() {
                 className="text-[14px] font-medium text-[#666] mb-10 leading-relaxed"
                 style={{ fontFamily: 'Instrument Sans, sans-serif' }}
               >
-                Have questions? We've got answers. Learn more about selling your property through OK BY OWNER.
+                Have questions? We've got answers. Learn more about selling your property through OKByOwner.
               </p>
               <Link
                 href="/contact"

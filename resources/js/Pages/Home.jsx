@@ -6,14 +6,14 @@ import SellingSection from '@/Components/Sections/Homepage/SellingSection';
 import StatsSection from '@/Components/Sections/Homepage/StatsSection';
 import ServicesSection from '@/Components/Sections/Homepage/ServicesSection';
 import PropertiesSection from '@/Components/Sections/Homepage/PropertiesSection';
-import HeroSlider from '@/Components/Sections/Homepage/HeroSlider';
+import MLSSection from '@/Components/Sections/Homepage/MLSSection';
 import TestimonialsSection from '@/Components/Sections/Homepage/TestimonialsSection';
 import FAQSection from '@/Components/Sections/Homepage/FAQSection';
 
 export default function Home({ featuredProperties = [] }) {
   return (
     <>
-      <Head title="Home - OK BY OWNER" />
+      <Head title="Home - OKByOwner" />
 
       {/* Hero Section */}
       <HeroSection />
@@ -21,20 +21,20 @@ export default function Home({ featuredProperties = [] }) {
       {/* How It Works Section */}
       <HowItWorksSection />
 
-      {/* Selling Section */}
+      {/* Services Section - Multimedia */}
+      <ServicesSection />
+
+      {/* MLS Section */}
+      <MLSSection />
+
+      {/* Selling Section - Why Choose Us */}
       <SellingSection />
 
       {/* Stats Section */}
       <StatsSection />
 
-      {/* Services Section */}
-      <ServicesSection />
-
       {/* Properties Section */}
       <PropertiesSection properties={featuredProperties} />
-
-      {/* Hero Slider Section */}
-      <HeroSlider />
 
       {/* Testimonials Section */}
       <TestimonialsSection />
