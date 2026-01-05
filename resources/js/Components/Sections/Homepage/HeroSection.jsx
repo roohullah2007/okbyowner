@@ -9,7 +9,8 @@ const HeroSection = () => {
   const slides = [
     {
       id: 1,
-      headline: 'Sell Your Oklahoma Home Save Thousands in Fees',
+      headlineTop: 'Sell Your Oklahoma Home',
+      headlineBottom: 'Save Thousands in Fees',
       description: 'List your property for FREE on our platform. No commissions, no hidden fees. Join thousands of Oklahoma homeowners who\'ve successfully sold without a realtor.',
       image: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1920',
       ctaPrimary: { text: 'List Your Property', href: '/list-property' },
@@ -17,7 +18,8 @@ const HeroSection = () => {
     },
     {
       id: 2,
-      headline: 'Stand Out with Pro Photos & Tours',
+      headlineTop: 'Stand Out with',
+      headlineBottom: 'Pro Photos & Tours',
       description: 'HDR photography, video walkthroughs, Matterport 3D tours, drone aerials, and virtual twilight. Make your listing shine.',
       image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1920',
       ctaPrimary: { text: 'View Media Packages', href: '/our-packages' },
@@ -25,7 +27,8 @@ const HeroSection = () => {
     },
     {
       id: 3,
-      headline: 'Get Maximum Exposure on the MLS',
+      headlineTop: 'Get Maximum Exposure',
+      headlineBottom: 'on the MLS',
       description: 'Your listing on Zillow, Realtor.com, Redfin, and 100+ sites. Flat fee, no percentage. Keep your equity.',
       image: 'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1920',
       ctaPrimary: { text: 'Learn About MLS', href: '/our-packages' },
@@ -95,12 +98,20 @@ const HeroSection = () => {
                     }`}
                   >
                     {/* Main Heading */}
-                    <h1
-                      className="text-white text-[40px] sm:text-[50px] md:text-[60px] font-medium leading-[1.1] mb-5 drop-shadow-2xl"
-                      style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-                    >
-                      {slide.headline}
-                    </h1>
+                    <div className="mb-5">
+                      <h1
+                        className="text-white text-[40px] sm:text-[50px] md:text-[60px] font-medium leading-[1.1] drop-shadow-2xl"
+                        style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                      >
+                        {slide.headlineTop}
+                      </h1>
+                      <p
+                        className="text-white text-[40px] sm:text-[50px] md:text-[60px] font-medium leading-[1.1] drop-shadow-2xl"
+                        style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                      >
+                        {slide.headlineBottom}
+                      </p>
+                    </div>
 
                     {/* Description */}
                     <p

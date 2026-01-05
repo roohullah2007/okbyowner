@@ -33,7 +33,8 @@
       "WebFetch(domain:tours.flowphotos.com)",
       "Bash(if not exist \"F:\\\\OKByOwner\\\\resources\\\\js\\\\Pages\\\\Admin\\\\MediaOrders\" mkdir \"F:\\\\OKByOwner\\\\resources\\\\js\\\\Pages\\\\Admin\\\\MediaOrders\")",
       "Bash(net start MySQL)",
-      "Bash(sc query:*)"
+      "Bash(sc query:*)",
+      "WebFetch(domain:flowphotosokc.com)"
     ],
     "deny": [],
     "ask": []

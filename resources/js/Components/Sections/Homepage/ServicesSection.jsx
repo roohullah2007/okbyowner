@@ -41,6 +41,7 @@ const ServicesSection = () => {
         'Print-ready PDF formats',
         'Fast turnaround'
       ],
+      exampleText: 'Professional 2D layout with accurate dimensions, room labels, and square footage calculations.',
       cta: 'View Packages',
       ctaLink: '/our-packages'
     },
@@ -79,6 +80,8 @@ const ServicesSection = () => {
         'VR headset compatible',
         'High-quality capture technology'
       ],
+      exampleLink: 'https://flowphotosokc.com/gallery/3d-tours/',
+      exampleLinkLabel: 'View Example Tours',
       cta: 'View Packages',
       ctaLink: '/our-packages'
     },
@@ -98,6 +101,8 @@ const ServicesSection = () => {
         'Perfect for luxury listings',
         'Quick digital turnaround'
       ],
+      exampleBeforeText: 'Standard daytime exterior photo',
+      exampleAfterText: 'Stunning twilight with glowing windows & dramatic sky',
       cta: 'View Packages',
       ctaLink: '/our-packages'
     },
@@ -276,9 +281,9 @@ const ServicesSection = () => {
             </button>
 
             {/* Modal Content - Two Column Layout */}
-            <div className="grid lg:grid-cols-2 h-[500px]">
+            <div className="flex flex-col lg:grid lg:grid-cols-2" style={{ maxHeight: '90vh' }}>
               {/* Left - Image */}
-              <div className="relative h-full">
+              <div className="relative h-48 lg:h-auto shrink-0">
                 <img
                   src={selectedService.modalImage}
                   alt={selectedService.modalTitle}
@@ -287,7 +292,7 @@ const ServicesSection = () => {
               </div>
 
               {/* Right - Content */}
-              <div className="p-8 lg:p-10 flex flex-col justify-center">
+              <div className="p-6 lg:p-10 flex flex-col overflow-y-auto">
                 {/* Icon & Title */}
                 <div className="flex items-center gap-4 mb-4">
                   <div
@@ -344,6 +349,113 @@ const ServicesSection = () => {
                     ))}
                   </ul>
                 </div>
+
+                {/* Before/After Text Example */}
+                {selectedService.exampleBeforeText && selectedService.exampleAfterText && (
+                  <div className="mb-5">
+                    <h4
+                      className="text-[14px] font-semibold text-[#111] mb-3"
+                      style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                    >
+                      Example:
+                    </h4>
+                    <div className="flex gap-3">
+                      <div className="flex-1">
+                        <div
+                          className="rounded-lg p-3 h-full"
+                          style={{ backgroundColor: '#f5f5f5' }}
+                        >
+                          <span
+                            className="block text-[10px] font-semibold text-[#999] uppercase mb-1"
+                            style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                          >
+                            Before
+                          </span>
+                          <p
+                            className="text-[12px] text-[#666]"
+                            style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                          >
+                            {selectedService.exampleBeforeText}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <div
+                          className="rounded-lg p-3 h-full"
+                          style={{ backgroundColor: `${selectedService.color}15` }}
+                        >
+                          <span
+                            className="block text-[10px] font-semibold uppercase mb-1"
+                            style={{ color: selectedService.color, fontFamily: 'Instrument Sans, sans-serif' }}
+                          >
+                            After
+                          </span>
+                          <p
+                            className="text-[12px] text-[#666]"
+                            style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                          >
+                            {selectedService.exampleAfterText}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Single Text Example */}
+                {selectedService.exampleText && (
+                  <div className="mb-5">
+                    <h4
+                      className="text-[14px] font-semibold text-[#111] mb-3"
+                      style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                    >
+                      Example:
+                    </h4>
+                    <div
+                      className="rounded-lg p-3"
+                      style={{ backgroundColor: `${selectedService.color}15` }}
+                    >
+                      <p
+                        className="text-[12px] text-[#666]"
+                        style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                      >
+                        {selectedService.exampleText}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Example Link (for tours/videos) */}
+                {selectedService.exampleLink && (
+                  <div className="mb-5">
+                    <h4
+                      className="text-[14px] font-semibold text-[#111] mb-3"
+                      style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                    >
+                      Example:
+                    </h4>
+                    <a
+                      href={selectedService.exampleLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 border-2 rounded-full px-4 py-2 text-[13px] font-medium transition-all duration-300 hover:opacity-80"
+                      style={{
+                        borderColor: selectedService.color,
+                        color: selectedService.color,
+                        fontFamily: 'Instrument Sans, sans-serif'
+                      }}
+                    >
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span>{selectedService.exampleLinkLabel || 'View Example'}</span>
+                      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                  </div>
+                )}
 
                 {/* CTA Button */}
                 <Link

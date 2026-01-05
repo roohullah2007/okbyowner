@@ -37,7 +37,7 @@ const HowItWorksSection = () => {
           </div>
 
           <h2 className="text-[32px] md:text-[48px] font-medium text-[#111] mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            How a FREE OK By Owner Listing Works
+            How a FREE OKBYOWNER Listing Works
           </h2>
           <p className="text-[14px] md:text-[16px] text-[#666] font-medium max-w-2xl mx-auto" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
             Sell your Oklahoma property in four simple steps.
