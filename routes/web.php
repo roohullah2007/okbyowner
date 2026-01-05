@@ -60,6 +60,14 @@ Route::get('/mortgages', function () {
     return Inertia::render('Mortgages');
 })->name('mortgages');
 
+Route::get('/privacy-policy', function () {
+    return Inertia::render('PrivacyPolicy');
+})->name('privacy-policy');
+
+Route::get('/terms-of-use', function () {
+    return Inertia::render('TermsOfUse');
+})->name('terms-of-use');
+
 // Packages & Media Ordering
 Route::get('/our-packages', [MediaOrderController::class, 'index'])->name('packages');
 Route::get('/packages', [MediaOrderController::class, 'index']); // Alias

@@ -1,10 +1,8 @@
 import React from 'react';
 import { Head } from '@inertiajs/react';
 import HeroSection from '@/Components/Sections/Homepage/HeroSection';
-import HeroSlider from '@/Components/Sections/Homepage/HeroSlider';
 import HowItWorksSection from '@/Components/Sections/Homepage/HowItWorksSection';
 import SellingSection from '@/Components/Sections/Homepage/SellingSection';
-import StatsSection from '@/Components/Sections/Homepage/StatsSection';
 import ServicesSection from '@/Components/Sections/Homepage/ServicesSection';
 import PropertiesSection from '@/Components/Sections/Homepage/PropertiesSection';
 import MLSSection from '@/Components/Sections/Homepage/MLSSection';
@@ -31,14 +29,8 @@ export default function Home({ featuredProperties = [] }) {
       {/* Selling Section - Why Choose Us */}
       <SellingSection />
 
-      {/* Stats Section */}
-      <StatsSection />
-
       {/* Properties Section */}
       <PropertiesSection properties={featuredProperties} />
-
-      {/* Hero Slider Section */}
-      <HeroSlider />
 
       {/* Testimonials Section */}
       <TestimonialsSection />
