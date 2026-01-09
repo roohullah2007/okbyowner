@@ -53,7 +53,7 @@ function FAQs() {
       faqs: [
         {
           question: "What is OKByOwner?",
-          answer: "OKByOwner is Oklahoma's leading For Sale By Owner (FSBO) platform that allows homeowners to list, market, and sell their properties without paying traditional realtor commissions. We provide all the tools and support you need to sell your home successfully."
+          answer: "OKByOwner is Oklahoma's leading For Sale By Owner (FSBO) platform that allows homeowners to list, market, and sell their properties without paying traditional realtor commissions. We provide all the tools and resources you need to sell your home successfully."
         },
         {
           question: "How do I get started listing my property?",
@@ -75,7 +75,7 @@ function FAQs() {
       faqs: [
         {
           question: "How much does it cost to list my property?",
-          answer: "Our basic listing is completely FREE! You can list your property, upload photos, and connect with buyers at no cost. We also offer premium packages with additional features like professional photography, virtual tours, and enhanced marketing."
+          answer: "Our basic listing is completely FREE forever. We also offer premium packages starting at $179 for additional exposure and marketing tools."
         },
         {
           question: "Are there any hidden fees?",
@@ -131,11 +131,7 @@ function FAQs() {
         },
         {
           question: "What happens when I receive an offer?",
-          answer: "When you receive an offer, you can review it and choose to accept, reject, or counter. We provide resources and templates to help you through the negotiation process. Many sellers also consult with a real estate attorney for major transactions."
-        },
-        {
-          question: "Do I need a lawyer to sell my home FSBO?",
-          answer: "While not legally required in Oklahoma, we highly recommend consulting with a real estate attorney, especially for the closing process. An attorney can review contracts, ensure proper documentation, and protect your interests. The cost is minimal compared to traditional commissions."
+          answer: "When you receive an offer, you can review it and choose to accept, reject, or counter. You can find many of the forms on the Oklahoma Real Estate Commission's website. You may also contact M&T Realty Group, which offers à la carte real estate services."
         },
         {
           question: "How long does it typically take to sell a FSBO property?",
@@ -143,7 +139,7 @@ function FAQs() {
         },
         {
           question: "What paperwork do I need to sell my home?",
-          answer: "You'll need a purchase agreement, seller's disclosure form, title documents, and closing documents. We provide templates for many of these documents, and your closing attorney or title company will handle much of the paperwork."
+          answer: "You'll need a purchase agreement, seller's disclosure form, title documents, and closing documents. You can find many of the forms on the Oklahoma Real Estate Commission's website. You may also contact M&T Realty Group, which offers à la carte real estate services."
         }
       ]
     }
@@ -151,7 +147,7 @@ function FAQs() {
 
   return (
     <>
-      <Head title="Frequently Asked Questions - OKByOwner" />
+      <Head title="Frequently Asked Questions - OKBYOWNER" />
 
       {/* Hero Section */}
       <div className="relative pt-0 md:pt-[77px]">

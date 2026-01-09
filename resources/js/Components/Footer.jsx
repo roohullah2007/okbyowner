@@ -137,6 +137,24 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Broker Disclosure */}
+        <div className="mb-6 pt-6 border-t border-white/10">
+          <p
+            style={{ fontFamily: '"Instrument Sans", sans-serif' }}
+            className="text-[#DCD8D5]/70 text-xs text-center leading-relaxed"
+          >
+            M&T REALTY GROUP, License #180717, will perform all services that require a licensed broker in Oklahoma.{' '}
+            <a
+              href="https://www.zillow.com/profile/mntrealty"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#DCD8D5] underline hover:text-white transition-colors"
+            >
+              Check out their Zillow Reviews
+            </a>
+          </p>
+        </div>
+
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-4 border-t border-white/10">
           <p

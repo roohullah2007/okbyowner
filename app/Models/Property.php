@@ -51,6 +51,8 @@ class Property extends Model
         'has_video',
         'virtual_tour_url',
         'video_url',
+        'video_tour_url',
+        'floor_plan_url',
         'is_mls_listed',
         'mls_number',
         'mls_listed_at',
@@ -225,7 +227,7 @@ class Property extends Model
      */
     public function getSlugAttribute(): string
     {
-        $slug = strtolower(trim($this->address));
+        $slug = strtolower(trim($this->address ?? ''));
         $slug = preg_replace('/[^a-z0-9\s-]/', '', $slug);
         $slug = preg_replace('/[\s-]+/', '-', $slug);
         $slug = trim($slug, '-');

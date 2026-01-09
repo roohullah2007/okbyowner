@@ -191,7 +191,7 @@ function ListProperty() {
 
   return (
     <>
-      <Head title="List Your Property - OKByOwner" />
+      <Head title="List Your Property - OKBYOWNER" />
 
       {/* Hero Section */}
       <div className="relative pt-0 md:pt-[77px]">
@@ -220,8 +220,11 @@ function ListProperty() {
                 Sell Your Home Fast & Easy
               </h1>
 
-              <p className="text-white/90 text-lg md:text-xl leading-relaxed mb-8 drop-shadow-lg" style={{ fontFamily: '"Instrument Sans", sans-serif' }}>
+              <p className="text-white/90 text-lg md:text-xl leading-relaxed mb-4 drop-shadow-lg" style={{ fontFamily: '"Instrument Sans", sans-serif' }}>
                 List your property for free and reach thousands of potential buyers across Oklahoma
+              </p>
+              <p className="text-white/80 text-base md:text-lg leading-relaxed mb-8 drop-shadow-lg" style={{ fontFamily: '"Instrument Sans", sans-serif' }}>
+                After you create your listing, you can order professional photos, other multimedia products, or upgrade to a flat-fee MLS listing.
               </p>
             </div>
           </div>
@@ -315,7 +318,7 @@ function ListProperty() {
                   </label>
                   <input
                     type="text"
-                    placeholder="e.g., Beautiful Family Home in Tulsa"
+                    placeholder="e.g., Beautiful Home in Great Neighborhood"
                     className="w-full px-4 py-3 border border-[#D0CCC7] rounded-lg focus:ring-2 focus:ring-[#A41E34] focus:border-transparent transition-all"
                     style={{ fontFamily: '"Instrument Sans", sans-serif' }}
                     value={data.propertyTitle}
@@ -330,7 +333,7 @@ function ListProperty() {
                   </label>
                   <input
                     type="text"
-                    placeholder="e.g., Simmons Homes"
+                    placeholder="e.g., ABC Homes"
                     className="w-full px-4 py-3 border border-[#D0CCC7] rounded-lg focus:ring-2 focus:ring-[#A41E34] focus:border-transparent transition-all"
                     style={{ fontFamily: '"Instrument Sans", sans-serif' }}
                     value={data.developer}

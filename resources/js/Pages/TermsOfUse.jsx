@@ -218,9 +218,9 @@ function TermsOfUse() {
               </p>
               <ul className="list-disc list-inside text-[15px] text-[#666] leading-relaxed space-y-2 ml-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
                 <li>All prices are in US dollars</li>
-                <li>Payment is due at the time of service order</li>
-                <li>We accept major credit cards and other payment methods as displayed</li>
-                <li>Refund requests must be submitted within 7 days of purchase</li>
+                <li>Payment is due at the time of the service order</li>
+                <li>We accept major credit cards and other payment methods, as displayed</li>
+                <li>Refund requests must be submitted within 14 days of purchase</li>
                 <li>Completed services are non-refundable</li>
                 <li>Cancellations made less than 24 hours before scheduled service may incur fees</li>
               </ul>
@@ -382,10 +382,10 @@ function TermsOfUse() {
                   Email: legal@okbyowner.com
                 </p>
                 <p className="text-[15px] text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                  Phone: (405) 123-4567
+                  Phone: 888-441-6526
                 </p>
                 <p className="text-[15px] text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                  Address: Oklahoma City, OK
+                  Address: 1611 S Utica Ave #515, Tulsa, OK 74104
                 </p>
               </div>
             </section>

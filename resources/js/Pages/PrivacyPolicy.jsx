@@ -144,7 +144,7 @@ function PrivacyPolicy() {
                 We may share your information in the following situations:
               </p>
               <ul className="list-disc list-inside text-[15px] text-[#666] leading-relaxed space-y-2 ml-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                <li><strong>With MLS Services:</strong> If you opt for MLS listing, your property information will be shared with the Multiple Listing Service and syndicated to partner websites like Zillow, Realtor.com, and Redfin.</li>
+                <li><strong>With MLS Services:</strong> If you opt for an MLS listing, your property information will be shared with the Multiple Listing Service and syndicated to partner websites like Zillow, Realtor.com, and Redfin.</li>
                 <li><strong>With Service Providers:</strong> We may share information with third-party vendors who provide services such as photography, payment processing, and data analytics.</li>
                 <li><strong>With Potential Buyers:</strong> Your contact information may be shared with interested buyers who inquire about your listed property.</li>
                 <li><strong>For Legal Purposes:</strong> We may disclose information when required by law or to protect our rights and safety.</li>
@@ -200,7 +200,7 @@ function PrivacyPolicy() {
               <ul className="list-disc list-inside text-[15px] text-[#666] leading-relaxed space-y-2 ml-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
                 <li>Access and receive a copy of your personal information</li>
                 <li>Correct inaccurate personal information</li>
-                <li>Request deletion of your personal information</li>
+                <li>Request the deletion of your personal information</li>
                 <li>Opt-out of marketing communications</li>
                 <li>Withdraw consent where applicable</li>
               </ul>
@@ -240,7 +240,7 @@ function PrivacyPolicy() {
                 className="text-[15px] text-[#666] leading-relaxed"
                 style={{ fontFamily: 'Instrument Sans, sans-serif' }}
               >
-                Our services are not directed to individuals under the age of 18. We do not knowingly collect personal information from children. If we become aware that we have collected personal information from a child, we will take steps to delete such information.
+                Our services are not intended for individuals under 18. We do not knowingly collect personal information from children. If we become aware that we have collected personal information from a child, we will delete it.
               </p>
             </section>
 
@@ -282,10 +282,10 @@ function PrivacyPolicy() {
                   Email: privacy@okbyowner.com
                 </p>
                 <p className="text-[15px] text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                  Phone: (405) 123-4567
+                  Phone: 888-441-6526
                 </p>
                 <p className="text-[15px] text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                  Address: Oklahoma City, OK
+                  Address: 1611 S Utica Ave #515, Tulsa, OK 74104
                 </p>
               </div>
             </section>

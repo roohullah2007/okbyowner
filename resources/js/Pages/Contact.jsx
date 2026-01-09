@@ -65,7 +65,7 @@ function Contact() {
     },
     {
       question: 'Is there a fee to list?',
-      answer: 'Our basic listing is completely FREE. We also offer premium packages with additional features.'
+      answer: 'Our basic listing is completely FREE forever. We also offer premium packages starting at $179 for additional exposure and marketing tools.'
     },
     {
       question: 'How long does my listing stay active?',
@@ -75,7 +75,7 @@ function Contact() {
 
   return (
     <>
-      <Head title="Contact Us - OKByOwner" />
+      <Head title="Contact Us - OKBYOWNER" />
 
       {/* Hero Section */}
       <div className="relative pt-0 md:pt-[77px]">

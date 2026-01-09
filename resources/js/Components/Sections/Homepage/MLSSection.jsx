@@ -232,16 +232,6 @@ const MLSSection = () => {
             </div>
           </div>
         </div>
-
-        {/* Powered by FFMLSOK Badge */}
-        <div className="mt-8 p-4 bg-[#A41E34]/5 rounded-xl border border-[#A41E34]/20">
-          <p
-            className="text-[14px] text-[#666] text-center"
-            style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-          >
-            <strong className="text-[#111]">Powered by FFMLSOK</strong> - Oklahoma's trusted flat-fee MLS listing service
-          </p>
-        </div>
       </div>
     </section>
   );

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Head, Link, useForm, usePage, router } from '@inertiajs/react';
-import { Search, MapPin, Home, DollarSign, BedDouble, Bath, Grid3x3, Map, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Head, Link, router } from '@inertiajs/react';
+import { MapPin, Home, DollarSign, BedDouble, Bath, ChevronLeft, ChevronRight } from 'lucide-react';
 import MainLayout from '@/Layouts/MainLayout';
 import PropertyCard from '@/Components/PropertyCard';
 import AuthModal from '@/Components/AuthModal';
 
 function Properties({ properties = { data: [] }, filters = {} }) {
-  const { flash } = usePage().props;
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [searchParams, setSearchParams] = useState({
     keyword: filters.keyword || '',
@@ -19,33 +18,6 @@ function Properties({ properties = { data: [] }, filters = {} }) {
     bathrooms: filters.bathrooms || '',
     sort: filters.sort || 'newest',
   });
-
-  const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'map'
-  const [formSubmitted, setFormSubmitted] = useState(false);
-
-  // Buyer inquiry form
-  const { data, setData, post, processing, errors, reset } = useForm({
-    name: '',
-    email: '',
-    phone: '',
-    preferred_area: '',
-    price_min: '',
-    price_max: '',
-    mls_setup: '',
-    preapproved: '',
-  });
-
-  const handleBuyerFormSubmit = (e) => {
-    e.preventDefault();
-    post(route('buyer-inquiry.store'), {
-      preserveScroll: true,
-      onSuccess: () => {
-        reset();
-        setFormSubmitted(true);
-        setTimeout(() => setFormSubmitted(false), 5000);
-      },
-    });
-  };
 
   // Get properties data from pagination
   const propertyList = properties.data || properties || [];
@@ -68,7 +40,7 @@ function Properties({ properties = { data: [] }, filters = {} }) {
 
   return (
     <>
-      <Head title="Properties - OKByOwner" />
+      <Head title="Properties - OKBYOWNER" />
 
       {/* Hero Section */}
       <div className="relative bg-[#EEEDEA] pt-0 md:pt-[77px]">
@@ -91,61 +63,11 @@ function Properties({ properties = { data: [] }, filters = {} }) {
 
             {/* Subtitle */}
             <p
-              className="text-[#666] text-[14px] md:text-[16px] font-medium mb-8 leading-relaxed max-w-2xl mx-auto"
+              className="text-[#666] text-[14px] md:text-[16px] font-medium leading-relaxed max-w-2xl mx-auto"
               style={{ fontFamily: 'Instrument Sans, sans-serif' }}
             >
-              Browse thousands of For Sale by Owner properties across Oklahoma.<br />
-              No agent fees. Direct from owners.
+              Browse thousands of For Sale by Owner properties across Oklahoma.
             </p>
-
-            {/* Quick Search Bar */}
-            <form onSubmit={handleSearch} className="bg-white rounded-2xl shadow-lg p-2 flex flex-col md:flex-row gap-2 max-w-4xl mx-auto">
-              <div className="flex-1 flex items-center gap-2 px-4 py-3 bg-[#F8F7F5] rounded-xl">
-                <Search className="w-5 h-5 text-[#666]" />
-                <input
-                  type="text"
-                  placeholder="Search by keyword, city, or address..."
-                  className="flex-1 bg-transparent border-none outline-none text-[#111] placeholder:text-[#999] text-sm"
-                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-                  value={searchParams.keyword}
-                  onChange={(e) => handleSearchChange('keyword', e.target.value)}
-                />
-              </div>
-              <button
-                type="submit"
-                className="bg-[#A41E34] text-white px-8 py-3 rounded-xl font-medium transition-all duration-300 hover:bg-[#8B1A2C] flex items-center justify-center gap-2"
-                style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-              >
-                <Search className="w-5 h-5" />
-                Search
-              </button>
-            </form>
-
-            {/* View Toggle */}
-            <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
-              <div className="flex items-center gap-2 bg-white border border-[#D0CCC7] rounded-full px-2 py-1">
-                <button
-                  onClick={() => setViewMode('grid')}
-                  className={`flex items-center gap-2 px-4 py-1.5 rounded-full font-medium text-sm transition-all duration-300 ${
-                    viewMode === 'grid' ? 'bg-[#111] text-white' : 'text-[#111] hover:bg-[#E5E1DC]'
-                  }`}
-                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-                >
-                  <Grid3x3 className="w-4 h-4" />
-                  Grid
-                </button>
-                <button
-                  onClick={() => setViewMode('map')}
-                  className={`flex items-center gap-2 px-4 py-1.5 rounded-full font-medium text-sm transition-all duration-300 ${
-                    viewMode === 'map' ? 'bg-[#111] text-white' : 'text-[#111] hover:bg-[#E5E1DC]'
-                  }`}
-                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-                >
-                  <Map className="w-4 h-4" />
-                  Map
-                </button>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -492,210 +414,6 @@ function Properties({ properties = { data: [] }, filters = {} }) {
               )}
             </div>
           )}
-        </div>
-      </section>
-
-      {/* Buyer Sign-Up Section */}
-      <section className="bg-white py-16 md:py-20 border-t border-[#D0CCC7]">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-10">
-              <h2 className="text-[28px] md:text-[40px] font-medium text-[#111] mb-4 whitespace-nowrap" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                Can't Find What You're Looking For?
-              </h2>
-              <p className="text-[16px] text-[#666] font-medium max-w-2xl mx-auto" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                Tell us what you're looking for in a property, and we'll send you all new listings in your preferred area.
-              </p>
-            </div>
-
-            {/* Success Message */}
-            {(formSubmitted || flash?.success) && (
-              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0" />
-                <p className="text-sm text-green-800" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                  {flash?.success || "Thank you! We'll be in touch soon with property alerts matching your criteria."}
-                </p>
-              </div>
-            )}
-
-            {/* Buyer Sign-Up Form */}
-            <form onSubmit={handleBuyerFormSubmit} className="bg-[#EEEDEA] rounded-2xl p-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                {/* Name */}
-                <div>
-                  <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                    Name <span className="text-[#A41E34]">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    value={data.name}
-                    onChange={(e) => setData('name', e.target.value)}
-                    placeholder="Your full name"
-                    className={`w-full px-4 py-3 border rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors bg-white ${errors.name ? 'border-red-500' : 'border-[#D0CCC7]'}`}
-                    style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-                  />
-                  {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
-                </div>
-
-                {/* Email */}
-                <div>
-                  <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                    Email <span className="text-[#A41E34]">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    value={data.email}
-                    onChange={(e) => setData('email', e.target.value)}
-                    placeholder="your@email.com"
-                    className={`w-full px-4 py-3 border rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors bg-white ${errors.email ? 'border-red-500' : 'border-[#D0CCC7]'}`}
-                    style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-                  />
-                  {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
-                </div>
-
-                {/* Phone */}
-                <div>
-                  <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                    Phone
-                  </label>
-                  <input
-                    type="tel"
-                    value={data.phone}
-                    onChange={(e) => setData('phone', e.target.value)}
-                    placeholder="(555) 555-5555"
-                    className={`w-full px-4 py-3 border rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors bg-white ${errors.phone ? 'border-red-500' : 'border-[#D0CCC7]'}`}
-                    style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-                  />
-                  {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
-                </div>
-
-                {/* Area */}
-                <div>
-                  <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                    Preferred Area <span className="text-[#A41E34]">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    value={data.preferred_area}
-                    onChange={(e) => setData('preferred_area', e.target.value)}
-                    placeholder="City, neighborhood, or ZIP code"
-                    className={`w-full px-4 py-3 border rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors bg-white ${errors.preferred_area ? 'border-red-500' : 'border-[#D0CCC7]'}`}
-                    style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-                  />
-                  {errors.preferred_area && <p className="text-red-500 text-xs mt-1">{errors.preferred_area}</p>}
-                </div>
-
-                {/* Price Range */}
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                    Price Range <span className="text-[#A41E34]">*</span>
-                  </label>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <input
-                        type="text"
-                        value={data.price_min}
-                        onChange={(e) => setData('price_min', e.target.value)}
-                        placeholder="Min price"
-                        className={`w-full px-4 py-3 border rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors bg-white ${errors.price_min ? 'border-red-500' : 'border-[#D0CCC7]'}`}
-                        style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-                      />
-                      {errors.price_min && <p className="text-red-500 text-xs mt-1">{errors.price_min}</p>}
-                    </div>
-                    <div>
-                      <input
-                        type="text"
-                        value={data.price_max}
-                        onChange={(e) => setData('price_max', e.target.value)}
-                        placeholder="Max price"
-                        className={`w-full px-4 py-3 border rounded-xl text-sm outline-none focus:border-[#A41E34] transition-colors bg-white ${errors.price_max ? 'border-red-500' : 'border-[#D0CCC7]'}`}
-                        style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-                      />
-                      {errors.price_max && <p className="text-red-500 text-xs mt-1">{errors.price_max}</p>}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* MLS Setup Question */}
-              <div className={`mb-6 p-4 bg-white rounded-xl border ${errors.mls_setup ? 'border-red-500' : 'border-[#D0CCC7]'}`}>
-                <p className="text-sm text-[#111] mb-3" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                  <span className="font-medium">Not working with a real estate agent?</span> We can set you up in the MLS so you'll be the first to know about any new or coming soon listings. <span className="text-[#A41E34]">*</span>
-                </p>
-                <div className="flex gap-4">
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="mls_setup"
-                      value="yes"
-                      checked={data.mls_setup === 'yes'}
-                      onChange={(e) => setData('mls_setup', e.target.value)}
-                      className="w-4 h-4 text-[#A41E34] accent-[#A41E34]"
-                    />
-                    <span className="text-sm text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Yes, set me up</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="mls_setup"
-                      value="no"
-                      checked={data.mls_setup === 'no'}
-                      onChange={(e) => setData('mls_setup', e.target.value)}
-                      className="w-4 h-4 text-[#A41E34] accent-[#A41E34]"
-                    />
-                    <span className="text-sm text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>No, thank you</span>
-                  </label>
-                </div>
-                {errors.mls_setup && <p className="text-red-500 text-xs mt-2">{errors.mls_setup}</p>}
-              </div>
-
-              {/* Preapproval Question */}
-              <div className={`mb-8 p-4 bg-white rounded-xl border ${errors.preapproved ? 'border-red-500' : 'border-[#D0CCC7]'}`}>
-                <p className="text-sm text-[#111] mb-3" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                  <span className="font-medium">Are you preapproved for a mortgage?</span> <span className="text-[#A41E34]">*</span>
-                </p>
-                <div className="flex gap-4">
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="preapproved"
-                      value="yes"
-                      checked={data.preapproved === 'yes'}
-                      onChange={(e) => setData('preapproved', e.target.value)}
-                      className="w-4 h-4 text-[#A41E34] accent-[#A41E34]"
-                    />
-                    <span className="text-sm text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Yes</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="preapproved"
-                      value="no"
-                      checked={data.preapproved === 'no'}
-                      onChange={(e) => setData('preapproved', e.target.value)}
-                      className="w-4 h-4 text-[#A41E34] accent-[#A41E34]"
-                    />
-                    <span className="text-sm text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Not yet</span>
-                  </label>
-                </div>
-                {errors.preapproved && <p className="text-red-500 text-xs mt-2">{errors.preapproved}</p>}
-              </div>
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={processing}
-                className={`w-full bg-[#A41E34] text-white rounded-full px-8 py-4 font-medium text-lg transition-all duration-300 hover:bg-[#8B1A2C] hover:shadow-lg ${processing ? 'opacity-70 cursor-not-allowed' : ''}`}
-                style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-              >
-                {processing ? 'Submitting...' : 'Get Listing Alerts'}
-              </button>
-
-              <p className="text-xs text-[#666] text-center mt-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                By submitting, you agree to receive property alerts and updates. You can unsubscribe at any time.
-              </p>
-            </form>
-          </div>
         </div>
       </section>
 

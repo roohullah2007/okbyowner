@@ -34,7 +34,14 @@
       "Bash(if not exist \"F:\\\\OKByOwner\\\\resources\\\\js\\\\Pages\\\\Admin\\\\MediaOrders\" mkdir \"F:\\\\OKByOwner\\\\resources\\\\js\\\\Pages\\\\Admin\\\\MediaOrders\")",
       "Bash(net start MySQL)",
       "Bash(sc query:*)",
-      "WebFetch(domain:flowphotosokc.com)"
+      "WebFetch(domain:flowphotosokc.com)",
+      "WebFetch(domain:www.pexels.com)",
+      "Bash(curl:*)",
+      "Bash(if [ -f storage/logs/laravel.log ])",
+      "Bash(then tail -50 storage/logs/laravel.log)",
+      "Bash(else echo \"No recent errors in log\")",
+      "Bash(fi)",
+      "mcp__ide__getDiagnostics"
     ],
     "deny": [],
     "ask": []

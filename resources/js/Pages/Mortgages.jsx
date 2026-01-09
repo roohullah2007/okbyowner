@@ -110,7 +110,7 @@ function Mortgages() {
 
   return (
     <>
-      <Head title="Mortgages - OKByOwner" />
+      <Head title="Mortgages - OKBYOWNER" />
 
       {/* Hero Section */}
       <div className="relative pt-0 md:pt-[77px]">

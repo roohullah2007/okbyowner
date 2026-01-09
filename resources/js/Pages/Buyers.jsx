@@ -8,7 +8,7 @@ function Buyers() {
     {
       step: '01',
       title: 'Browse Properties',
-      description: 'Search our database of properties for sale by owner across Oklahoma.'
+      description: 'Search our database of properties for sale by owner across Oklahoma. Or create an account to save favorites or be notified of new listings that fit your criteria.'
     },
     {
       step: '02',
@@ -38,7 +38,7 @@ function Buyers() {
     },
     {
       question: 'How do I schedule a viewing?',
-      answer: 'Contact the property owner directly through the listing page. You can message or call them to arrange a viewing.'
+      answer: 'Contact the property owner directly through the listing page. To arrange a viewing, message or call the seller directly. A real estate agent will never contact you.'
     },
     {
       question: 'Can I get financing for these properties?',
@@ -104,7 +104,7 @@ function Buyers() {
 
   return (
     <>
-      <Head title="Buyers - OKByOwner" />
+      <Head title="Buyers - OKBYOWNER" />
 
       {/* Hero Section */}
       <div className="relative pt-0 md:pt-[77px]">
@@ -221,13 +221,6 @@ function Buyers() {
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left Side - Content */}
             <div>
-              {/* Badge */}
-              <div className="inline-flex items-center bg-[#E5E1DC] rounded-lg px-4 py-2 mb-6">
-                <span className="text-[#666] text-sm font-medium" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                  Why Use Us
-                </span>
-              </div>
-
               {/* Main Heading */}
               <h2
                 className="text-[24px] md:text-[28px] text-[#111] font-medium leading-tight mb-6"
@@ -304,11 +297,6 @@ function Buyers() {
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           {/* Section Header */}
           <div className="text-center mb-14">
-            <div className="inline-flex items-center bg-[#E5E1DC] rounded-lg px-4 py-2 mb-6">
-              <span className="text-[#666] text-sm font-medium" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                Simple Process
-              </span>
-            </div>
             <h2 className="text-[32px] md:text-[48px] font-medium text-[#111] mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
               How It Works
             </h2>

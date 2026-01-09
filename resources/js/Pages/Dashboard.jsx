@@ -22,6 +22,7 @@ import {
     Edit,
     ExternalLink,
     QrCode,
+    Camera,
 } from 'lucide-react';
 
 function Dashboard({ properties = [], stats = {}, recentInquiries = [] }) {
@@ -434,7 +435,7 @@ function Dashboard({ properties = [], stats = {}, recentInquiries = [] }) {
                         >
                             Quick Actions
                         </h2>
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                             <Link
                                 href="/list-property"
                                 className="flex flex-col items-center gap-3 p-4 rounded-xl border-2 border-dashed border-gray-200 hover:border-[#A41E34] hover:bg-[#A41E34]/5 transition-all duration-300 group"
@@ -447,6 +448,20 @@ function Dashboard({ properties = [], stats = {}, recentInquiries = [] }) {
                                     style={{ fontFamily: '"Instrument Sans", sans-serif' }}
                                 >
                                     Add Listing
+                                </span>
+                            </Link>
+                            <Link
+                                href="/our-packages"
+                                className="flex flex-col items-center gap-3 p-4 rounded-xl border-2 border-dashed border-gray-200 hover:border-[#A41E34] hover:bg-[#A41E34]/5 transition-all duration-300 group"
+                            >
+                                <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center group-hover:bg-[#A41E34] transition-colors">
+                                    <Camera className="w-6 h-6 text-gray-500 group-hover:text-white transition-colors" />
+                                </div>
+                                <span
+                                    className="text-sm font-medium text-gray-600 group-hover:text-[#A41E34] transition-colors text-center"
+                                    style={{ fontFamily: '"Instrument Sans", sans-serif' }}
+                                >
+                                    Photos & Media
                                 </span>
                             </Link>
                             <Link

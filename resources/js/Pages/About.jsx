@@ -55,13 +55,13 @@ function About() {
     'Virtual tour integration',
     'Direct buyer connections',
     'Legal document templates',
-    '24/7 customer support',
+    'Customer Support (not 24/7)',
     'Mobile-friendly platform'
   ];
 
   return (
     <>
-      <Head title="About Us - OKByOwner" />
+      <Head title="About Us - OKBYOWNER" />
 
       {/* Hero Section */}
       <div className="relative pt-0 md:pt-[77px]">

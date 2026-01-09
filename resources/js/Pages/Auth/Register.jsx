@@ -413,11 +413,11 @@ function Register() {
                                 style={{ fontFamily: '"Poppins", sans-serif' }}
                             >
                                 By creating an account, you agree to our{' '}
-                                <Link href="/terms" className="text-[#A41E34] hover:underline">
-                                    Terms of Service
+                                <Link href="/terms-of-use" className="text-[#A41E34] hover:underline">
+                                    Terms of Use
                                 </Link>{' '}
                                 and{' '}
-                                <Link href="/privacy" className="text-[#A41E34] hover:underline">
+                                <Link href="/privacy-policy" className="text-[#A41E34] hover:underline">
                                     Privacy Policy
                                 </Link>
                             </p>

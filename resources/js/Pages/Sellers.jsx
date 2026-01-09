@@ -38,6 +38,8 @@ function Sellers() {
     'Direct buyer contact form',
     'Mobile-friendly listing page',
     'Basic analytics dashboard',
+    'Share your listing on social media',
+    'QR stickers for your yard sign',
     'Email support',
     'Listing stays active until sold'
   ];
@@ -101,7 +103,7 @@ function Sellers() {
   const comparisonData = [
     {
       feature: 'Listing Commission',
-      okByOwner: '$0 - FREE',
+      okByOwner: '$0',
       flatFee: '$300 - $500',
       traditional: '5-6% ($15,000+)'
     },
@@ -124,7 +126,7 @@ function Sellers() {
   const faqs = [
     {
       question: "How much does it cost to list my property?",
-      answer: "Our basic listing is completely FREE forever. We also offer premium packages starting at $99 for additional exposure and marketing tools."
+      answer: "Our basic listing is completely FREE forever. We also offer premium packages starting at $179 for additional exposure and marketing tools."
     },
     {
       question: "Do I need a real estate license to sell my own home?",
@@ -175,7 +177,7 @@ function Sellers() {
 
   return (
     <>
-      <Head title="Sellers - OKByOwner" />
+      <Head title="Sellers - OKBYOWNER" />
 
       {/* Hero Section */}
       <div className="relative pt-0 md:pt-[77px]">
@@ -183,7 +185,7 @@ function Sellers() {
           {/* Background Image */}
           <div className="absolute inset-0 z-0">
             <img
-              src="https://images.pexels.com/photos/1643389/pexels-photo-1643389.jpeg?auto=compress&cs=tinysrgb&w=1920"
+              src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1920"
               alt="Beautiful home exterior"
               className="w-full h-full object-cover"
             />
@@ -198,7 +200,7 @@ function Sellers() {
                 className="text-white text-[40px] sm:text-[50px] md:text-[60px] font-medium leading-[1.1] mb-5 drop-shadow-2xl"
                 style={{ fontFamily: 'Instrument Sans, sans-serif' }}
               >
-                Sell Your Home, Keep Every Dollar
+                Sell Your Home,<br />Keep Your Equity
               </h1>
 
               {/* Subheading */}
@@ -207,7 +209,7 @@ function Sellers() {
                 style={{ fontFamily: 'Instrument Sans, sans-serif' }}
               >
                 List your property for FREE. Add professional photos and MLS access when you're ready.
-                Join thousands of Oklahoma homeowners who've saved thousands by selling without a realtor.
+                Join thousands of homeowners who've saved thousands by selling by owner.
               </p>
 
               {/* CTA Buttons */}
@@ -312,7 +314,7 @@ function Sellers() {
                 className="text-[24px] md:text-[28px] text-[#111] font-medium leading-tight mb-6"
                 style={{ fontFamily: 'Instrument Sans, sans-serif', fontWeight: 500 }}
               >
-                Selling your home doesn't have to cost a fortune. OKByOwner empowers Oklahoma homeowners to list, market, and sell their properties without paying hefty realtor commissions.
+                Selling your home shouldn't cost a fortune. OKByOwner empowers Oklahoma homeowners to list, market, and sell their properties without paying hefty broker commissions.
               </h2>
 
               {/* Subheading */}
@@ -435,8 +437,8 @@ function Sellers() {
             <div className="relative">
               <div className="overflow-hidden rounded-2xl">
                 <img
-                  src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800"
-                  alt="List your property for free"
+                  src="/images/for-sale.webp"
+                  alt="House with FSBO sign and QR code"
                   className="w-full h-[400px] object-cover"
                 />
               </div>
@@ -492,11 +494,11 @@ function Sellers() {
           {/* CTA */}
           <div className="text-center mt-10">
             <Link
-              href="/contact"
+              href="/our-packages"
               className="inline-flex items-center gap-2 bg-[#413936] text-white rounded-full px-6 py-3 font-medium transition-all duration-300 hover:bg-[#312926]"
               style={{ fontFamily: 'Instrument Sans, sans-serif' }}
             >
-              Get a Photography Quote
+              View Packages
               <ChevronRight className="w-5 h-5" />
             </Link>
           </div>
@@ -511,8 +513,8 @@ function Sellers() {
             <div className="order-2 lg:order-1">
               <div className="overflow-hidden rounded-2xl">
                 <img
-                  src="https://images.pexels.com/photos/7578939/pexels-photo-7578939.jpeg?auto=compress&cs=tinysrgb&w=800"
-                  alt="MLS listing exposure"
+                  src="https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  alt="MLS listing exposure on multiple real estate websites"
                   className="w-full h-[400px] object-cover"
                 />
               </div>
@@ -523,7 +525,7 @@ function Sellers() {
               {/* Badge */}
               <div className="inline-flex items-center bg-[#E5E1DC] rounded-lg px-4 py-2 mb-6">
                 <span className="text-[#666] text-sm font-medium" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                  Maximum Exposure
+                  MLS Exposure
                 </span>
               </div>
 
@@ -568,7 +570,7 @@ function Sellers() {
 
               {/* CTA Button */}
               <Link
-                href="/contact"
+                href="/our-packages"
                 className="inline-flex items-center gap-[0.4rem] bg-[#A41E34] text-white rounded-full px-6 py-3 font-medium transition-all duration-300 hover:bg-[#8B1A2C]"
                 style={{ fontFamily: 'Instrument Sans, sans-serif' }}
               >

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { MapPin, BedDouble, Bath, Maximize2, Calendar, Home, Heart, Share2, ArrowLeft, Phone, Mail, CheckCircle2, ChevronLeft, ChevronRight, Copy, Check, BadgeCheck, Calculator, DollarSign } from 'lucide-react';
+import { MapPin, BedDouble, Bath, Maximize2, Calendar, Home, Heart, Share2, ArrowLeft, Phone, Mail, CheckCircle2, ChevronLeft, ChevronRight, Copy, Check, BadgeCheck, Calculator, DollarSign, Printer, Video, ExternalLink } from 'lucide-react';
 import MainLayout from '@/Layouts/MainLayout';
 
 function PropertyDetail({ property }) {
@@ -33,6 +33,7 @@ function PropertyDetail({ property }) {
     name: '',
     email: '',
     phone: '',
+    question: '',
     message: `I'm interested in this property at ${property.address}, ${property.city}.`,
     property_id: property.id,
   });
@@ -102,6 +103,91 @@ function PropertyDetail({ property }) {
     setShowShareDropdown(false);
   };
 
+  const handlePrintFlyer = () => {
+    const flyerWindow = window.open('', '_blank');
+    flyerWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>${property.property_title} - Property Flyer</title>
+        <style>
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body { font-family: Arial, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; }
+          .header { text-align: center; margin-bottom: 30px; border-bottom: 3px solid #A41E34; padding-bottom: 20px; }
+          .logo { font-size: 24px; font-weight: bold; color: #A41E34; margin-bottom: 10px; }
+          .price { font-size: 36px; font-weight: bold; color: #A41E34; margin: 20px 0; }
+          .address { font-size: 18px; color: #333; }
+          .photo { width: 100%; height: 300px; object-fit: cover; border-radius: 10px; margin: 20px 0; }
+          .details { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 20px 0; }
+          .detail-box { text-align: center; padding: 15px; background: #f5f5f5; border-radius: 8px; }
+          .detail-label { font-size: 12px; color: #666; text-transform: uppercase; }
+          .detail-value { font-size: 20px; font-weight: bold; color: #111; }
+          .description { margin: 20px 0; line-height: 1.6; color: #444; }
+          .features { margin: 20px 0; }
+          .features h3 { margin-bottom: 10px; color: #111; }
+          .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+          .feature-item { font-size: 14px; color: #666; }
+          .feature-item:before { content: "✓ "; color: #A41E34; }
+          .contact { margin-top: 30px; padding: 20px; background: #A41E34; color: white; border-radius: 10px; text-align: center; }
+          .contact-name { font-size: 18px; font-weight: bold; margin-bottom: 5px; }
+          .contact-phone { font-size: 24px; font-weight: bold; }
+          .footer { margin-top: 30px; text-align: center; font-size: 12px; color: #999; }
+          @media print { body { padding: 20px; } }
+        </style>
+      </head>
+      <body>
+        <div class="header">
+          <div class="logo">OKBYOWNER</div>
+          <div>For Sale By Owner</div>
+        </div>
+        <div class="price">${formatPrice(property.price)}</div>
+        <h1 style="font-size: 24px; margin-bottom: 10px;">${property.property_title}</h1>
+        <div class="address">${property.address}, ${property.city}, ${property.state} ${property.zip_code}</div>
+        ${photos[0] ? `<img src="${photos[0]}" class="photo" alt="Property Photo">` : ''}
+        <div class="details">
+          <div class="detail-box">
+            <div class="detail-label">Bedrooms</div>
+            <div class="detail-value">${property.bedrooms}</div>
+          </div>
+          <div class="detail-box">
+            <div class="detail-label">Bathrooms</div>
+            <div class="detail-value">${property.bathrooms}</div>
+          </div>
+          <div class="detail-box">
+            <div class="detail-label">Sq. Ft.</div>
+            <div class="detail-value">${property.sqft ? property.sqft.toLocaleString() : 'N/A'}</div>
+          </div>
+          <div class="detail-box">
+            <div class="detail-label">Year Built</div>
+            <div class="detail-value">${property.year_built || 'N/A'}</div>
+          </div>
+        </div>
+        <div class="description">
+          <h3 style="margin-bottom: 10px;">Description</h3>
+          ${property.description}
+        </div>
+        ${property.features && property.features.length > 0 ? `
+          <div class="features">
+            <h3>Features & Amenities</h3>
+            <div class="features-grid">
+              ${property.features.map(f => `<div class="feature-item">${f}</div>`).join('')}
+            </div>
+          </div>
+        ` : ''}
+        <div class="contact">
+          <div class="contact-name">${property.contact_name}</div>
+          <div class="contact-phone">${property.contact_phone}</div>
+        </div>
+        <div class="footer">
+          Listed on OKBYOWNER.com | Scan QR code or visit: ${window.location.href}
+        </div>
+        <script>window.onload = function() { window.print(); }</script>
+      </body>
+      </html>
+    `);
+    flyerWindow.document.close();
+  };
+
   const handleContactSubmit = (e) => {
     e.preventDefault();
     post(route('inquiry.store'), {
@@ -137,7 +223,7 @@ function PropertyDetail({ property }) {
 
   return (
     <>
-      <Head title={`${property.property_title} - OKByOwner`} />
+      <Head title={`${property.property_title} - OKBYOWNER`} />
 
       {/* Back Button */}
       <div className="bg-[#EEEDEA] pt-[77px]">
@@ -215,6 +301,13 @@ function PropertyDetail({ property }) {
 
             {/* Action Buttons */}
             <div className="absolute top-4 right-4 flex gap-2">
+              <button
+                onClick={handlePrintFlyer}
+                className="bg-white/90 hover:bg-white p-3 rounded-full transition-all"
+                title="Print Flyer"
+              >
+                <Printer className="w-5 h-5 text-gray-800" />
+              </button>
               <button
                 onClick={handleFavorite}
                 className="bg-white/90 hover:bg-white p-3 rounded-full transition-all"
@@ -443,6 +536,75 @@ function PropertyDetail({ property }) {
                   </div>
                 </div>
               )}
+
+              {/* Multimedia Links */}
+              {(property.video_tour_url || property.virtual_tour_url || property.floor_plan_url) && (
+                <div className="bg-white rounded-2xl p-6 mt-6">
+                  <h2 className="text-xl font-semibold text-[#111] mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                    Virtual Tours & Media
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {property.virtual_tour_url && (
+                      <a
+                        href={property.virtual_tour_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 p-4 bg-[#EEEDEA] rounded-xl hover:bg-[#E5E1DC] transition-colors group"
+                      >
+                        <div className="bg-[#A41E34] p-3 rounded-lg">
+                          <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                            <polyline points="7.5 4.21 12 6.81 16.5 4.21" />
+                            <polyline points="7.5 19.79 7.5 14.6 3 12" />
+                            <polyline points="21 12 16.5 14.6 16.5 19.79" />
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                            <line x1="12" y1="22.08" x2="12" y2="12" />
+                          </svg>
+                        </div>
+                        <div className="flex-1">
+                          <p className="font-medium text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>3D Virtual Tour</p>
+                          <p className="text-sm text-[#666]">Explore in 3D</p>
+                        </div>
+                        <ExternalLink className="w-4 h-4 text-[#666] group-hover:text-[#A41E34] transition-colors" />
+                      </a>
+                    )}
+                    {property.video_tour_url && (
+                      <a
+                        href={property.video_tour_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 p-4 bg-[#EEEDEA] rounded-xl hover:bg-[#E5E1DC] transition-colors group"
+                      >
+                        <div className="bg-[#A41E34] p-3 rounded-lg">
+                          <Video className="w-5 h-5 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="font-medium text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Video Tour</p>
+                          <p className="text-sm text-[#666]">Watch walkthrough</p>
+                        </div>
+                        <ExternalLink className="w-4 h-4 text-[#666] group-hover:text-[#A41E34] transition-colors" />
+                      </a>
+                    )}
+                    {property.floor_plan_url && (
+                      <a
+                        href={property.floor_plan_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 p-4 bg-[#EEEDEA] rounded-xl hover:bg-[#E5E1DC] transition-colors group"
+                      >
+                        <div className="bg-[#A41E34] p-3 rounded-lg">
+                          <Maximize2 className="w-5 h-5 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="font-medium text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Floor Plan</p>
+                          <p className="text-sm text-[#666]">View layout</p>
+                        </div>
+                        <ExternalLink className="w-4 h-4 text-[#666] group-hover:text-[#A41E34] transition-colors" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Sidebar - Contact */}
@@ -469,14 +631,6 @@ function PropertyDetail({ property }) {
                   >
                     <Phone className="w-5 h-5 text-[#A41E34]" />
                     <span className="text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>{property.contact_phone}</span>
-                  </a>
-
-                  <a
-                    href={`mailto:${property.contact_email}`}
-                    className="flex items-center gap-3 p-3 bg-[#EEEDEA] rounded-xl hover:bg-[#E5E1DC] transition-colors"
-                  >
-                    <Mail className="w-5 h-5 text-[#A41E34]" />
-                    <span className="text-[#111] break-all" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>{property.contact_email}</span>
                   </a>
                 </div>
 
@@ -526,13 +680,21 @@ function PropertyDetail({ property }) {
                       />
                     </div>
                     <div>
+                      <input
+                        type="text"
+                        placeholder="Your Question (e.g., Is the price negotiable?)"
+                        value={data.question}
+                        onChange={(e) => setData('question', e.target.value)}
+                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#A41E34]"
+                      />
+                    </div>
+                    <div>
                       <textarea
-                        placeholder="Your Message"
+                        placeholder="Additional Message (Optional)"
                         value={data.message}
                         onChange={(e) => setData('message', e.target.value)}
                         rows={4}
                         className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#A41E34] resize-none"
-                        required
                       />
                     </div>
                     <button
@@ -575,7 +737,7 @@ function PropertyDetail({ property }) {
                   </div>
                 </div>
                 <a
-                  href="https://tandmmortgages.morty.com/"
+                  href="https://tandmmortgages.morty.com/get-started/mortgage?loan_officer=terry-hassell"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block w-full bg-white text-[#A41E34] text-center py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors"

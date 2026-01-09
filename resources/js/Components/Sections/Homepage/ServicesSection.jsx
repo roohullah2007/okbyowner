@@ -13,14 +13,14 @@ const ServicesSection = () => {
       color: '#A41E34',
       modalTitle: 'Professional Photography + Drone',
       modalImage: 'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=800',
-      modalDescription: 'Make a stunning first impression with professional HDR interior and exterior photography. Our FAA-certified drone pilots capture breathtaking aerial shots that showcase your property and neighborhood from above.',
+      modalDescription: 'Full coverage photography with full use rights for your real estate listings. Our photos include interiors, exteriors, details, and neighborhood amenities—optimized for MLS and listing sites like Zillow and Trulia. Aerial video adds a cinematic, professional look that vastly boosts listing views.',
       features: [
-        'HDR photography for vibrant, balanced images',
-        'Interior and exterior shots included',
+        'HDR interior and exterior photography',
+        'Neighborhood amenities included',
         'FAA-certified drone pilots',
-        'High-resolution aerial photos',
-        'Quick 24-48 hour turnaround',
-        'Edited and optimized for MLS and web'
+        'Cinematic aerial photos and video',
+        'Optimized for MLS, Zillow, and Trulia',
+        'Full use rights included'
       ],
       cta: 'View Packages',
       ctaLink: '/our-packages'
@@ -32,12 +32,12 @@ const ServicesSection = () => {
       color: '#10B981',
       modalTitle: 'Basic Floor Plans',
       modalImage: 'https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=800',
-      modalDescription: 'Help buyers visualize the layout and flow of your property with detailed, professionally created floor plans. Essential for serious buyers making informed decisions.',
+      modalDescription: 'Help buyers visualize the layout and flow of your property with detailed, professionally created floor plans. Essential for serious buyers making informed decisions about space and room configuration.',
       features: [
         '2D floor plan layout',
         'Accurate room dimensions',
         'Room labels included',
-        'Digital delivery format',
+        'Square footage calculations',
         'Print-ready PDF formats',
         'Fast turnaround'
       ],
@@ -52,13 +52,13 @@ const ServicesSection = () => {
       color: '#EF4444',
       modalTitle: 'HD Video Walkthrough',
       modalImage: 'https://images.pexels.com/photos/7031406/pexels-photo-7031406.jpeg?auto=compress&cs=tinysrgb&w=800',
-      modalDescription: 'Bring your property to life with a professional HD video walkthrough. Perfect for out-of-town buyers and social media marketing, video tours create an emotional connection with potential buyers.',
+      modalDescription: 'HD video tours can be an incredible benefit to your listings. Videos are set to music of your choice and showcase your home\'s greatest features, allowing potential buyers to view from afar without meeting in person.',
       features: [
-        'Professional HD videography with stabilization',
-        'Smooth cinematic walkthrough',
-        'Music-backed production',
+        'Professional HD videography',
+        'Music of your choice',
+        'Showcases home\'s best features',
+        'Perfect for out-of-town buyers',
         'Drone footage integration available',
-        'Social media optimized versions',
         'YouTube and MLS ready'
       ],
       cta: 'View Packages',
@@ -71,17 +71,15 @@ const ServicesSection = () => {
       color: '#8B5CF6',
       modalTitle: 'Matterport 3D Tour',
       modalImage: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800',
-      modalDescription: 'Offer buyers an immersive 24/7 open house experience with Matterport 3D tours. Let them explore every room at their own pace from anywhere in the world with industry-leading technology.',
+      modalDescription: 'Fully immersive virtual tours are becoming increasingly popular. Matterport 3D tours feature a unique "Dollhouse View" that lets buyers explore every room at their own pace from anywhere in the world.',
       features: [
         'Dollhouse view of entire property',
         'Self-guided virtual walkthrough',
         'Measurement tools for buyers',
         'Embeddable on any website',
         'VR headset compatible',
-        'High-quality capture technology'
+        '24/7 open house experience'
       ],
-      exampleLink: 'https://flowphotosokc.com/gallery/3d-tours/',
-      exampleLinkLabel: 'View Example Tours',
       cta: 'View Packages',
       ctaLink: '/our-packages'
     },
@@ -92,7 +90,7 @@ const ServicesSection = () => {
       color: '#F59E0B',
       modalTitle: 'Virtual Twilight Photography',
       modalImage: 'https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg?auto=compress&cs=tinysrgb&w=800',
-      modalDescription: 'Transform your daytime exterior photos into stunning twilight shots. Virtual twilight creates dramatic, magazine-worthy images that make your listing stand out from the competition without scheduling an evening shoot.',
+      modalDescription: 'Transform your daytime exterior photos into stunning twilight shots. Virtual twilight creates dramatic, magazine-worthy images that make your listing stand out—no evening shoot required.',
       features: [
         'Dramatic dusk/twilight sky effects',
         'Interior lights digitally illuminated',
@@ -113,7 +111,7 @@ const ServicesSection = () => {
       color: '#EC4899',
       modalTitle: 'Reels / TikTok Video',
       modalImage: 'https://images.pexels.com/photos/7578901/pexels-photo-7578901.jpeg?auto=compress&cs=tinysrgb&w=800',
-      modalDescription: 'Reach more buyers with short-form vertical video content optimized for Instagram Reels, TikTok, and YouTube Shorts. Engaging, trendy content designed to go viral and attract maximum attention.',
+      modalDescription: 'Reach more buyers with short-form vertical video content optimized for Instagram Reels, TikTok, and YouTube Shorts. Eye-catching content designed to attract maximum attention and boost your listing views.',
       features: [
         'Vertical video format (9:16)',
         'Trending music and effects',
@@ -132,11 +130,11 @@ const ServicesSection = () => {
       color: '#3B82F6',
       modalTitle: 'Zillow 3D Home Tour + Floor Plan',
       modalImage: 'https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg?auto=compress&cs=tinysrgb&w=800',
-      modalDescription: 'Get featured on Zillow with their native 3D Home Tour and interactive floor plan. Zillow prioritizes listings with 3D tours, giving your property more visibility and engagement on the platform.',
+      modalDescription: 'Adding Zillow 3D tours improves your search ranking on Zillow. Get featured with their native 3D Home Tour and interactive floor plan, giving your property more visibility and engagement on the platform.',
       features: [
         'Zillow-native 3D tour format',
         'Interactive floor plan included',
-        'Boosted Zillow visibility',
+        'Improved Zillow search ranking',
         'Mobile-friendly experience',
         'Easy buyer navigation',
         'Integrated with Zillow listing'
@@ -147,7 +145,7 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section className="bg-white py-20">
+    <section id="services" className="bg-white py-20">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
         {/* Top Section - Badge, Heading, Description and Buttons */}
         <div className="grid lg:grid-cols-2 gap-12 items-start mb-12">

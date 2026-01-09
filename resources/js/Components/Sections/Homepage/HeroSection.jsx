@@ -23,13 +23,13 @@ const HeroSection = () => {
       description: 'HDR photography, video walkthroughs, Matterport 3D tours, drone aerials, and virtual twilight. Make your listing shine.',
       image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1920',
       ctaPrimary: { text: 'View Media Packages', href: '/our-packages' },
-      ctaSecondary: { text: 'See Examples', href: '/sellers', icon: Search }
+      ctaSecondary: { text: 'See Examples', href: '#services', icon: Search }
     },
     {
       id: 3,
-      headlineTop: 'Get Maximum Exposure',
-      headlineBottom: 'on the MLS',
-      description: 'Your listing on Zillow, Realtor.com, Redfin, and 100+ sites. Flat fee, no percentage. Keep your equity.',
+      headlineTop: 'Get on the MLS',
+      headlineBottom: 'Keep Your Equity',
+      description: 'Your listing on Zillow, Realtor.com, Redfin, and 100+ sites. Flat fee, no percentage.',
       image: 'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1920',
       ctaPrimary: { text: 'Learn About MLS', href: '/our-packages' },
       ctaSecondary: { text: 'How It Works', href: '/sellers', icon: Search }

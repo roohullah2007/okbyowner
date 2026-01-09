@@ -5,7 +5,7 @@ import {
   ChevronRight, ChevronDown, CheckCircle, MapPin, Clock,
   Phone, Mail, Home, DollarSign, Star, Shield, Zap, Eye,
   X, AlertCircle, Calendar, User, Building, Lock, ArrowLeft,
-  Play, Layers, Image
+  Play, Layers, Image, HelpCircle
 } from 'lucide-react';
 import MainLayout from '@/Layouts/MainLayout';
 
@@ -106,8 +106,58 @@ function Packages() {
 
   // State for the booking form
   const [currentStep, setCurrentStep] = useState(0); // 0 = overview, 1-4 = form steps
+
+  // Handle URL state for proper back button navigation
+  useEffect(() => {
+    // Check URL params on mount
+    const params = new URLSearchParams(window.location.search);
+    const stepParam = params.get('step');
+    if (stepParam) {
+      const step = parseInt(stepParam);
+      if (step >= 1 && step <= 4) {
+        setCurrentStep(step);
+      }
+    }
+
+    // Handle browser back/forward buttons
+    const handlePopState = () => {
+      const params = new URLSearchParams(window.location.search);
+      const stepParam = params.get('step');
+      if (stepParam) {
+        const step = parseInt(stepParam);
+        if (step >= 0 && step <= 4) {
+          setCurrentStep(step);
+        }
+      } else {
+        setCurrentStep(0);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Update step with URL state for proper navigation using Inertia router
+  const goToOrderForm = () => {
+    router.visit('/our-packages?step=1', {
+      preserveState: true,
+      preserveScroll: true,
+      only: [], // Don't reload any data
+      onSuccess: () => setCurrentStep(1),
+    });
+  };
+
+  const goToOverview = () => {
+    router.visit('/our-packages', {
+      preserveState: true,
+      preserveScroll: true,
+      only: [],
+      onSuccess: () => setCurrentStep(0),
+    });
+  };
   const [showServiceAreaModal, setShowServiceAreaModal] = useState(false);
   const [showQuoteModal, setShowQuoteModal] = useState(false);
+  const [showHowItWorksModal, setShowHowItWorksModal] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
 
   // Service details data
@@ -125,11 +175,10 @@ function Packages() {
         'Full coverage - Interior & Exterior',
         'Neighborhood amenities at your request (pools, parks, etc.)',
         'Full use rights for all listing sites',
-        'Light photo editing included (trash removal, minor adjustments)',
       ],
       pricing: PRICING.photosDrone,
       turnaround: 'Next Day',
-      sampleUrl: 'https://flowphotos.com',
+      sampleUrl: null,
     },
     zillow3D: {
       id: 'zillow3D',
@@ -147,7 +196,7 @@ function Packages() {
       ],
       pricing: PRICING.zillow3D,
       turnaround: '1-2 Days',
-      sampleUrl: 'https://flowphotos.com/3d-tours/',
+      sampleUrl: null,
     },
     videoWalkthrough: {
       id: 'videoWalkthrough',
@@ -186,7 +235,7 @@ function Packages() {
       ],
       pricing: PRICING.matterport,
       turnaround: '1 Day',
-      sampleUrl: 'https://my.matterport.com/show/?m=PAbyKE4Nkha',
+      sampleUrl: null,
     },
     reelsTikTok: {
       id: 'reelsTikTok',
@@ -257,7 +306,6 @@ function Packages() {
     sqft: '',
     accessMethod: '',
     comboCode: '',
-    alarmCode: '',
     occupiedStatus: '',
     subdivision: '',
     notes: '',
@@ -745,7 +793,7 @@ function Packages() {
             <button
               onClick={() => {
                 setSelectedService(null);
-                setCurrentStep(1);
+                goToOrderForm();
               }}
               className="w-full flex items-center justify-center gap-2 bg-[#A41E34] text-white rounded-full px-6 py-4 font-medium text-lg transition-all duration-300 hover:bg-[#8B1A2C]"
               style={{ fontFamily: 'Instrument Sans, sans-serif' }}
@@ -759,6 +807,85 @@ function Packages() {
       </div>
     );
   };
+
+  // How It Works Modal
+  const HowItWorksModal = () => (
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4" onClick={() => setShowHowItWorksModal(false)}>
+      <div
+        className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="p-6 border-b border-gray-200 flex items-center justify-between sticky top-0 bg-white z-10">
+          <div className="flex items-center gap-3">
+            <div className="bg-[#E5E1DC] p-3 rounded-xl">
+              <HelpCircle className="w-6 h-6 text-[#3D3D3D]" />
+            </div>
+            <h3 className="text-2xl font-medium text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+              How It Works
+            </h3>
+          </div>
+          <button
+            onClick={() => setShowHowItWorksModal(false)}
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+          >
+            <X className="w-6 h-6 text-gray-500" />
+          </button>
+        </div>
+
+        <div className="p-6">
+          <p className="text-[#666] mb-6 leading-relaxed" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+            Our simple 4-step process makes ordering professional real estate photography quick and easy.
+          </p>
+
+          <div className="space-y-6">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-full bg-[#A41E34] text-white flex items-center justify-center font-medium flex-shrink-0">1</div>
+              <div>
+                <h4 className="text-lg font-medium text-[#111] mb-1" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Select Your Services</h4>
+                <p className="text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Choose photos, drone, 3D tours, video, and more. Add MLS listing if desired.</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-full bg-[#A41E34] text-white flex items-center justify-center font-medium flex-shrink-0">2</div>
+              <div>
+                <h4 className="text-lg font-medium text-[#111] mb-1" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Schedule Your Appointment</h4>
+                <p className="text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Tell us your preferred date and time. We'll confirm within 24 hours.</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-full bg-[#A41E34] text-white flex items-center justify-center font-medium flex-shrink-0">3</div>
+              <div>
+                <h4 className="text-lg font-medium text-[#111] mb-1" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Prepare Your Property</h4>
+                <p className="text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Receive instructions on preparing your home for the best photos.</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-full bg-[#A41E34] text-white flex items-center justify-center font-medium flex-shrink-0">4</div>
+              <div>
+                <h4 className="text-lg font-medium text-[#111] mb-1" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Receive Your Photos</h4>
+                <p className="text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Get your professionally edited photos via email the next day. Pay after delivery.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 flex justify-end">
+            <button
+              onClick={() => {
+                setShowHowItWorksModal(false);
+                goToOrderForm();
+              }}
+              className="inline-flex items-center gap-2 bg-[#A41E34] text-white rounded-full px-6 py-4 font-medium transition-all duration-300 hover:bg-[#8B1A2C]"
+              style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+            >
+              <Camera className="w-5 h-5" />
+              Start Your Order
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   // Step Progress Indicator
   const StepIndicator = () => (
@@ -889,22 +1016,6 @@ function Packages() {
             {errors.comboCode && <p className="text-red-500 text-sm mt-1">{errors.comboCode}</p>}
           </div>
         )}
-
-        {/* Alarm Code */}
-        <div>
-          <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            Alarm Code (if applicable)
-          </label>
-          <input
-            type="text"
-            name="alarmCode"
-            value={formData.alarmCode}
-            onChange={handleInputChange}
-            placeholder="Enter alarm code"
-            className="w-full px-4 py-3 border border-[#D0CCC7] rounded-xl focus:ring-2 focus:ring-[#A41E34]/20 focus:border-[#A41E34] transition-all"
-            style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-          />
-        </div>
 
         {/* Occupied Status */}
         <div>
@@ -1137,7 +1248,7 @@ function Packages() {
         description: '360 Photo Tour with 2D Floor Plan',
         price: zillow3DPrice,
         features: ['360 degree photo tour', '2D floor plan included', 'Zillow-ready format'],
-        sampleUrl: 'https://flowphotos.com/3d-tours/'
+        sampleUrl: null
       },
       {
         key: 'videoWalkthrough',
@@ -1155,7 +1266,7 @@ function Packages() {
         description: 'Fully immersive 3D experience',
         price: matterportPrice,
         features: ['One-day turnaround', 'Dollhouse view', '1 year hosting included'],
-        sampleUrl: 'https://my.matterport.com/show/?m=PAbyKE4Nkha'
+        sampleUrl: null
       },
       {
         key: 'reelsTikTok',
@@ -1870,7 +1981,7 @@ function Packages() {
 
               <div className="flex flex-col sm:flex-row gap-3">
                 <button
-                  onClick={() => setCurrentStep(1)}
+                  onClick={goToOrderForm}
                   className="inline-flex items-center gap-2 bg-[#A41E34] text-white rounded-full px-6 py-4 font-medium text-lg transition-all duration-300 hover:bg-[#8B1A2C] hover:shadow-lg"
                   style={{ fontFamily: 'Instrument Sans, sans-serif' }}
                 >
@@ -1949,7 +2060,7 @@ function Packages() {
               Professional Real Estate Marketing
             </h2>
             <p className="text-[16px] text-[#666] max-w-2xl mx-auto" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-              Everything you need to market your property like a pro. If you were to list with a traditional real estate agent, you'd expect professional marketing - so why not do the same? Sell by owner!
+              Everything you need to market your property like a pro. If you were to list with a traditional real estate agent, you'd expect professional marketing - so why not do the same?<br />Sell by owner!
             </p>
           </div>
 
@@ -2123,15 +2234,23 @@ function Packages() {
             </div>
           </div>
 
-          <div className="text-center mt-10">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
             <button
-              onClick={() => setCurrentStep(1)}
+              onClick={goToOrderForm}
               className="inline-flex items-center gap-2 bg-[#A41E34] text-white rounded-full px-8 py-4 font-medium text-lg transition-all duration-300 hover:bg-[#8B1A2C] hover:shadow-lg"
               style={{ fontFamily: 'Instrument Sans, sans-serif' }}
             >
               <Camera className="w-5 h-5" />
               Start Your Order
               <ChevronRight className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => setShowHowItWorksModal(true)}
+              className="inline-flex items-center gap-2 bg-white border-2 border-[#A41E34] text-[#A41E34] rounded-full px-6 py-4 font-medium text-lg transition-all duration-300 hover:bg-[#A41E34] hover:text-white hover:shadow-lg"
+              style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+            >
+              <HelpCircle className="w-5 h-5" />
+              How It Works
             </button>
           </div>
         </div>
@@ -2155,24 +2274,32 @@ function Packages() {
               </p>
 
               <div className="space-y-6">
-                <div className="bg-white rounded-xl p-6">
+                <div className="bg-white rounded-xl p-6 hover:shadow-lg transition-all duration-300 cursor-pointer group">
                   <div className="flex items-start gap-4">
-                    <div className="bg-[#E5E1DC] p-2 rounded-lg">
-                      <Globe className="w-5 h-5 text-[#3D3D3D]" />
+                    <div className="bg-[#E5E1DC] p-2 rounded-lg group-hover:bg-[#A41E34] transition-colors">
+                      <Globe className="w-5 h-5 text-[#3D3D3D] group-hover:text-white transition-colors" />
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-2">
                         <h4 className="text-lg font-medium text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Basic MLS</h4>
                         <span className="text-xl font-bold text-[#A41E34]">$250</span>
                       </div>
-                      <p className="text-sm text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                      <p className="text-sm text-[#666] mb-3" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
                         6-month MLS listing with syndication to all major real estate websites.
                       </p>
+                      <Link
+                        href="/list-property"
+                        className="inline-flex items-center gap-1 text-sm font-medium text-[#A41E34] hover:underline"
+                        style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                      >
+                        Create Your Listing
+                        <ChevronRight className="w-4 h-4" />
+                      </Link>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white rounded-xl p-6 border-2 border-[#A41E34]">
+                <div className="bg-white rounded-xl p-6 border-2 border-[#A41E34] hover:shadow-lg transition-all duration-300 cursor-pointer group">
                   <div className="flex items-start gap-4">
                     <div className="bg-[#A41E34] p-2 rounded-lg">
                       <Star className="w-5 h-5 text-white" />
@@ -2188,6 +2315,14 @@ function Packages() {
                       <p className="text-sm text-[#666] mb-3" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
                         Everything in Basic plus ShowingTime, SentriLock, and M&T Realty Yard Sign.
                       </p>
+                      <Link
+                        href="/list-property"
+                        className="inline-flex items-center gap-1 text-sm font-medium text-[#A41E34] hover:underline"
+                        style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                      >
+                        Create Your Listing
+                        <ChevronRight className="w-4 h-4" />
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -2196,8 +2331,8 @@ function Packages() {
 
             <div className="relative">
               <img
-                src="https://images.pexels.com/photos/7578939/pexels-photo-7578939.jpeg?auto=compress&cs=tinysrgb&w=800"
-                alt="MLS Listing"
+                src="https://images.pexels.com/photos/7821702/pexels-photo-7821702.jpeg?auto=compress&cs=tinysrgb&w=800"
+                alt="Your listing on multiple real estate websites"
                 className="rounded-2xl w-full h-[400px] object-cover"
               />
             </div>
@@ -2216,17 +2351,23 @@ function Packages() {
                 </span>
               </div>
               <h2 className="text-[32px] md:text-[40px] font-medium text-white mb-6" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                Need Help? Get Broker Assistance
+                Need Help?<br />Get Broker Assistance
               </h2>
               <p className="text-[16px] text-white/80 mb-8" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                Should you prefer to have our Broker-Assistance available throughout the entire process to closing, upgrade to Broker-Assistance. Save thousands compared to traditional real estate commissions.
+                Should you prefer to have Broker-Assistance available throughout the entire process to closing, upgrade to Broker-Assistance. Save thousands compared to traditional real estate commissions.
               </p>
 
               <div className="space-y-4 mb-8">
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
                   <p className="text-white/90" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                    <strong>0.5% of final sales price</strong> or a minimum of $2,000 (paid at closing)
+                    <strong>1.5% of the final sales price</strong> or a minimum of $2,500 (paid at closing)
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                  <p className="text-white/90" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                    If the seller finds an unrepresented buyer: <strong>3% or $5,000 minimum</strong> fee to handle both sides
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
@@ -2235,145 +2376,82 @@ function Packages() {
                     Only collected if your property successfully closes
                   </p>
                 </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                  <p className="text-white/90" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                    If seller finds unrepresented buyer: <strong>1% or $4,000 minimum</strong> to handle both sides
-                  </p>
-                </div>
               </div>
 
-              <button
-                onClick={() => setCurrentStep(1)}
+              <p className="text-xs text-white/60 mb-6 bg-white/10 rounded-lg p-3" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                All real estate services to be performed by M&T Realty Group, License #180717.
+              </p>
+
+              <Link
+                href="/our-packages"
                 className="inline-flex items-center gap-2 bg-white text-[#413936] rounded-full px-6 py-3 font-medium transition-all duration-300 hover:bg-gray-100"
                 style={{ fontFamily: 'Instrument Sans, sans-serif' }}
               >
                 Learn More
                 <ChevronRight className="w-5 h-5" />
-              </button>
+              </Link>
             </div>
 
             <div className="bg-white/10 rounded-2xl p-8">
               <h3 className="text-xl font-medium text-white mb-6" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                Compare the Savings
+                Compare Savings
               </h3>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center py-3 border-b border-white/20">
-                  <span className="text-white/80">Traditional Agent (6%)</span>
-                  <span className="text-white font-medium">$18,000</span>
+
+              {/* Two Column Comparison Table */}
+              <div className="overflow-hidden rounded-xl">
+                {/* Header Row */}
+                <div className="grid grid-cols-3 gap-2 mb-2">
+                  <div></div>
+                  <div className="text-center text-white/80 text-sm font-medium py-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                    With Buyer's Agent
+                  </div>
+                  <div className="text-center text-white/80 text-sm font-medium py-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                    No Buyer's Agent
+                  </div>
                 </div>
-                <div className="flex justify-between items-center py-3 border-b border-white/20">
-                  <span className="text-white/80">OKByOwner Broker Assisted</span>
-                  <span className="text-green-400 font-medium">$2,000</span>
+
+                {/* Traditional Agent Row */}
+                <div className="grid grid-cols-3 gap-2 py-3 border-b border-white/20">
+                  <div className="text-white/80 text-sm" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                    Traditional Agent (6%)
+                  </div>
+                  <div className="text-center text-white font-medium">$18,000</div>
+                  <div className="text-center text-white font-medium">$18,000</div>
                 </div>
-                <div className="flex justify-between items-center py-3">
-                  <span className="text-white font-medium">Your Savings</span>
-                  <span className="text-2xl font-bold text-green-400">$16,000</span>
+
+                {/* M&T Broker Assisted Row */}
+                <div className="grid grid-cols-3 gap-2 py-3 border-b border-white/20">
+                  <div className="text-white/80 text-sm" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                    M&T Broker Assisted
+                  </div>
+                  <div className="text-center text-green-400 font-medium">$13,500</div>
+                  <div className="text-center text-green-400 font-medium">$9,000</div>
+                </div>
+
+                {/* Your Savings Row */}
+                <div className="grid grid-cols-3 gap-2 py-4 bg-white/5 rounded-lg mt-2">
+                  <div className="text-white font-medium" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                    Your Savings
+                  </div>
+                  <div className="text-center text-xl font-bold text-green-400">$4,500</div>
+                  <div className="text-center text-xl font-bold text-green-400">$9,000</div>
                 </div>
               </div>
+
               <p className="text-xs text-white/60 mt-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                *Based on $300,000 home sale price
+                *Based on a $300,000 home sale price, and 3% going to the buyer's agent.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Simple Process Section */}
-      <section className="bg-white py-16 md:py-20">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center bg-[#E5E1DC] rounded-lg px-4 py-2 mb-6">
-              <span className="text-[#666] text-sm font-medium" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-                Simple Process
-              </span>
-            </div>
-            <h2 className="text-[32px] md:text-[44px] font-medium text-[#111] mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-              How It Works
-            </h2>
-          </div>
-
-          <div className="max-w-3xl mx-auto">
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#A41E34] text-white flex items-center justify-center font-medium flex-shrink-0">1</div>
-                <div>
-                  <h4 className="text-lg font-medium text-[#111] mb-1" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Select Your Services</h4>
-                  <p className="text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Choose photos, drone, 3D tours, video, and more. Add MLS listing if desired.</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#A41E34] text-white flex items-center justify-center font-medium flex-shrink-0">2</div>
-                <div>
-                  <h4 className="text-lg font-medium text-[#111] mb-1" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Schedule Your Appointment</h4>
-                  <p className="text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Tell us your preferred date and time. We'll confirm within 24 hours.</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#A41E34] text-white flex items-center justify-center font-medium flex-shrink-0">3</div>
-                <div>
-                  <h4 className="text-lg font-medium text-[#111] mb-1" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Prepare Your Property</h4>
-                  <p className="text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Receive instructions on preparing your home for the best photos.</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#A41E34] text-white flex items-center justify-center font-medium flex-shrink-0">4</div>
-                <div>
-                  <h4 className="text-lg font-medium text-[#111] mb-1" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Receive Your Photos</h4>
-                  <p className="text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>Get your professionally edited photos via email the next day. Pay after delivery.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center mt-12">
-            <button
-              onClick={() => setCurrentStep(1)}
-              className="inline-flex items-center gap-2 bg-[#A41E34] text-white rounded-full px-8 py-4 font-medium text-lg transition-all duration-300 hover:bg-[#8B1A2C] hover:shadow-lg"
-              style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-            >
-              Get Started Now
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="bg-[#EEEDEA] py-16 border-t border-gray-300">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-[32px] md:text-[40px] font-medium text-[#111] mb-4" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            Ready to Market Your Property Like a Pro?
-          </h2>
-          <p className="text-[16px] text-[#666] mb-8 max-w-2xl mx-auto" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            Professional photos and marketing help sell homes faster and for more money.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={() => setCurrentStep(1)}
-              className="inline-flex items-center justify-center gap-2 bg-[#A41E34] text-white rounded-full px-8 py-4 font-medium text-lg transition-all duration-300 hover:bg-[#8B1A2C] hover:shadow-lg"
-              style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-            >
-              Order Photos & Media
-              <ChevronRight className="w-5 h-5" />
-            </button>
-            <Link
-              href="/list-property"
-              className="inline-flex items-center justify-center gap-2 bg-[#413936] text-white rounded-full px-8 py-4 font-medium text-lg transition-all duration-300 hover:bg-[#312926] hover:shadow-lg"
-              style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-            >
-              Create Free Listing
-              <ChevronRight className="w-5 h-5" />
-            </Link>
-          </div>
-        </div>
-      </section>
     </>
   );
 
   return (
     <>
-      <Head title="Packages & Pricing - OKByOwner" />
+      <Head title="Packages & Pricing - OKBYOWNER" />
 
       {/* Service Area Modal */}
       {showServiceAreaModal && <ServiceAreaModal />}
@@ -2384,6 +2462,9 @@ function Packages() {
       {/* Service Detail Modal */}
       {selectedService && <ServiceDetailModal />}
 
+      {/* How It Works Modal */}
+      {showHowItWorksModal && <HowItWorksModal />}
+
       {currentStep === 0 ? (
         <OverviewContent />
       ) : (
@@ -2392,7 +2473,7 @@ function Packages() {
           <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-8">
             {/* Back Button */}
             <button
-              onClick={() => currentStep === 1 ? setCurrentStep(0) : prevStep()}
+              onClick={() => currentStep === 1 ? goToOverview() : prevStep()}
               className="inline-flex items-center gap-2 text-[#666] hover:text-[#111] mb-6 transition-colors"
               style={{ fontFamily: 'Instrument Sans, sans-serif' }}
             >
