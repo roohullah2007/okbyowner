@@ -56,23 +56,23 @@ const MLSSection = () => {
   const steps = [
     {
       number: '01',
-      title: 'Choose Your Package',
-      description: 'Choose the MLS option that works best for you. Payment will be due after your property is listed on the MLS.'
+      title: 'Choose the MLS option that works best for you.',
+      description: 'Payment will be due after your property is listed on the MLS.'
     },
     {
       number: '02',
-      title: 'Complete MLS Forms',
-      description: "Complete the simple required MLS forms. You'll receive the forms via DocuSign emails."
+      title: 'Complete the simple required MLS forms.',
+      description: "You'll receive the forms via DocuSign emails."
     },
     {
       number: '03',
-      title: 'Go Live on MLS',
-      description: 'Enjoy the POWER OF THE MLS as it starts to work for you. Once listed, agents will contact you directly to schedule showings!'
+      title: 'Enjoy the POWER OF THE MLS as it starts to work for you.',
+      description: 'Once your property is listed on the MLS, agents will contact you directly to schedule showings!'
     },
     {
       number: '04',
-      title: 'Work with Buyer Agents',
-      description: 'Start working directly with buyer agents. Agents will submit offers directly to you. Remember, all buyer agent commissions are negotiable!'
+      title: 'Start working directly with buyer agents.',
+      description: 'Agents will submit offers directly to you. Remember, all buyer agent commissions are negotiable!'
     },
     {
       number: '05',
@@ -229,6 +229,15 @@ const MLSSection = () => {
                   </div>
                 </div>
               ))}
+            </div>
+            {/* Highlight Text */}
+            <div className="mt-6 bg-[#A41E34]/10 rounded-xl p-4 border border-[#A41E34]/20">
+              <p
+                className="text-[14px] md:text-[16px] text-[#A41E34] font-semibold text-center"
+                style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+              >
+                If you find your own buyer, pay nothing in broker commissions!
+              </p>
             </div>
           </div>
         </div>

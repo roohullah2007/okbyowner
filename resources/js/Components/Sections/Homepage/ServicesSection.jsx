@@ -31,7 +31,7 @@ const ServicesSection = () => {
       icon: FileText,
       color: '#10B981',
       modalTitle: 'Basic Floor Plans',
-      modalImage: 'https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=800',
+      modalImage: '/images/2d-basic-floor-plan.jpg',
       modalDescription: 'Help buyers visualize the layout and flow of your property with detailed, professionally created floor plans. Essential for serious buyers making informed decisions about space and room configuration.',
       features: [
         '2D floor plan layout',
@@ -89,7 +89,12 @@ const ServicesSection = () => {
       icon: Sun,
       color: '#F59E0B',
       modalTitle: 'Virtual Twilight Photography',
-      modalImage: 'https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg?auto=compress&cs=tinysrgb&w=800',
+      beforeAfterImages: {
+        before: '/images/before.jpg',
+        after: '/images/after.jpg',
+        beforeLabel: 'Before',
+        afterLabel: 'After'
+      },
       modalDescription: 'Transform your daytime exterior photos into stunning twilight shots. Virtual twilight creates dramatic, magazine-worthy images that make your listing stand out—no evening shoot required.',
       features: [
         'Dramatic dusk/twilight sky effects',
@@ -99,8 +104,6 @@ const ServicesSection = () => {
         'Perfect for luxury listings',
         'Quick digital turnaround'
       ],
-      exampleBeforeText: 'Standard daytime exterior photo',
-      exampleAfterText: 'Stunning twilight with glowing windows & dramatic sky',
       cta: 'View Packages',
       ctaLink: '/our-packages'
     },
@@ -263,13 +266,43 @@ const ServicesSection = () => {
 
             {/* Modal Content - Two Column Layout */}
             <div className="flex flex-col lg:grid lg:grid-cols-2" style={{ maxHeight: '90vh' }}>
-              {/* Left - Image */}
-              <div className="relative h-48 lg:h-auto shrink-0">
-                <img
-                  src={selectedService.modalImage}
-                  alt={selectedService.modalTitle}
-                  className="w-full h-full object-cover lg:rounded-l-2xl"
-                />
+              {/* Left - Image or Before/After */}
+              <div className="relative shrink-0 bg-[#f5f5f5] lg:rounded-l-2xl overflow-hidden">
+                {selectedService.beforeAfterImages ? (
+                  <div className="w-full h-full flex flex-col">
+                    {/* Before Image */}
+                    <div className="relative flex-1">
+                      <img
+                        src={selectedService.beforeAfterImages.before}
+                        alt="Before"
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute top-3 left-3 bg-black/70 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
+                        {selectedService.beforeAfterImages.beforeLabel || 'Before'}
+                      </div>
+                    </div>
+                    {/* After Image */}
+                    <div className="relative flex-1">
+                      <img
+                        src={selectedService.beforeAfterImages.after}
+                        alt="After"
+                        className="w-full h-full object-cover"
+                      />
+                      <div
+                        className="absolute top-3 left-3 text-white text-xs font-semibold px-3 py-1.5 rounded-full"
+                        style={{ backgroundColor: selectedService.color }}
+                      >
+                        {selectedService.beforeAfterImages.afterLabel || 'After'}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <img
+                    src={selectedService.modalImage}
+                    alt={selectedService.modalTitle}
+                    className="w-full h-full object-cover"
+                  />
+                )}
               </div>
 
               {/* Right - Content */}
