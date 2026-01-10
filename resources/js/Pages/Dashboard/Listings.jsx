@@ -415,7 +415,7 @@ export default function Listings({ listings, filters = {}, counts = {} }) {
                     <div className="bg-white rounded-2xl p-6 max-w-lg w-full mx-4">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-lg font-semibold text-gray-900" style={{ fontFamily: '"Instrument Sans", sans-serif' }}>
-                                QR Code for Your Listing
+                                QR Sticker for Your Listing
                             </h3>
                             <button
                                 onClick={() => { setShowQrModal(false); setQrListing(null); }}
@@ -433,34 +433,51 @@ export default function Listings({ listings, filters = {}, counts = {} }) {
                                     alt={`QR Code for ${qrListing.property_title}`}
                                     className="w-48 h-48 mx-auto"
                                 />
+                                <p className="text-xs text-gray-500 mt-2">Scan to View Listing</p>
                             </div>
 
                             <h4 className="font-medium text-gray-900 mb-1">{qrListing.property_title}</h4>
-                            <p className="text-sm text-gray-500 mb-4">
+                            <p className="text-sm text-gray-500 mb-2">
                                 {qrListing.address}, {qrListing.city}
                             </p>
+
+                            {/* Scan Stats */}
+                            {qrListing.qr_sticker && (
+                                <div className="flex items-center justify-center gap-4 mb-4">
+                                    <span className="inline-flex items-center gap-1 text-sm text-gray-600">
+                                        <Eye className="w-4 h-4" />
+                                        {qrListing.qr_sticker.scan_count || 0} scans
+                                    </span>
+                                    <span className="text-sm text-gray-400">
+                                        Code: {qrListing.qr_sticker.short_code}
+                                    </span>
+                                </div>
+                            )}
 
                             <div className="bg-blue-50 rounded-xl p-4 mb-6 text-left">
                                 <h5 className="font-medium text-blue-900 mb-2 flex items-center gap-2">
                                     <QrCode className="w-4 h-4" />
-                                    How to Use Your QR Code
+                                    Print-Ready QR Sticker
                                 </h5>
                                 <ul className="text-sm text-blue-800 space-y-1">
-                                    <li>• Print on yard signs for drive-by traffic</li>
-                                    <li>• Include in flyers and brochures</li>
-                                    <li>• SVG format - scales perfectly to any size</li>
-                                    <li>• Scans are tracked in your analytics</li>
+                                    <li>• 4" x 4" size - fits FSBO yard signs</li>
+                                    <li>• 300 DPI - professional print quality</li>
+                                    <li>• Includes "Scan to View Listing" text</li>
+                                    <li>• All scans are tracked in your dashboard</li>
                                 </ul>
                             </div>
 
                             <a
                                 href={route('dashboard.listings.qrcode', qrListing.id)}
-                                download={`qr-${qrListing.id}.svg`}
+                                download={`qr-sticker-${qrListing.id}.png`}
                                 className="inline-flex items-center gap-2 bg-[#A41E34] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#8B1A2C] transition-colors"
                             >
                                 <Download className="w-5 h-5" />
-                                Download QR Code (SVG)
+                                Download Sticker (PNG)
                             </a>
+                            <p className="text-xs text-gray-500 mt-3">
+                                Print at 100% size for 4" x 4" sticker
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -521,8 +538,9 @@ export default function Listings({ listings, filters = {}, counts = {} }) {
                                             {orderType === 'qr_stickers' ? (
                                                 <>
                                                     <li>• Waterproof vinyl QR code stickers</li>
-                                                    <li>• 3" x 3" size - perfect for yard signs</li>
+                                                    <li>• 4" x 4" size - fits FSBO yard signs</li>
                                                     <li>• Weather resistant for outdoor use</li>
+                                                    <li>• "Scan to View Listing" text included</li>
                                                     <li>• Links directly to your listing</li>
                                                 </>
                                             ) : (

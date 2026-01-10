@@ -56,7 +56,7 @@ class UserDashboardController extends Controller
     {
         $user = Auth::user();
 
-        $query = $user->properties()->with('images');
+        $query = $user->properties()->with(['images', 'qrSticker']);
 
         // Search
         if ($request->search) {

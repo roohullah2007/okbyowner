@@ -101,11 +101,53 @@ function getPriceForSqft(pricingArray, sqftValue) {
   return priceEntry ? priceEntry.price : null;
 }
 
-function Packages() {
+function Packages({ userListings = [] }) {
   const { auth } = usePage().props;
 
   // State for the booking form
   const [currentStep, setCurrentStep] = useState(0); // 0 = overview, 1-4 = form steps
+  const [selectedListing, setSelectedListing] = useState(null);
+
+  // Helper to get sqft range value from actual sqft number
+  const getSqftRangeValue = (sqft) => {
+    if (!sqft) return '';
+    const sqftNum = parseInt(sqft);
+    if (sqftNum >= 6000) return '6000+';
+    if (sqftNum >= 5500) return '5500-5999';
+    if (sqftNum >= 5000) return '5000-5499';
+    if (sqftNum >= 4500) return '4500-4999';
+    if (sqftNum >= 4000) return '4000-4499';
+    if (sqftNum >= 3500) return '3500-3999';
+    if (sqftNum >= 3000) return '3000-3499';
+    if (sqftNum >= 2500) return '2500-2999';
+    if (sqftNum >= 2000) return '2000-2499';
+    if (sqftNum >= 1500) return '1500-1999';
+    return '0-1499';
+  };
+
+  // Handle listing selection
+  const handleListingSelect = (listingId) => {
+    const listing = userListings.find(l => l.id === parseInt(listingId));
+    setSelectedListing(listing || null);
+
+    if (listing) {
+      // Pre-fill form data from listing
+      setFormData(prev => ({
+        ...prev,
+        address: `${listing.address}, ${listing.city}, ${listing.state} ${listing.zip_code}`,
+        sqft: getSqftRangeValue(listing.sqft),
+        propertyId: listing.id,
+      }));
+    } else {
+      // Clear pre-filled data
+      setFormData(prev => ({
+        ...prev,
+        address: '',
+        sqft: '',
+        propertyId: null,
+      }));
+    }
+  };
 
   // Handle URL state for proper back button navigation
   useEffect(() => {
@@ -302,6 +344,7 @@ function Packages() {
   // Form state
   const [formData, setFormData] = useState({
     // Step 1: Property Details
+    propertyId: null, // ID of selected listing
     address: '',
     sqft: '',
     accessMethod: '',
@@ -442,6 +485,10 @@ function Packages() {
     const newErrors = {};
 
     if (step === 1) {
+      // For logged in users with listings, require a listing to be selected
+      if (auth?.user && userListings.length > 0) {
+        if (!formData.propertyId) newErrors.propertyId = 'Please select a listing';
+      }
       if (!formData.address) newErrors.address = 'Address is required';
       if (!formData.sqft) newErrors.sqft = 'Square footage is required';
       if (!formData.accessMethod) newErrors.accessMethod = 'Access method is required';
@@ -919,183 +966,319 @@ function Packages() {
   );
 
   // Step 1: Property Details
-  const Step1PropertyDetails = () => (
-    <div className="space-y-6">
-      <div className="text-center mb-8">
-        <h3 className="text-2xl font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-          Property Details
-        </h3>
-        <p className="text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-          Please complete the information below to schedule an appointment.
-        </p>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-6">
-        {/* Address */}
-        <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            Property Address *
-          </label>
-          <div className="relative">
-            <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#666]" />
-            <input
-              type="text"
-              name="address"
-              value={formData.address}
-              onChange={handleInputChange}
-              placeholder="Enter full property address"
-              className={`w-full pl-12 pr-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#A41E34]/20 focus:border-[#A41E34] transition-all ${
-                errors.address ? 'border-red-500' : 'border-[#D0CCC7]'
-              }`}
-              style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-            />
+  const Step1PropertyDetails = () => {
+    // Not logged in - prompt to login or create listing
+    if (!auth?.user) {
+      return (
+        <div className="space-y-6">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+              Create Your Listing First
+            </h3>
+            <p className="text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+              To order photos and media packages, you need to create a free listing first.
+            </p>
           </div>
-          {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address}</p>}
+
+          <div className="bg-[#FFF8F0] border border-[#F0E6D8] rounded-2xl p-8 text-center">
+            <div className="w-16 h-16 bg-[#A41E34]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Home className="w-8 h-8 text-[#A41E34]" />
+            </div>
+            <h4 className="text-xl font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+              Free Listing Required
+            </h4>
+            <p className="text-[#666] mb-6" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+              Create your free property listing on OKByOwner, then come back to order professional photos, videos, and more.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/list-property"
+                className="inline-flex items-center justify-center gap-2 bg-[#A41E34] text-white px-6 py-3 rounded-full font-medium hover:bg-[#8a1a2c] transition-colors"
+                style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+              >
+                <Home className="w-5 h-5" />
+                Create Free Listing
+              </Link>
+              <Link
+                href="/login"
+                className="inline-flex items-center justify-center gap-2 border border-[#D0CCC7] text-[#111] px-6 py-3 rounded-full font-medium hover:bg-[#F5F3F0] transition-colors"
+                style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+              >
+                Already have an account? Login
+              </Link>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Logged in but no listings
+    if (userListings.length === 0) {
+      return (
+        <div className="space-y-6">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+              Create Your Listing First
+            </h3>
+            <p className="text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+              You don't have any active listings yet. Create a free listing to order packages.
+            </p>
+          </div>
+
+          <div className="bg-[#FFF8F0] border border-[#F0E6D8] rounded-2xl p-8 text-center">
+            <div className="w-16 h-16 bg-[#A41E34]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Home className="w-8 h-8 text-[#A41E34]" />
+            </div>
+            <h4 className="text-xl font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+              No Active Listings Found
+            </h4>
+            <p className="text-[#666] mb-6" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+              Create your free property listing on OKByOwner first, then come back to order professional photos, videos, 3D tours, and more.
+            </p>
+            <Link
+              href="/list-property"
+              className="inline-flex items-center justify-center gap-2 bg-[#A41E34] text-white px-6 py-3 rounded-full font-medium hover:bg-[#8a1a2c] transition-colors"
+              style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+            >
+              <Home className="w-5 h-5" />
+              Create Free Listing
+            </Link>
+          </div>
+        </div>
+      );
+    }
+
+    // Logged in with listings - show selector
+    return (
+      <div className="space-y-6">
+        <div className="text-center mb-8">
+          <h3 className="text-2xl font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+            Select Your Property
+          </h3>
+          <p className="text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+            Choose which listing you want to order photos and media for.
+          </p>
         </div>
 
-        {/* Square Footage */}
-        <div>
+        {/* Listing Selector */}
+        <div className="mb-6">
           <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            Square Footage *
+            Select Your Listing *
           </label>
           <select
-            name="sqft"
-            value={formData.sqft}
-            onChange={handleInputChange}
+            value={selectedListing?.id || ''}
+            onChange={(e) => handleListingSelect(e.target.value)}
             className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#A41E34]/20 focus:border-[#A41E34] transition-all ${
-              errors.sqft ? 'border-red-500' : 'border-[#D0CCC7]'
+              errors.propertyId ? 'border-red-500' : 'border-[#D0CCC7]'
             }`}
             style={{ fontFamily: 'Instrument Sans, sans-serif' }}
           >
-            {SQFT_OPTIONS.map(opt => (
-              <option key={opt.value} value={opt.value}>{opt.label}</option>
+            <option value="">-- Select a listing --</option>
+            {userListings.map(listing => (
+              <option key={listing.id} value={listing.id}>
+                {listing.property_title || listing.address} - {listing.city}, {listing.state}
+              </option>
             ))}
           </select>
-          {errors.sqft && <p className="text-red-500 text-sm mt-1">{errors.sqft}</p>}
+          {errors.propertyId && <p className="text-red-500 text-sm mt-1">{errors.propertyId}</p>}
         </div>
 
-        {/* Access Method */}
-        <div>
-          <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            How will the photographer access the home? *
-          </label>
-          <select
-            name="accessMethod"
-            value={formData.accessMethod}
-            onChange={handleInputChange}
-            className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#A41E34]/20 focus:border-[#A41E34] transition-all ${
-              errors.accessMethod ? 'border-red-500' : 'border-[#D0CCC7]'
-            }`}
-            style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-          >
-            <option value="">Select access method</option>
-            <option value="homeowner">Homeowner will be present</option>
-            <option value="combo">Combo/Lock Box Code</option>
-            <option value="garage">Garage Code</option>
-          </select>
-          {errors.accessMethod && <p className="text-red-500 text-sm mt-1">{errors.accessMethod}</p>}
-        </div>
-
-        {/* Combo/Garage Code - Only show if combo or garage selected */}
-        {(formData.accessMethod === 'combo' || formData.accessMethod === 'garage') && (
-          <div>
-            <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-              {formData.accessMethod === 'combo' ? 'Combo/Lock Box Code' : 'Garage Code'} *
-            </label>
-            <input
-              type="text"
-              name="comboCode"
-              value={formData.comboCode}
-              onChange={handleInputChange}
-              placeholder="Enter code"
-              className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#A41E34]/20 focus:border-[#A41E34] transition-all ${
-                errors.comboCode ? 'border-red-500' : 'border-[#D0CCC7]'
-              }`}
-              style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-            />
-            {errors.comboCode && <p className="text-red-500 text-sm mt-1">{errors.comboCode}</p>}
+        {/* Show selected listing info */}
+        {selectedListing && (
+          <div className="bg-green-50 border border-green-200 rounded-xl p-4 mb-6">
+            <div className="flex items-start gap-3">
+              <CheckCircle className="w-5 h-5 text-green-600 mt-0.5" />
+              <div>
+                <p className="font-medium text-green-900" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  {selectedListing.property_title || selectedListing.address}
+                </p>
+                <p className="text-sm text-green-700" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  {selectedListing.address}, {selectedListing.city}, {selectedListing.state} {selectedListing.zip_code}
+                </p>
+                {selectedListing.sqft && (
+                  <p className="text-sm text-green-600 mt-1" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                    {parseInt(selectedListing.sqft).toLocaleString()} sq ft
+                  </p>
+                )}
+              </div>
+            </div>
           </div>
         )}
 
-        {/* Occupied Status */}
-        <div>
-          <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            Is the property occupied or vacant? *
-          </label>
-          <select
-            name="occupiedStatus"
-            value={formData.occupiedStatus}
-            onChange={handleInputChange}
-            className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#A41E34]/20 focus:border-[#A41E34] transition-all ${
-              errors.occupiedStatus ? 'border-red-500' : 'border-[#D0CCC7]'
-            }`}
-            style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-          >
-            <option value="">Select status</option>
-            <option value="occupied">Occupied</option>
-            <option value="vacant">Vacant</option>
-          </select>
-          {errors.occupiedStatus && <p className="text-red-500 text-sm mt-1">{errors.occupiedStatus}</p>}
-        </div>
-
-        {/* Subdivision */}
-        <div>
-          <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            Housing Addition/Subdivision (if applicable)
-          </label>
-          <input
-            type="text"
-            name="subdivision"
-            value={formData.subdivision}
-            onChange={handleInputChange}
-            placeholder="Enter subdivision name"
-            className="w-full px-4 py-3 border border-[#D0CCC7] rounded-xl focus:ring-2 focus:ring-[#A41E34]/20 focus:border-[#A41E34] transition-all"
-            style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-          />
-        </div>
-
-        {/* Notes */}
-        <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            Notes for Photographer
-          </label>
-          <textarea
-            name="notes"
-            value={formData.notes}
-            onChange={handleInputChange}
-            rows={3}
-            placeholder="Any special instructions? (e.g., park or pool shots needed, pets on property, etc.)"
-            className="w-full px-4 py-3 border border-[#D0CCC7] rounded-xl focus:ring-2 focus:ring-[#A41E34]/20 focus:border-[#A41E34] transition-all resize-none"
-            style={{ fontFamily: 'Instrument Sans, sans-serif' }}
-          />
-          <p className="text-xs text-[#666] mt-1" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-            *If a park or public pool shot is needed, we ask the homeowner to accompany the photographer.
+        {/* Add new listing link */}
+        <div className="text-center mb-6">
+          <p className="text-sm text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+            Don't see your property?{' '}
+            <Link href="/list-property" className="text-[#A41E34] hover:underline font-medium">
+              Create a new listing
+            </Link>
           </p>
         </div>
-      </div>
 
-      {/* Service Area Check */}
-      <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-        <div className="flex items-start gap-3">
-          <MapPin className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-          <div>
-            <p className="text-sm text-blue-800 font-medium" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-              Check Service Area
-            </p>
-            <p className="text-sm text-blue-700 mt-1" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
-              We service Tulsa and OKC metro areas.
-              <button
-                onClick={() => setShowServiceAreaModal(true)}
-                className="underline font-medium ml-1"
-              >
-                View service area map
-              </button>
-            </p>
+        {/* Only show additional fields if a listing is selected */}
+        {selectedListing && (
+          <>
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Address - Pre-filled and readonly */}
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  Property Address
+                </label>
+                <div className="relative">
+                  <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#666]" />
+                  <input
+                    type="text"
+                    value={formData.address}
+                    readOnly
+                    className="w-full pl-12 pr-4 py-3 border border-[#D0CCC7] rounded-xl bg-gray-50 text-[#666]"
+                    style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                  />
+                </div>
+              </div>
+
+              {/* Square Footage - Pre-filled */}
+              <div>
+                <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  Square Footage
+                </label>
+                <select
+                  name="sqft"
+                  value={formData.sqft}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-[#D0CCC7] rounded-xl focus:ring-2 focus:ring-[#A41E34]/20 focus:border-[#A41E34] transition-all"
+                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                >
+                  {SQFT_OPTIONS.map(opt => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Access Method */}
+              <div>
+                <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  How will the photographer access the home? *
+                </label>
+                <select
+                  name="accessMethod"
+                  value={formData.accessMethod}
+                  onChange={handleInputChange}
+                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#A41E34]/20 focus:border-[#A41E34] transition-all ${
+                    errors.accessMethod ? 'border-red-500' : 'border-[#D0CCC7]'
+                  }`}
+                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                >
+                  <option value="">Select access method</option>
+                  <option value="homeowner">Homeowner will be present</option>
+                  <option value="combo">Combo/Lock Box Code</option>
+                  <option value="garage">Garage Code</option>
+                </select>
+                {errors.accessMethod && <p className="text-red-500 text-sm mt-1">{errors.accessMethod}</p>}
+              </div>
+
+              {/* Combo/Garage Code - Only show if combo or garage selected */}
+              {(formData.accessMethod === 'combo' || formData.accessMethod === 'garage') && (
+                <div>
+                  <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                    {formData.accessMethod === 'combo' ? 'Combo/Lock Box Code' : 'Garage Code'} *
+                  </label>
+                  <input
+                    type="text"
+                    name="comboCode"
+                    value={formData.comboCode}
+                    onChange={handleInputChange}
+                    placeholder="Enter code"
+                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#A41E34]/20 focus:border-[#A41E34] transition-all ${
+                      errors.comboCode ? 'border-red-500' : 'border-[#D0CCC7]'
+                    }`}
+                    style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                  />
+                  {errors.comboCode && <p className="text-red-500 text-sm mt-1">{errors.comboCode}</p>}
+                </div>
+              )}
+
+              {/* Occupied Status */}
+              <div>
+                <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  Is the property occupied or vacant? *
+                </label>
+                <select
+                  name="occupiedStatus"
+                  value={formData.occupiedStatus}
+                  onChange={handleInputChange}
+                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#A41E34]/20 focus:border-[#A41E34] transition-all ${
+                    errors.occupiedStatus ? 'border-red-500' : 'border-[#D0CCC7]'
+                  }`}
+                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                >
+                  <option value="">Select status</option>
+                  <option value="occupied">Occupied</option>
+                  <option value="vacant">Vacant</option>
+                </select>
+                {errors.occupiedStatus && <p className="text-red-500 text-sm mt-1">{errors.occupiedStatus}</p>}
+              </div>
+
+              {/* Subdivision */}
+              <div>
+                <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  Housing Addition/Subdivision (if applicable)
+                </label>
+                <input
+                  type="text"
+                  name="subdivision"
+                  value={formData.subdivision}
+                  onChange={handleInputChange}
+                  placeholder="Enter subdivision name"
+                  className="w-full px-4 py-3 border border-[#D0CCC7] rounded-xl focus:ring-2 focus:ring-[#A41E34]/20 focus:border-[#A41E34] transition-all"
+                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                />
+              </div>
+
+              {/* Notes */}
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-[#111] mb-2" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  Notes for Photographer
+                </label>
+                <textarea
+                  name="notes"
+                  value={formData.notes}
+                  onChange={handleInputChange}
+                  rows={3}
+                  placeholder="Any special instructions? (e.g., park or pool shots needed, pets on property, etc.)"
+                  className="w-full px-4 py-3 border border-[#D0CCC7] rounded-xl focus:ring-2 focus:ring-[#A41E34]/20 focus:border-[#A41E34] transition-all resize-none"
+                  style={{ fontFamily: 'Instrument Sans, sans-serif' }}
+                />
+                <p className="text-xs text-[#666] mt-1" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  *If a park or public pool shot is needed, we ask the homeowner to accompany the photographer.
+                </p>
+              </div>
+            </div>
+
+          {/* Service Area Check */}
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+            <div className="flex items-start gap-3">
+              <MapPin className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="text-sm text-blue-800 font-medium" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  Check Service Area
+                </p>
+                <p className="text-sm text-blue-700 mt-1" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  We service Tulsa and OKC metro areas.
+                  <button
+                    onClick={() => setShowServiceAreaModal(true)}
+                    className="underline font-medium ml-1"
+                  >
+                    View service area map
+                  </button>
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
+        </>
+        )}
       </div>
-    </div>
-  );
+    );
+  };
 
   // Step 2: Photo Package Selection
   const Step2PhotoSelection = () => {
@@ -2329,12 +2512,76 @@ function Packages() {
               </div>
             </div>
 
-            <div className="relative">
-              <img
-                src="https://images.pexels.com/photos/7821702/pexels-photo-7821702.jpeg?auto=compress&cs=tinysrgb&w=800"
-                alt="Your listing on multiple real estate websites"
-                className="rounded-2xl w-full h-[400px] object-cover"
-              />
+            {/* MLS Syndication Visual */}
+            <div className="relative bg-white rounded-2xl p-8 shadow-lg">
+              {/* Center - OKByOwner Logo */}
+              <div className="text-center mb-6">
+                <div className="bg-[#F5F3F0] rounded-2xl p-4 mb-4 inline-block">
+                  <img
+                    src="/images/okbyowner-logo.png"
+                    alt="OKByOwner"
+                    className="h-12 w-auto"
+                  />
+                </div>
+                <h4 className="text-lg font-semibold text-[#111]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  Your OKByOwner Listing
+                </h4>
+                <p className="text-sm text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  Syndicates to 100+ sites automatically
+                </p>
+              </div>
+
+              {/* Syndication Sites Grid - Real Logos */}
+              <div className="grid grid-cols-3 gap-3">
+                {/* Zillow */}
+                <div className="bg-white border border-[#E5E1DC] rounded-xl p-4 text-center hover:shadow-md hover:border-[#006AFF] transition-all">
+                  <div className="h-12 flex items-center justify-center">
+                    <img src="/images/zillow.png" alt="Zillow" className="h-10 w-auto object-contain" />
+                  </div>
+                </div>
+
+                {/* Realtor.com */}
+                <div className="bg-white border border-[#E5E1DC] rounded-xl p-4 text-center hover:shadow-md hover:border-[#D92228] transition-all">
+                  <div className="h-12 flex items-center justify-center">
+                    <img src="/images/realtor.png" alt="Realtor.com" className="h-10 w-auto object-contain" />
+                  </div>
+                </div>
+
+                {/* Trulia */}
+                <div className="bg-white border border-[#E5E1DC] rounded-xl p-4 text-center hover:shadow-md hover:border-[#00ADBB] transition-all">
+                  <div className="h-12 flex items-center justify-center">
+                    <img src="/images/trulia.png" alt="Trulia" className="h-10 w-auto object-contain" />
+                  </div>
+                </div>
+
+                {/* Redfin */}
+                <div className="bg-white border border-[#E5E1DC] rounded-xl p-4 text-center hover:shadow-md hover:border-[#A02021] transition-all">
+                  <div className="h-12 flex items-center justify-center">
+                    <img src="/images/redpin.png" alt="Redfin" className="h-10 w-auto object-contain" />
+                  </div>
+                </div>
+
+                {/* Homes.com */}
+                <div className="bg-white border border-[#E5E1DC] rounded-xl p-4 text-center hover:shadow-md hover:border-[#FF6B00] transition-all">
+                  <div className="h-12 flex items-center justify-center">
+                    <span className="text-[#FF6B00] font-bold text-lg tracking-tight" style={{ fontFamily: 'system-ui' }}>homes.com</span>
+                  </div>
+                </div>
+
+                {/* MLS */}
+                <div className="bg-white border border-[#E5E1DC] rounded-xl p-4 text-center hover:shadow-md hover:border-[#1a365d] transition-all">
+                  <div className="h-12 flex items-center justify-center">
+                    <span className="text-[#1a365d] font-bold text-xl tracking-tight" style={{ fontFamily: 'system-ui' }}>MLS</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom text */}
+              <div className="mt-6 pt-6 border-t border-[#E5E1DC] text-center">
+                <p className="text-sm text-[#666]" style={{ fontFamily: 'Instrument Sans, sans-serif' }}>
+                  <span className="font-semibold text-[#A41E34]">+100 more</span> real estate websites
+                </p>
+              </div>
             </div>
           </div>
         </div>

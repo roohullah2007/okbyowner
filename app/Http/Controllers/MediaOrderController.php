@@ -18,7 +18,20 @@ class MediaOrderController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Packages');
+        $userListings = [];
+
+        if (Auth::check()) {
+            // Get user's approved listings for the dropdown
+            $userListings = Auth::user()->properties()
+                ->select('id', 'property_title', 'address', 'city', 'state', 'zip_code', 'sqft', 'property_type')
+                ->where('approval_status', 'approved')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
+
+        return Inertia::render('Packages', [
+            'userListings' => $userListings,
+        ]);
     }
 
     /**

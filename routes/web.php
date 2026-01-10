@@ -20,6 +20,9 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+// QR Code Short URL Redirect (public, no auth required)
+Route::get('/p/{code}', [QrCodeController::class, 'handleScan'])->name('qr.scan');
+
 // Public routes
 Route::get('/', function () {
     $featuredProperties = \App\Models\Property::where('is_active', true)
@@ -120,6 +123,7 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard')-
     // QR Code Generation (Authenticated - for property owners)
     Route::get('/listings/{property}/qrcode', [QrCodeController::class, 'generate'])->name('.listings.qrcode');
     Route::get('/listings/{property}/qrcode/preview', [QrCodeController::class, 'preview'])->name('.listings.qrcode.preview');
+    Route::get('/listings/{property}/qrcode/info', [QrCodeController::class, 'getStickerInfo'])->name('.listings.qrcode.info');
 
     // Order Free Materials (Stickers, Yard Signs)
     Route::post('/listings/{property}/order', [UserDashboardController::class, 'submitOrder'])->name('.listings.order');

@@ -41,7 +41,8 @@
       "Bash(then tail -50 storage/logs/laravel.log)",
       "Bash(else echo \"No recent errors in log\")",
       "Bash(fi)",
-      "mcp__ide__getDiagnostics"
+      "mcp__ide__getDiagnostics",
+      "Bash(ls:*)"
     ],
     "deny": [],
     "ask": []
